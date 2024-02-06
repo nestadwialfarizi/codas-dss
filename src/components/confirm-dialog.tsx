@@ -10,7 +10,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from './ui/alert-dialog';
+} from 'src/components/ui/alert-dialog';
 
 type ConfirmDialogProps = {
   isOpen: boolean;

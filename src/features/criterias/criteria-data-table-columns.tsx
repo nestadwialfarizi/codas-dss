@@ -4,8 +4,10 @@ import { pascalCase } from 'change-case';
 import type { Criteria } from '@prisma/client';
 import { CaretSortIcon } from '@radix-ui/react-icons';
 import type { ColumnDef } from '@tanstack/react-table';
-import { Badge } from '~/components/ui/badge';
-import { Button } from '~/components/ui/button';
+
+import { Badge } from 'src/components/ui/badge';
+import { Button } from 'src/components/ui/button';
+
 import { CriteriaDataTableRowActions } from './criteria-data-table-row-actions';
 
 export const criteriaDataTableColumns: ColumnDef<Criteria>[] = [

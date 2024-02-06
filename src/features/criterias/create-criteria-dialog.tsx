@@ -1,12 +1,15 @@
 'use client';
 
-import type { CriteriaType } from '@prisma/client';
 import { useId } from 'react';
+import type { CriteriaType } from '@prisma/client';
 import { useDisclosure } from 'react-use-disclosure';
-import { trpc } from '~/lib/trpc';
-import { PlusButton } from '~/components/plus-button';
-import { DialogWrapper } from '~/components/dialog-wrapper';
-import { toast } from '~/components/ui/use-toast';
+
+import { toast } from 'src/components/ui/use-toast';
+import { PlusButton } from 'src/components/plus-button';
+import { DialogWrapper } from 'src/components/dialog-wrapper';
+
+import { trpc } from 'src/lib/trpc';
+
 import { CriteriaForm, type CriteriaFormValues } from './criteria-form';
 
 export function CreateCriteriaDialog() {

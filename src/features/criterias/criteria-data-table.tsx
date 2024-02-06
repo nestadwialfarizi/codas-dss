@@ -1,9 +1,11 @@
 'use client';
 
-import { trpc } from '~/lib/trpc';
-import { DataTable } from '~/components/data-table';
-import { ErrorDisplay } from '~/components/error-display';
-import { LoadingIndicator } from '~/components/loading-indicator';
+import { DataTable } from 'src/components/data-table';
+import { ErrorDisplay } from 'src/components/error-display';
+import { LoadingIndicator } from 'src/components/loading-indicator';
+
+import { trpc } from 'src/lib/trpc';
+
 import { criteriaDataTableColumns } from './criteria-data-table-columns';
 
 export function CriteriaDataTable() {

@@ -1,6 +1,5 @@
 'use client';
 
-import { Button } from './ui/button';
 import {
   Dialog,
   DialogClose,
@@ -10,7 +9,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from './ui/dialog';
+} from 'src/components/ui/dialog';
+import { Button } from 'src/components/ui/button';
 
 type DialogWrapperProps = {
   isOpen: boolean;

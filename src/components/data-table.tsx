@@ -1,6 +1,12 @@
 'use client';
 
-import { EyeOpenIcon } from '@radix-ui/react-icons';
+import { useState } from 'react';
+import type {
+  ColumnDef,
+  ColumnFiltersState,
+  SortingState,
+  VisibilityState,
+} from '@tanstack/react-table';
 import {
   flexRender,
   getCoreRowModel,
@@ -9,21 +15,14 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
-import type {
-  ColumnDef,
-  ColumnFiltersState,
-  SortingState,
-  VisibilityState,
-} from '@tanstack/react-table';
-import { useState } from 'react';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
+import { EyeOpenIcon } from '@radix-ui/react-icons';
+
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from './ui/dropdown-menu';
+} from 'src/components/ui/dropdown-menu';
 import {
   Table,
   TableBody,
@@ -31,7 +30,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from './ui/table';
+} from 'src/components/ui/table';
+import { Input } from 'src/components/ui/input';
+import { Button } from 'src/components/ui/button';
 
 type DataTableProps<TData, TValue> = {
   columns: ColumnDef<TData, TValue>[];

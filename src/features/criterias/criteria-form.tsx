@@ -1,8 +1,15 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import type { Criteria } from '@prisma/client';
-import { type SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { Input } from '~/components/ui/input';
+import type { Criteria } from '@prisma/client';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { type SubmitHandler, useForm } from 'react-hook-form';
+
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from 'src/components/ui/select';
 import {
   Form,
   FormControl,
@@ -11,14 +18,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '~/components/ui/form';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '~/components/ui/select';
+} from 'src/components/ui/form';
+import { Input } from 'src/components/ui/input';
 
 const formSchema = z.object({
   name: z.string().min(1),

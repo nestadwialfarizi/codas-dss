@@ -1,17 +1,17 @@
 'use client';
 
-import { ViewVerticalIcon } from '@radix-ui/react-icons';
 import Link from 'next/link';
+import { ViewVerticalIcon } from '@radix-ui/react-icons';
 
-import { navItems } from '~/lib/config';
-
-import { Button } from './ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from './ui/dropdown-menu';
+} from 'src/components/ui/dropdown-menu';
+import { Button } from 'src/components/ui/button';
+
+import { navItems } from 'src/lib/config';
 
 export function MobileNav() {
   return (

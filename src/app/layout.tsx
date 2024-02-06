@@ -1,11 +1,10 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
-import { ThemeProvider } from '~/components/theme-provider';
-import { TRPCProvider } from '~/components/trpc-provider';
-import { Toaster } from '~/components/ui/toaster';
-
-import '~/styles/globals.css';
+import { ThemeProvider } from 'src/components/theme-provider';
+import { TRPCProvider } from 'src/components/trpc-provider';
+import { Toaster } from 'src/components/ui/toaster';
+import 'src/styles/globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
 

@@ -3,13 +3,15 @@
 import type { Criteria } from '@prisma/client';
 import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 import { useDisclosure } from 'react-use-disclosure';
-import { Button } from '~/components/ui/button';
+
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '~/components/ui/dropdown-menu';
+} from 'src/components/ui/dropdown-menu';
+import { Button } from 'src/components/ui/button';
+
 import { DeleteCriteriaDialog } from './delete-criteria-dialog';
 
 type CriteriaDataTableRowActionsProps = {

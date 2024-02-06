@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { buttonVariants } from '~/components/ui/button';
+import { buttonVariants } from 'src/components/ui/button';
 
 export default function RootPage() {
   return (
