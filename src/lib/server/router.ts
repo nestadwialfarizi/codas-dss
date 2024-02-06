@@ -1,5 +1,5 @@
-import { router } from '../trpc';
-import { criteriaRouter } from './criterias';
+import { criteriaRouter } from './routers/criterias';
+import { router } from './trpc';
 
 export const appRouter = router({
   criteria: criteriaRouter,

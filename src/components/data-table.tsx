@@ -16,15 +16,14 @@ import type {
   VisibilityState,
 } from '@tanstack/react-table';
 import { useState } from 'react';
-
 import { Button } from './ui/button';
+import { Input } from './ui/input';
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from './ui/dropdown-menu';
-import { Input } from './ui/input';
 import {
   Table,
   TableBody,
@@ -82,7 +81,7 @@ export function DataTable<TData, TValue>({
           {filter && (
             <Input
               name={`filter-${filter.columnId}`}
-              placeholder={`Filter ${filter.columnId}s...`}
+              placeholder={`Filter by ${filter.columnId}s...`}
               value={
                 (table
                   .getColumn(filter.columnId)

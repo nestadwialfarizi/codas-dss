@@ -3,14 +3,16 @@
 import type { TRPCError } from '@trpc/server';
 
 type ErrorDisplayProps = React.HTMLAttributes<HTMLDivElement> & {
-  error: TRPCError;
+  error: TRPCError | unknown;
 };
 
 export function ErrorDisplay({ error, ...props }: ErrorDisplayProps) {
+  const trpcError = error as TRPCError;
+
   return (
     <div {...props}>
-      <h1 className='text-sm font-semibold'>{error?.code}</h1>
-      <p className='text-sm text-muted-foreground'>{error?.message}</p>
+      <h1 className='text-sm font-semibold'>{trpcError?.code}</h1>
+      <p className='text-sm text-muted-foreground'>{trpcError?.message}</p>
     </div>
   );
 }

@@ -5,7 +5,7 @@ export function LoadingIndicator({
 }: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div {...props}>
-      <ReloadIcon className='h-4 w-4' />
+      <ReloadIcon className='h-4 w-4 animate-spin' />
       <span className='sr-only'>Loading...</span>
     </div>
   );
