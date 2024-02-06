@@ -1,9 +1,17 @@
 'use client';
 
 import { ViewVerticalIcon } from '@radix-ui/react-icons';
+import Link from 'next/link';
+
+import { navItems } from '~/lib/config';
 
 import { Button } from './ui/button';
-import { DropdownMenu, DropdownMenuTrigger } from './ui/dropdown-menu';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from './ui/dropdown-menu';
 
 export function MobileNav() {
   return (
@@ -15,6 +23,13 @@ export function MobileNav() {
             <span className='sr-only'>Navigations</span>
           </Button>
         </DropdownMenuTrigger>
+        <DropdownMenuContent align='start'>
+          {navItems.map(({ name, href }) => (
+            <DropdownMenuItem key={name} asChild>
+              <Link href={href}>{name}</Link>
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenuContent>
       </DropdownMenu>
     </div>
   );
