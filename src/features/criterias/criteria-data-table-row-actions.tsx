@@ -1,8 +1,8 @@
 'use client';
 
 import type { Criteria } from '@prisma/client';
-import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 import { useDisclosure } from 'react-use-disclosure';
+import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 
 import {
   DropdownMenu,
@@ -12,6 +12,7 @@ import {
 } from 'src/components/ui/dropdown-menu';
 import { Button } from 'src/components/ui/button';
 
+import { UpdateCriteriaDialog } from './update-criteria-dialog';
 import { DeleteCriteriaDialog } from './delete-criteria-dialog';
 
 type CriteriaDataTableRowActionsProps = {
@@ -22,6 +23,7 @@ export function CriteriaDataTableRowActions({
   criteria,
 }: CriteriaDataTableRowActionsProps) {
   const deleteDialog = useDisclosure();
+  const updateDialog = useDisclosure();
 
   return (
     <>
@@ -32,12 +34,19 @@ export function CriteriaDataTableRowActions({
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
-          <DropdownMenuItem>Update</DropdownMenuItem>
+          <DropdownMenuItem onClick={updateDialog.open}>
+            Update
+          </DropdownMenuItem>
           <DropdownMenuItem onClick={deleteDialog.open}>
             Delete
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
+      <UpdateCriteriaDialog
+        isOpen={updateDialog.isOpen}
+        onClose={updateDialog.close}
+        criteria={criteria}
+      />
       <DeleteCriteriaDialog
         isOpen={deleteDialog.isOpen}
         onClose={deleteDialog.close}

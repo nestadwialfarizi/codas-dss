@@ -18,7 +18,7 @@ export function CreateCriteriaDialog() {
 
   const { isOpen, open, close } = useDisclosure();
 
-  const { mutate: createCriteria } = trpc.criteria.create.useMutation({
+  const { mutate } = trpc.criteria.create.useMutation({
     onSuccess: (data) => {
       toast({
         title: 'Yeah, success!',
@@ -37,7 +37,7 @@ export function CreateCriteriaDialog() {
   });
 
   async function handleSubmit(formValues: CriteriaFormValues) {
-    createCriteria({
+    mutate({
       name: formValues.name,
       type: formValues.type as CriteriaType,
       value: parseInt(formValues.value),

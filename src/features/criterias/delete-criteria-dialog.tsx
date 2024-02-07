@@ -20,7 +20,7 @@ export function DeleteCriteriaDialog({
 }: DeleteCriteriaDialogProps) {
   const utils = trpc.useUtils();
 
-  const { mutate: deleteCriteria } = trpc.criteria.delete.useMutation({
+  const { mutate } = trpc.criteria.delete.useMutation({
     onSuccess: (data) => {
       toast({
         title: 'Yeah, success!',
@@ -41,7 +41,7 @@ export function DeleteCriteriaDialog({
     <ConfirmDialog
       isOpen={isOpen}
       onOpenChange={onClose}
-      onConfirm={() => deleteCriteria({ id: criteria.id })}
+      onConfirm={() => mutate({ id: criteria.id })}
     />
   );
 }

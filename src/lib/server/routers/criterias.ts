@@ -39,6 +39,43 @@ export const criteriaRouter = router({
     await updateEachCriteriaWeight();
     return newCriteria;
   }),
+  update: publicProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        data: schema,
+      }),
+    )
+    .mutation(async ({ input }) => {
+      const intendedCriteria = await prisma.criteria.findUnique({
+        where: {
+          id: input.id,
+        },
+      });
+
+      const isDuplicatedByName = !!(await prisma.criteria.findUnique({
+        where: {
+          name: input.data.name,
+        },
+      }));
+
+      if (isDuplicatedByName && input.data.name !== intendedCriteria?.name) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: `${input.data.name} is already exist.`,
+        });
+      }
+
+      const updatedCriteria = await prisma.criteria.update({
+        where: {
+          id: input.id,
+        },
+        data: input.data,
+      });
+
+      await updateEachCriteriaWeight();
+      return updatedCriteria;
+    }),
   delete: publicProcedure
     .input(
       z.object({
