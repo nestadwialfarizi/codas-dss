@@ -1,15 +1,10 @@
+'use client';
+
 import { z } from 'zod';
-import type { Criteria } from '@prisma/client';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { type ScoringScale } from '@prisma/client';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from 'src/components/ui/select';
 import {
   Form,
   FormControl,
@@ -19,33 +14,38 @@ import {
   FormLabel,
   FormMessage,
 } from 'src/components/ui/form';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from 'src/components/ui/select';
 import { Input } from 'src/components/ui/input';
 
-const criteriaFormSchema = z.object({
-  name: z.string().min(1),
-  type: z.string().min(1),
-  value: z.string().min(1),
+const scoringScaleFormSchema = z.object({
+  description: z.string(),
+  value: z.string(),
 });
 
-export type CriteriaFormValues = z.infer<typeof criteriaFormSchema>;
+export type ScoringScaleFormValues = z.infer<typeof scoringScaleFormSchema>;
 
-type CriteriaFormProps = {
+type ScoringScaleFormProps = {
   id: string;
-  onSubmit: SubmitHandler<CriteriaFormValues>;
-  prevCriteria?: Pick<Criteria, 'name' | 'type' | 'value'>;
+  onSubmit: SubmitHandler<ScoringScaleFormValues>;
+  prevScoringScale?: Pick<ScoringScale, 'description' | 'value'>;
 };
 
-export function CriteriaForm({
+export function ScoringScaleForm({
   id,
   onSubmit,
-  prevCriteria,
-}: CriteriaFormProps) {
-  const form = useForm<CriteriaFormValues>({
-    resolver: zodResolver(criteriaFormSchema),
+  prevScoringScale,
+}: ScoringScaleFormProps) {
+  const form = useForm<ScoringScaleFormValues>({
+    resolver: zodResolver(scoringScaleFormSchema),
     defaultValues: {
-      name: prevCriteria?.name || '',
-      type: prevCriteria?.type || '',
-      value: prevCriteria?.value.toString() || '',
+      description: prevScoringScale?.description || '',
+      value: prevScoringScale?.value.toString() || '',
     },
   });
 
@@ -58,43 +58,15 @@ export function CriteriaForm({
       >
         <FormField
           control={form.control}
-          name='name'
+          name='description'
           render={({ field }) => (
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input
-                  placeholder='Number of Effects'
-                  autoComplete='off'
-                  {...field}
-                />
+                <Input placeholder='Excellent' autoComplete='off' {...field} />
               </FormControl>
               <FormDescription>
                 Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name='type'
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Type</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder='Select criteria type' />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value='BENEFIT'>Benefit</SelectItem>
-                  <SelectItem value='COST'>Cost</SelectItem>
-                </SelectContent>
-              </Select>
-              <FormDescription>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -109,7 +81,7 @@ export function CriteriaForm({
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue placeholder='Determine criteria value' />
+                    <SelectValue placeholder='Determine scoring scale value' />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>

@@ -5,7 +5,7 @@ import { prisma } from '../prisma';
 import { publicProcedure, router } from '../trpc';
 import { updateEachCriteriaWeight } from '../utils';
 
-const schema = z.object({
+const criteriaSchema = z.object({
   name: z.string().min(1),
   type: z.enum(['BENEFIT', 'COST']),
   value: z.number().min(1),
@@ -18,7 +18,7 @@ export const criteriaRouter = router({
     await updateEachCriteriaWeight();
     return criterias;
   }),
-  create: publicProcedure.input(schema).mutation(async ({ input }) => {
+  create: publicProcedure.input(criteriaSchema).mutation(async ({ input }) => {
     if (
       await prisma.criteria.findUnique({
         where: {
@@ -43,7 +43,7 @@ export const criteriaRouter = router({
     .input(
       z.object({
         id: z.string(),
-        data: schema,
+        data: criteriaSchema,
       }),
     )
     .mutation(async ({ input }) => {

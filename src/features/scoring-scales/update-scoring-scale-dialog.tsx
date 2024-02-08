@@ -1,0 +1,75 @@
+'use client';
+
+import { useId } from 'react';
+import type { ScoringScale } from '@prisma/client';
+
+import { trpc } from 'src/lib/trpc';
+import { toast } from 'src/components/ui/use-toast';
+import { DialogWrapper } from 'src/components/dialog-wrapper';
+
+import {
+  ScoringScaleForm,
+  type ScoringScaleFormValues,
+} from './scoring-scale-form';
+import { useCriteriaRef } from './use-criteria-ref';
+
+type UpdateScoringScaleDialogProps = {
+  isOpen: boolean;
+  onClose: () => void;
+  scoringScale: ScoringScale;
+};
+
+export function UpdateScoringScaleDialog({
+  isOpen,
+  onClose,
+  scoringScale,
+}: UpdateScoringScaleDialogProps) {
+  const formId = useId();
+  const utils = trpc.useUtils();
+  const { criteria } = useCriteriaRef();
+
+  const { mutate: updateScoringScale } = trpc.scoringScale.update.useMutation({
+    onSuccess: (data) => {
+      toast({
+        title: 'Yeah, success!',
+        description: `${data.description} was successfully updated.`,
+      });
+      utils.scoringScale.invalidate();
+      onClose();
+    },
+    onError: (error) => {
+      toast({
+        title: 'Oops, something went wrong!',
+        description: error.message,
+        variant: 'destructive',
+      });
+    },
+  });
+
+  function handleSubmit(formValues: ScoringScaleFormValues) {
+    updateScoringScale({
+      id: scoringScale.id,
+      data: {
+        description: formValues.description,
+        value: parseInt(formValues.value),
+        criteriaId: criteria.id,
+      },
+    });
+  }
+
+  return (
+    <DialogWrapper
+      isOpen={isOpen}
+      onOpenChange={onClose}
+      title={`Update ${scoringScale.description}`}
+      description='Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, necessitatibus.'
+      formId={formId}
+    >
+      <ScoringScaleForm
+        id={formId}
+        onSubmit={handleSubmit}
+        prevScoringScale={scoringScale}
+      />
+    </DialogWrapper>
+  );
+}
