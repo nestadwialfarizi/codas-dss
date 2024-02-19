@@ -1,7 +1,6 @@
 import { type Column } from '@tanstack/react-table';
 import { CaretSortIcon } from '@radix-ui/react-icons';
-
-import { Button, type ButtonProps } from './ui/button';
+import { Button, type ButtonProps } from '../ui/button';
 
 type SortableButtonProps<TData, TValue> = ButtonProps & {
   column: Column<TData, TValue>;

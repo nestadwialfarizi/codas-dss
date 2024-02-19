@@ -1,7 +1,6 @@
 import { z } from 'zod';
 import { TRPCError } from '@trpc/server';
-
-import { prisma } from '../prisma';
+import { prisma } from '../../lib/prisma';
 import { publicProcedure, router } from '../trpc';
 
 const scoringScaleSchema = z.object({

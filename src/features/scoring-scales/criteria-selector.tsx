@@ -2,18 +2,16 @@
 
 import { useEffect } from 'react';
 import { CaretDownIcon } from '@radix-ui/react-icons';
-
-import { trpc } from 'src/lib/trpc';
+import { trpc } from '~/lib/trpc';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from 'src/components/ui/dropdown-menu';
-import { Button } from 'src/components/ui/button';
-import { ErrorDisplay } from 'src/components/error-display';
-import { LoadingIndicator } from 'src/components/loading-indicator';
-
+} from '~/components/ui/dropdown-menu';
+import { Button } from '~/components/ui/button';
+import { ErrorDisplay } from '~/components/common/error-display';
+import { LoadingIndicator } from '~/components/common/loading-indicator';
 import { useCriteriaRef } from './use-criteria-ref';
 
 export const CriteriaSelector = () => {

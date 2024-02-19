@@ -3,12 +3,10 @@
 import { useId } from 'react';
 import type { CriteriaType } from '@prisma/client';
 import { useDisclosure } from 'react-use-disclosure';
-
-import { toast } from 'src/components/ui/use-toast';
-import { PlusButton } from 'src/components/plus-button';
-import { DialogWrapper } from 'src/components/dialog-wrapper';
-
-import { trpc } from 'src/lib/trpc';
+import { trpc } from '~/lib/trpc';
+import { toast } from '~/components/ui/use-toast';
+import { PlusButton } from '~/components/common/plus-button';
+import { DialogWrapper } from '~/components/common/dialog-wrapper';
 
 import { CriteriaForm, type CriteriaFormValues } from './criteria-form';
 

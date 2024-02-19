@@ -1,11 +1,9 @@
 'use client';
 
 import type { Criteria } from '@prisma/client';
-
-import { toast } from 'src/components/ui/use-toast';
-import { ConfirmDialog } from 'src/components/confirm-dialog';
-
-import { trpc } from 'src/lib/trpc';
+import { trpc } from '~/lib/trpc';
+import { toast } from '~/components/ui/use-toast';
+import { ConfirmDialog } from '~/components/common/confirm-dialog';
 
 type DeleteCriteriaDialogProps = {
   isOpen: boolean;

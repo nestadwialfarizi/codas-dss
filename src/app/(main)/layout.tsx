@@ -1,6 +1,6 @@
-import { DesktopNav } from 'src/components/desktop-nav';
-import { MobileNav } from 'src/components/mobile-nav';
-import { ModeToggle } from 'src/components/mode-toggle';
+import { MobileNav } from '~/components/layouts/mobile-nav';
+import { DesktopNav } from '~/components/layouts/desktop-nav';
+import { ModeToggle } from '~/components/common/mode-toggle';
 
 type MainLayoutProps = {
   children: React.ReactNode;

@@ -9,8 +9,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from 'src/components/ui/dialog';
-import { Button } from 'src/components/ui/button';
+} from '~/components/ui/dialog';
+import { Button } from '~/components/ui/button';
 
 type DialogWrapperProps = {
   isOpen: boolean;
@@ -34,7 +34,7 @@ export function DialogWrapper({
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
-      <DialogContent className='max-h-[550px]'>
+      <DialogContent className='max-h-[550px] overflow-auto'>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>

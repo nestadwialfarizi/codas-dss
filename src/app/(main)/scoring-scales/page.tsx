@@ -1,7 +1,7 @@
-import { PageHeader } from 'src/components/page-header';
-import { CriteriaSelector } from 'src/features/scoring-scales/criteria-selector';
-import { ScoringScaleDataTable } from 'src/features/scoring-scales/scoring-scale-data-table';
-import { CreateScoringScaleDialog } from 'src/features/scoring-scales/create-scoring-scale-dialog';
+import { PageHeader } from '~/components/common/page-header';
+import { CriteriaSelector } from '~/features/scoring-scales/criteria-selector';
+import { ScoringScaleDataTable } from '~/features/scoring-scales/scoring-scale-data-table';
+import { CreateScoringScaleDialog } from '~/features/scoring-scales/create-scoring-scale-dialog';
 
 export default function ScoringScalePage() {
   return (

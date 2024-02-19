@@ -1,11 +1,8 @@
 import { useId } from 'react';
 import type { Criteria, CriteriaType } from '@prisma/client';
-
-import { toast } from 'src/components/ui/use-toast';
-import { DialogWrapper } from 'src/components/dialog-wrapper';
-
-import { trpc } from 'src/lib/trpc';
-
+import { trpc } from '~/lib/trpc';
+import { toast } from '~/components/ui/use-toast';
+import { DialogWrapper } from '~/components/common/dialog-wrapper';
 import { CriteriaForm, type CriteriaFormValues } from './criteria-form';
 
 type UpdateCriteriaDialogProps = {

@@ -2,11 +2,10 @@
 
 import { useId } from 'react';
 import { useDisclosure } from 'react-use-disclosure';
-
-import { trpc } from 'src/lib/trpc';
-import { toast } from 'src/components/ui/use-toast';
-import { PlusButton } from 'src/components/plus-button';
-import { DialogWrapper } from 'src/components/dialog-wrapper';
+import { trpc } from '~/lib/trpc';
+import { toast } from '~/components/ui/use-toast';
+import { PlusButton } from '~/components/common/plus-button';
+import { DialogWrapper } from '~/components/common/dialog-wrapper';
 
 import {
   ScoringScaleForm,

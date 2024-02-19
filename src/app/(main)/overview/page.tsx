@@ -1,4 +1,4 @@
-import { PageHeader } from 'src/components/page-header';
+import { PageHeader } from '~/components/common/page-header';
 
 export default function OverviewPage() {
   return (

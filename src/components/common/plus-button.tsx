@@ -1,8 +1,7 @@
 'use client';
 
 import { PlusIcon } from '@radix-ui/react-icons';
-
-import { Button } from 'src/components/ui/button';
+import { Button } from '~/components/ui/button';
 
 export function PlusButton({
   children,

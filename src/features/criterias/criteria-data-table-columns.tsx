@@ -3,9 +3,8 @@
 import { pascalCase } from 'change-case';
 import type { Criteria } from '@prisma/client';
 import type { ColumnDef } from '@tanstack/react-table';
-
-import { Badge } from 'src/components/ui/badge';
-import { SortableButton } from 'src/components/sortable-button';
+import { Badge } from '~/components/ui/badge';
+import { SortableButton } from '~/components/common/sortable-button';
 
 import { CriteriaDataTableRowActions } from './criteria-data-table-row-actions';
 

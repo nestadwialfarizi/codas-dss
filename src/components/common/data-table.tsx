@@ -16,13 +16,12 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { EyeOpenIcon } from '@radix-ui/react-icons';
-
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from 'src/components/ui/dropdown-menu';
+} from '~/components/ui/dropdown-menu';
 import {
   Table,
   TableBody,
@@ -30,9 +29,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from 'src/components/ui/table';
-import { Input } from 'src/components/ui/input';
-import { Button } from 'src/components/ui/button';
+} from '~/components/ui/table';
+import { Input } from '~/components/ui/input';
+import { Button } from '~/components/ui/button';
 
 type DataTableProps<TData, TValue> = {
   columns: ColumnDef<TData, TValue>[];

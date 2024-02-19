@@ -1,17 +1,16 @@
 'use client';
 
-import type { Criteria } from '@prisma/client';
+import { Fragment } from 'react';
+import { Criteria } from '@prisma/client';
 import { useDisclosure } from 'react-use-disclosure';
 import { DotsHorizontalIcon } from '@radix-ui/react-icons';
-
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from 'src/components/ui/dropdown-menu';
-import { Button } from 'src/components/ui/button';
-
+} from '~/components/ui/dropdown-menu';
+import { Button } from '~/components/ui/button';
 import { UpdateCriteriaDialog } from './update-criteria-dialog';
 import { DeleteCriteriaDialog } from './delete-criteria-dialog';
 
@@ -26,7 +25,7 @@ export function CriteriaDataTableRowActions({
   const updateDialog = useDisclosure();
 
   return (
-    <>
+    <Fragment>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant='ghost' size='icon'>
@@ -52,6 +51,6 @@ export function CriteriaDataTableRowActions({
         onClose={deleteDialog.close}
         criteria={criteria}
       />
-    </>
+    </Fragment>
   );
 }

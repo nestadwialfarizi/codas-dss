@@ -2,9 +2,7 @@
 
 import type { ScoringScale } from '@prisma/client';
 import type { ColumnDef } from '@tanstack/react-table';
-
-import { SortableButton } from 'src/components/sortable-button';
-
+import { SortableButton } from '~/components/common/sortable-button';
 import { ScoringScaleDataTableRowActions } from './scoring-scale-data-table-row-actions';
 
 export const scoringScaleDataTableColumns: ColumnDef<ScoringScale>[] = [

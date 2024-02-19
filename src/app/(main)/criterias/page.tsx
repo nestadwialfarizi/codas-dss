@@ -1,6 +1,6 @@
-import { PageHeader } from 'src/components/page-header';
-import { CreateCriteriaDialog } from 'src/features/criterias/create-criteria-dialog';
-import { CriteriaDataTable } from 'src/features/criterias/criteria-data-table';
+import { PageHeader } from '~/components/common/page-header';
+import { CriteriaDataTable } from '~/features/criterias/criteria-data-table';
+import { CreateCriteriaDialog } from '~/features/criterias/create-criteria-dialog';
 
 export default function CriteriaPage() {
   return (

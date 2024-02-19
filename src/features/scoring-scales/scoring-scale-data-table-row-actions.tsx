@@ -3,14 +3,13 @@
 import type { ScoringScale } from '@prisma/client';
 import { useDisclosure } from 'react-use-disclosure';
 import { DotsHorizontalIcon } from '@radix-ui/react-icons';
-
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from 'src/components/ui/dropdown-menu';
-import { Button } from 'src/components/ui/button';
+} from '~/components/ui/dropdown-menu';
+import { Button } from '~/components/ui/button';
 
 import { UpdateScoringScaleDialog } from './update-scoring-scale-dialog';
 import { DeleteScoringScaleDialog } from './delete-scoring-scale-dialog';

@@ -4,7 +4,6 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { type ScoringScale } from '@prisma/client';
 import { type SubmitHandler, useForm } from 'react-hook-form';
-
 import {
   Form,
   FormControl,
@@ -13,15 +12,15 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from 'src/components/ui/form';
+} from '~/components/ui/form';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from 'src/components/ui/select';
-import { Input } from 'src/components/ui/input';
+} from '~/components/ui/select';
+import { Input } from '~/components/ui/input';
 
 const scoringScaleFormSchema = z.object({
   description: z.string(),

@@ -1,10 +1,9 @@
 'use client';
 
-import { trpc } from 'src/lib/trpc';
-import { DataTable } from 'src/components/data-table';
-import { LoadingIndicator } from 'src/components/loading-indicator';
-import { ErrorDisplay } from 'src/components/error-display';
-
+import { trpc } from '~/lib/trpc';
+import { DataTable } from '~/components/common/data-table';
+import { ErrorDisplay } from '~/components/common/error-display';
+import { LoadingIndicator } from '~/components/common/loading-indicator';
 import { useCriteriaRef } from './use-criteria-ref';
 import { scoringScaleDataTableColumns } from './scoring-scale-data-table-columns';
 
