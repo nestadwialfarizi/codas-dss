@@ -155,7 +155,7 @@ export function AlternativeForm({
                             key={scoringScale.id}
                             value={scoringScale.id}
                           >
-                            {scoringScale.description}
+                            {scoringScale.description} - {scoringScale.value}
                           </SelectItem>
                         ))}
                       </SelectContent>

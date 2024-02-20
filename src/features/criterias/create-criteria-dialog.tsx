@@ -7,7 +7,6 @@ import { trpc } from '~/lib/trpc';
 import { toast } from '~/components/ui/use-toast';
 import { PlusButton } from '~/components/common/plus-button';
 import { DialogWrapper } from '~/components/common/dialog-wrapper';
-
 import { CriteriaForm, type CriteriaFormValues } from './criteria-form';
 
 export function CreateCriteriaDialog() {
