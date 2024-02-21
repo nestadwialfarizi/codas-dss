@@ -97,8 +97,8 @@ export const useCodas = () => {
         ...Object.values(weightedNormalizedMatrix[criteria.id] as number),
       );
 
-      const e = Math.abs(ns - r);
-      const t = Math.abs(ns - r);
+      const e = Math.abs(r - ns);
+      const t = Math.abs(r - ns);
 
       totalE += Math.pow(e, 2);
       totalT += t;
@@ -118,5 +118,7 @@ export const useCodas = () => {
     decisionMatrix,
     normalizedMatrix,
     weightedNormalizedMatrix,
+    euclidean,
+    taxicab,
   };
 };

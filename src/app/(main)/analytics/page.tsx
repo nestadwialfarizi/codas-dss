@@ -8,6 +8,7 @@ import { DecisionMatrixTable } from '~/features/analytics/decision-matrix-table'
 import { NormalizedMatrixTable } from '~/features/analytics/normalized-matrix-table';
 import { WeightedNormalizedMatrixTable } from '~/features/analytics/weighted-normalized-matrix-table';
 import { IdealNegativeValueTable } from '~/features/analytics/ideal-negative-value-table';
+import { EuclideanAndTaxicabDistanceTable } from '~/features/analytics/euclidean-and-taxicab-distance-table';
 
 type Tables = {
   name: StepState['step'];
@@ -22,6 +23,10 @@ const tables: Tables[] = [
     table: <WeightedNormalizedMatrixTable />,
   },
   { name: 'Ideal-Negative Value', table: <IdealNegativeValueTable /> },
+  {
+    name: 'Euclidean and Taxicab Distance',
+    table: <EuclideanAndTaxicabDistanceTable />,
+  },
 ];
 
 export default function AnalyticsPage() {
