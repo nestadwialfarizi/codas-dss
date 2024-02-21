@@ -9,6 +9,7 @@ import { NormalizedMatrixTable } from '~/features/analytics/normalized-matrix-ta
 import { WeightedNormalizedMatrixTable } from '~/features/analytics/weighted-normalized-matrix-table';
 import { IdealNegativeValueTable } from '~/features/analytics/ideal-negative-value-table';
 import { EuclideanAndTaxicabDistanceTable } from '~/features/analytics/euclidean-and-taxicab-distance-table';
+import { RelativeAssessmentMatrixTable } from '~/features/analytics/relative-assessment-matrix-table';
 
 type Tables = {
   name: StepState['step'];
@@ -26,6 +27,10 @@ const tables: Tables[] = [
   {
     name: 'Euclidean and Taxicab Distance',
     table: <EuclideanAndTaxicabDistanceTable />,
+  },
+  {
+    name: 'Relative Assessment Matrix',
+    table: <RelativeAssessmentMatrixTable />,
   },
 ];
 

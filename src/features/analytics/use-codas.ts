@@ -13,6 +13,7 @@ export const useCodas = () => {
   const weightedNormalizedMatrix = [] as any;
   const euclidean = [] as any;
   const taxicab = [] as any;
+  const relativeAssessmentMatrix = [] as any;
 
   // Decision Matrix
   alternatives?.forEach((alternative) =>
@@ -108,6 +109,38 @@ export const useCodas = () => {
     taxicab[alternative.id] = totalT;
   });
 
+  // Relative Assessment
+  alternatives?.map((alternative1) =>
+    alternatives.map((alternative2) => {
+      const threshold = 0.01;
+
+      const e1 = euclidean[alternative2.id];
+      const t1 = taxicab[alternative2.id];
+
+      const e2 = euclidean[alternative1.id];
+      const t2 = taxicab[alternative2.id];
+
+      const value1 = e2 - e1;
+      const value2 = e2 - e1;
+      const value3 = t2 - t1;
+
+      let value2Th;
+
+      if (Math.abs(value2) >= threshold) {
+        value2Th = '1';
+      } else {
+        value2Th = '0';
+      }
+
+      if (!relativeAssessmentMatrix[alternative1.id]) {
+        relativeAssessmentMatrix[alternative1.id] = [];
+      }
+
+      relativeAssessmentMatrix[alternative1.id][alternative2.id] =
+        value1 + value2 * value3;
+    }),
+  );
+
   return {
     data: {
       criterias,
@@ -120,5 +153,6 @@ export const useCodas = () => {
     weightedNormalizedMatrix,
     euclidean,
     taxicab,
+    relativeAssessmentMatrix,
   };
 };
