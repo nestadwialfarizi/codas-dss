@@ -7,6 +7,7 @@ import { StepState, useStep } from '~/features/analytics/use-step';
 import { DecisionMatrixTable } from '~/features/analytics/decision-matrix-table';
 import { NormalizedMatrixTable } from '~/features/analytics/normalized-matrix-table';
 import { WeightedNormalizedMatrixTable } from '~/features/analytics/weighted-normalized-matrix-table';
+import { IdealNegativeValueTable } from '~/features/analytics/ideal-negative-value-table';
 
 type Tables = {
   name: StepState['step'];
@@ -20,6 +21,7 @@ const tables: Tables[] = [
     name: 'Weighted Normalized Matrix',
     table: <WeightedNormalizedMatrixTable />,
   },
+  { name: 'Ideal-Negative Value', table: <IdealNegativeValueTable /> },
 ];
 
 export default function AnalyticsPage() {

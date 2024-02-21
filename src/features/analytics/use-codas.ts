@@ -11,7 +11,10 @@ export const useCodas = () => {
   const decisionMatrix = [] as any;
   const normalizedMatrix = [] as any;
   const weightedNormalizedMatrix = [] as any;
+  const euclidean = [] as any;
+  const taxicab = [] as any;
 
+  // Decision Matrix
   alternatives?.forEach((alternative) =>
     criterias?.forEach((criteria) => {
       const filteredEvaluations = evaluations?.filter(
@@ -46,6 +49,7 @@ export const useCodas = () => {
     }),
   );
 
+  // Normalized and Weighted Normalized Matrix
   alternatives?.map((alternative) =>
     criterias?.map((criteria) => {
       const value = decisionMatrix[criteria.id][alternative.id];
@@ -80,6 +84,29 @@ export const useCodas = () => {
       weightedNormalizedMatrix[criteria.id][alternative.id] = r;
     }),
   );
+
+  // Euclidean and Taxicab Distance
+  // Ideal-Negative
+  alternatives?.map((alternative) => {
+    let totalE = 0;
+    let totalT = 0;
+
+    criterias?.map((criteria) => {
+      const r = weightedNormalizedMatrix[criteria.id][alternative.id];
+      const ns = Math.min(
+        ...Object.values(weightedNormalizedMatrix[criteria.id] as number),
+      );
+
+      const e = Math.abs(ns - r);
+      const t = Math.abs(ns - r);
+
+      totalE += Math.pow(e, 2);
+      totalT += t;
+    });
+
+    euclidean[alternative.id] = Math.sqrt(totalE);
+    taxicab[alternative.id] = totalT;
+  });
 
   return {
     data: {
