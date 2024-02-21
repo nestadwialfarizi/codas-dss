@@ -24,7 +24,7 @@ const columns: ColumnDef<{
   },
   {
     accessorKey: 'name',
-    header: () => <div className='text-center'>Name</div>,
+    header: () => <div className='text-center'>Alternative Name</div>,
     cell: ({ cell }) => (
       <div className='text-center'>{cell.getValue() as string}</div>
     ),
@@ -45,13 +45,14 @@ const columns: ColumnDef<{
 ];
 
 export function AssessmentScoreTable() {
-  const { data, assessmentScore } = useCodas();
+  const { assessmentScore } = useCodas();
 
   return (
     <DataTable
       data={assessmentScore}
       columns={columns}
       styles={{ bordered: true }}
+      filter={{ columnId: 'name' }}
     />
 
     // <div className='rounded-md border'>
