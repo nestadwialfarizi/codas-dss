@@ -8,14 +8,14 @@ export const useCodas = () => {
   const { data: scoringScales } = trpc.scoringScale.get.useQuery();
   const { data: evaluations } = trpc.evaluation.get.useQuery();
 
-  const decisionMatrix = [] as any;
-  const normalizedMatrix = [] as any;
-  const weightedNormalizedMatrix = [] as any;
-  const euclidean = [] as any;
-  const taxicab = [] as any;
-  const relativeAssessmentMatrix = [] as any;
+  const decisionMatrix = {} as any;
+  const normalizedMatrix = {} as any;
+  const weightedNormalizedMatrix = {} as any;
+  const euclidean = {} as any;
+  const taxicab = {} as any;
+  const relativeAssessmentMatrix = {} as any;
   const assessmentScore = [] as any;
-  const ranking = [] as any;
+  const ranking = {} as any;
 
   // Decision Matrix
   alternatives?.forEach((alternative) =>
@@ -30,7 +30,7 @@ export const useCodas = () => {
       );
 
       if (!decisionMatrix[criteria.id]) {
-        decisionMatrix[criteria.id] = [];
+        decisionMatrix[criteria.id] = {};
       }
 
       let value = 0 as any;
@@ -53,8 +53,8 @@ export const useCodas = () => {
   );
 
   // Normalized and Weighted Normalized Matrix
-  alternatives?.map((alternative) =>
-    criterias?.map((criteria) => {
+  alternatives?.forEach((alternative) =>
+    criterias?.forEach((criteria) => {
       const value = decisionMatrix[criteria.id][alternative.id];
 
       const max = Math.max(
@@ -73,7 +73,7 @@ export const useCodas = () => {
       }
 
       if (!normalizedMatrix[criteria.id]) {
-        normalizedMatrix[criteria.id] = [];
+        normalizedMatrix[criteria.id] = {};
       }
 
       normalizedMatrix[criteria.id][alternative.id] = n;
@@ -81,7 +81,7 @@ export const useCodas = () => {
       const r = criteria.weight! * n!;
 
       if (!weightedNormalizedMatrix[criteria.id]) {
-        weightedNormalizedMatrix[criteria.id] = [];
+        weightedNormalizedMatrix[criteria.id] = {};
       }
 
       weightedNormalizedMatrix[criteria.id][alternative.id] = r;
@@ -90,18 +90,18 @@ export const useCodas = () => {
 
   // Euclidean and Taxicab Distance
   // Ideal-Negative
-  alternatives?.map((alternative) => {
+  alternatives?.forEach((alternative) => {
     let totalE = 0;
     let totalT = 0;
 
-    criterias?.map((criteria) => {
+    criterias?.forEach((criteria) => {
       const r = weightedNormalizedMatrix[criteria.id][alternative.id];
       const ns = Math.min(
         ...Object.values(weightedNormalizedMatrix[criteria.id] as number),
       );
 
-      const e = Math.abs(r - ns);
-      const t = Math.abs(r - ns);
+      const e = Math.abs(ns - r);
+      const t = Math.abs(ns - r);
 
       totalE += Math.pow(e, 2);
       totalT += t;
@@ -112,8 +112,8 @@ export const useCodas = () => {
   });
 
   // Relative Assessment
-  alternatives?.map((alternative1) =>
-    alternatives.map((alternative2) => {
+  alternatives?.forEach((alternative1) =>
+    alternatives.forEach((alternative2) => {
       const threshold = 0.01;
 
       const e1 = euclidean[alternative2.id];
@@ -129,38 +129,30 @@ export const useCodas = () => {
       let value2Th;
 
       if (Math.abs(value2) >= threshold) {
-        value2Th = '1';
+        value2Th = 2;
       } else {
-        value2Th = '0';
+        value2Th = 0;
       }
 
       if (!relativeAssessmentMatrix[alternative1.id]) {
-        relativeAssessmentMatrix[alternative1.id] = [];
+        relativeAssessmentMatrix[alternative1.id] = {};
       }
 
       relativeAssessmentMatrix[alternative1.id][alternative2.id] =
-        value1 + value2 * value3;
+        value1 + value2Th * value3;
     }),
   );
 
   // Assessment Score
-  alternatives?.map((alternative1) => {
+  alternatives?.forEach((alternative1) => {
     let tH = 0;
 
-    alternatives.map((alternative2) => {
+    alternatives.forEach((alternative2) => {
       const ra = relativeAssessmentMatrix[alternative1.id][alternative2.id];
-      tH = ra;
+      tH += ra;
     });
 
-    // assessmentScore[alternative1.id] = tH;
-
-    // ranking.push({
-    //   alternativeId: alternative1.id,
-    //   alternativeName: alternative1.name,
-    //   result: tH,
-    // });
     assessmentScore.push({
-      id: alternative1.id,
       name: alternative1.name,
       score: tH,
     });

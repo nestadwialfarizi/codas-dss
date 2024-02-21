@@ -9,12 +9,11 @@ import {
   TableRow,
 } from '~/components/ui/table';
 import { useCodas } from './use-codas';
-import { ColumnDef } from '@tanstack/react-table';
 import { DataTable } from '~/components/common/data-table';
+import { ColumnDef } from '@tanstack/react-table';
 import { SortableButton } from '~/components/common/sortable-button';
 
 const columns: ColumnDef<{
-  id: string;
   name: string;
   score: number;
 }>[] = [
@@ -24,9 +23,8 @@ const columns: ColumnDef<{
     cell: ({ row }) => <div className='text-center'>A{row.index + 1}</div>,
   },
   {
-    id: 'name',
     accessorKey: 'name',
-    header: () => <div className='text-center'>Alternative Name</div>,
+    header: () => <div className='text-center'>Name</div>,
     cell: ({ cell }) => (
       <div className='text-center'>{cell.getValue() as string}</div>
     ),
@@ -47,7 +45,7 @@ const columns: ColumnDef<{
 ];
 
 export function AssessmentScoreTable() {
-  const { assessmentScore } = useCodas();
+  const { data, assessmentScore } = useCodas();
 
   return (
     <DataTable
@@ -55,5 +53,30 @@ export function AssessmentScoreTable() {
       columns={columns}
       styles={{ bordered: true }}
     />
+
+    // <div className='rounded-md border'>
+    //   <Table>
+    //     <TableHeader>
+    //       <TableRow>
+    //         <TableHead className='border-r text-center'>Code</TableHead>
+    //         <TableHead className='border-r text-center'>
+    //           Alternative Name
+    //         </TableHead>
+    //         <TableHead className='text-center'>Assessment Score</TableHead>
+    //       </TableRow>
+    //     </TableHeader>
+    //     <TableBody>
+    //       {data.alternatives?.map((alternative, index) => (
+    //         <TableRow key={alternative.id} className='text-center'>
+    //           <TableCell className='border-r'>A{index + 1}</TableCell>
+    //           <TableCell className='border-r'>{alternative.name}</TableCell>
+    //           <TableCell>
+    //             {parseFloat(assessmentScore[alternative.id]).toFixed(3)}
+    //           </TableCell>
+    //         </TableRow>
+    //       ))}
+    //     </TableBody>
+    //   </Table>
+    // </div>
   );
 }
