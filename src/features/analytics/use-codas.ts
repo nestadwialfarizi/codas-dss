@@ -9,6 +9,8 @@ export const useCodas = () => {
   const { data: evaluations } = trpc.evaluation.get.useQuery();
 
   const decisionMatrix = [] as any;
+  const normalizedMatrix = [] as any;
+  const weightedNormalizedMatrix = [] as any;
 
   alternatives?.forEach((alternative) =>
     criterias?.forEach((criteria) => {
@@ -44,6 +46,41 @@ export const useCodas = () => {
     }),
   );
 
+  alternatives?.map((alternative) =>
+    criterias?.map((criteria) => {
+      const value = decisionMatrix[criteria.id][alternative.id];
+
+      const max = Math.max(
+        ...Object.values(decisionMatrix[criteria.id] as number),
+      );
+      const min = Math.min(
+        ...Object.values(decisionMatrix[criteria.id] as number),
+      );
+
+      let n;
+
+      if (criteria.type === 'BENEFIT') {
+        n = value / max;
+      } else if (criteria.type === 'COST') {
+        n = min / value;
+      }
+
+      if (!normalizedMatrix[criteria.id]) {
+        normalizedMatrix[criteria.id] = [];
+      }
+
+      normalizedMatrix[criteria.id][alternative.id] = n;
+
+      const r = criteria.weight! * n!;
+
+      if (!weightedNormalizedMatrix[criteria.id]) {
+        weightedNormalizedMatrix[criteria.id] = [];
+      }
+
+      weightedNormalizedMatrix[criteria.id][alternative.id] = r;
+    }),
+  );
+
   return {
     data: {
       criterias,
@@ -52,5 +89,7 @@ export const useCodas = () => {
       evaluations,
     },
     decisionMatrix,
+    normalizedMatrix,
+    weightedNormalizedMatrix,
   };
 };
