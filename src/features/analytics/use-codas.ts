@@ -14,6 +14,8 @@ export const useCodas = () => {
   const euclidean = [] as any;
   const taxicab = [] as any;
   const relativeAssessmentMatrix = [] as any;
+  const assessmentScore = [] as any;
+  const ranking = [] as any;
 
   // Decision Matrix
   alternatives?.forEach((alternative) =>
@@ -141,6 +143,29 @@ export const useCodas = () => {
     }),
   );
 
+  // Assessment Score
+  alternatives?.map((alternative1) => {
+    let tH = 0;
+
+    alternatives.map((alternative2) => {
+      const ra = relativeAssessmentMatrix[alternative1.id][alternative2.id];
+      tH = ra;
+    });
+
+    // assessmentScore[alternative1.id] = tH;
+
+    // ranking.push({
+    //   alternativeId: alternative1.id,
+    //   alternativeName: alternative1.name,
+    //   result: tH,
+    // });
+    assessmentScore.push({
+      id: alternative1.id,
+      name: alternative1.name,
+      score: tH,
+    });
+  });
+
   return {
     data: {
       criterias,
@@ -154,5 +179,7 @@ export const useCodas = () => {
     euclidean,
     taxicab,
     relativeAssessmentMatrix,
+    assessmentScore,
+    ranking,
   };
 };

@@ -10,6 +10,7 @@ import { WeightedNormalizedMatrixTable } from '~/features/analytics/weighted-nor
 import { IdealNegativeValueTable } from '~/features/analytics/ideal-negative-value-table';
 import { EuclideanAndTaxicabDistanceTable } from '~/features/analytics/euclidean-and-taxicab-distance-table';
 import { RelativeAssessmentMatrixTable } from '~/features/analytics/relative-assessment-matrix-table';
+import { AssessmentScoreTable } from '~/features/analytics/assessment-score-table';
 
 type Tables = {
   name: StepState['step'];
@@ -32,6 +33,7 @@ const tables: Tables[] = [
     name: 'Relative Assessment Matrix',
     table: <RelativeAssessmentMatrixTable />,
   },
+  { name: 'Assessment Score', table: <AssessmentScoreTable /> },
 ];
 
 export default function AnalyticsPage() {

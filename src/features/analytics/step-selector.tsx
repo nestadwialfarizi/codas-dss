@@ -18,7 +18,6 @@ const steps = [
   'Euclidean and Taxicab Distance',
   'Relative Assessment Matrix',
   'Assessment Score',
-  'Ranking',
 ] as const;
 
 export function StepSelector() {
