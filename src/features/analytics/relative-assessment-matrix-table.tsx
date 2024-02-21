@@ -18,7 +18,7 @@ export function RelativeAssessmentMatrixTable() {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className='border-r text-center'>Code</TableHead>
+            <TableHead className='border-r text-center'></TableHead>
             {data.alternatives?.map((alternative, index) => (
               <TableHead
                 key={alternative.id}
@@ -32,7 +32,7 @@ export function RelativeAssessmentMatrixTable() {
         <TableBody>
           {data.alternatives?.map((alternative1, index) => (
             <TableRow key={alternative1.id}>
-              <TableCell className='border-r text-center'>
+              <TableCell className='border-r text-center text-muted-foreground'>
                 A{index + 1}
               </TableCell>
               {data.alternatives?.map((alternative2) => (
