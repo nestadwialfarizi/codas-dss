@@ -38,9 +38,10 @@ export function CreateAlternativeButton() {
       isOpen={isOpen}
       onOpenChange={onOpenChange}
       title='Create new alternative'
-      description='Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem, impedit.'
+      description='Fill in the form according to the alternative data you will add, click create when finished.'
       formId={formId}
       trigger={<PlusButton>New Alternative</PlusButton>}
+      submitButtonText='Create'
     >
       <AlternativeForm
         id={formId}

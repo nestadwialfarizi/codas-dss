@@ -105,8 +105,7 @@ export function AlternativeForm({
                 />
               </FormControl>
               <FormDescription>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Recusandae, accusamus.
+                Name of alternative, the name must be unique.
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -145,7 +144,7 @@ export function AlternativeForm({
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue
-                            placeholder={`Select ${criteria.name} score`}
+                            placeholder={`Determine ${criteria.name} value`}
                           />
                         </SelectTrigger>
                       </FormControl>

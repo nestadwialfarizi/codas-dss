@@ -20,6 +20,7 @@ type DialogWrapperProps = {
   children: React.ReactNode;
   formId?: string;
   trigger?: React.ReactElement;
+  submitButtonText?: string;
 };
 
 export function DialogWrapper({
@@ -30,6 +31,7 @@ export function DialogWrapper({
   children,
   formId,
   trigger,
+  submitButtonText,
 }: DialogWrapperProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
@@ -45,7 +47,7 @@ export function DialogWrapper({
             <Button variant='outline'>Cancel</Button>
           </DialogClose>
           <Button type={formId ? 'submit' : 'button'} form={formId}>
-            Submit
+            {submitButtonText ? submitButtonText : 'Submit'}
           </Button>
         </DialogFooter>
       </DialogContent>

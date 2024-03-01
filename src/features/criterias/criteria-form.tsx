@@ -69,7 +69,7 @@ export function CriteriaForm({
                 />
               </FormControl>
               <FormDescription>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                Name of criteria, the name must be unique.
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -93,7 +93,7 @@ export function CriteriaForm({
                 </SelectContent>
               </Select>
               <FormDescription>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Type of criteria, used for method calculations.
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -120,7 +120,8 @@ export function CriteriaForm({
                 </SelectContent>
               </Select>
               <FormDescription>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Criteria value, this determines how much influence the criteria
+                have on the calculation.
               </FormDescription>
               <FormMessage />
             </FormItem>

@@ -65,7 +65,8 @@ export function ScoringScaleForm({
                 <Input placeholder='Excellent' autoComplete='off' {...field} />
               </FormControl>
               <FormDescription>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                Description of scoring scale, the description must be unique for
+                each criteria.
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -92,7 +93,7 @@ export function ScoringScaleForm({
                 </SelectContent>
               </Select>
               <FormDescription>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                The value that will be used to evaluate alternatives.
               </FormDescription>
               <FormMessage />
             </FormItem>

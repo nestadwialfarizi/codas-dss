@@ -6,7 +6,6 @@ import { trpc } from '~/lib/trpc';
 import { toast } from '~/components/ui/use-toast';
 import { PlusButton } from '~/components/common/plus-button';
 import { DialogWrapper } from '~/components/common/dialog-wrapper';
-
 import {
   ScoringScaleForm,
   type ScoringScaleFormValues,
@@ -50,9 +49,10 @@ export function CreateScoringScaleDialog() {
       isOpen={dialog.isOpen}
       onOpenChange={dialog.isOpen ? dialog.close : dialog.open}
       title='Create new scoring scale'
-      description='Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, vel?'
+      description='Fill in the form according to the scoring scale data you will add, click create when finished.'
       formId={formId}
       trigger={<PlusButton>New Scoring Scale</PlusButton>}
+      submitButtonText='Create'
     >
       <ScoringScaleForm id={formId} onSubmit={handleSubmit} />
     </DialogWrapper>

@@ -10,7 +10,7 @@ export function PageHeader({
   children,
 }: PageHeaderProps) {
   return (
-    <div className='mb-6 flex flex-wrap items-center justify-between gap-2'>
+    <div className='mb-6 mt-6 flex flex-wrap items-center justify-between gap-2'>
       <div>
         <h1 className='text-2xl font-semibold'>{heading}</h1>
         <p className='text-sm text-muted-foreground'>{description}</p>

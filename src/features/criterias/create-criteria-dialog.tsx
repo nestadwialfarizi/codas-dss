@@ -46,9 +46,10 @@ export function CreateCriteriaDialog() {
       isOpen={isOpen}
       onOpenChange={isOpen ? close : open}
       title='Create new criteria'
-      description='Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eos, impedit!'
+      description='Fill in the form according to the criteria data you will add, click create when finished.'
       trigger={<PlusButton>New Criteria</PlusButton>}
       formId={formId}
+      submitButtonText='Create'
     >
       <CriteriaForm id={formId} onSubmit={handleSubmit} />
     </DialogWrapper>

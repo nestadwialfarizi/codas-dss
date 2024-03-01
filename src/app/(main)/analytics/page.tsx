@@ -1,6 +1,5 @@
 'use client';
 
-import { Fragment, ReactElement } from 'react';
 import { PageHeader } from '~/components/common/page-header';
 import { StepSelector } from '~/features/analytics/step-selector';
 import { StepState, useStep } from '~/features/analytics/use-step';
@@ -14,7 +13,7 @@ import { AssessmentScoreTable } from '~/features/analytics/assessment-score-tabl
 
 type Tables = {
   name: StepState['step'];
-  table: ReactElement;
+  table: React.ReactElement;
 };
 
 const tables: Tables[] = [
@@ -41,15 +40,15 @@ export default function AnalyticsPage() {
   const table = tables.find((table) => table.name === step)?.table;
 
   return (
-    <Fragment>
+    <section>
       <PageHeader
         heading='Analytics'
-        description='Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, maxime!'
+        description='Analysis of CODAS method calculations. Divided into several stages that can be selected in the dropdown menu.'
       />
       <div className='space-y-4'>
         <StepSelector />
         {table}
       </div>
-    </Fragment>
+    </section>
   );
 }

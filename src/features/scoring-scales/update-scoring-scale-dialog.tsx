@@ -60,8 +60,9 @@ export function UpdateScoringScaleDialog({
       isOpen={isOpen}
       onOpenChange={onClose}
       title={`Update ${scoringScale.description}`}
-      description='Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, necessitatibus.'
+      description='Make change to this data, click update when finished.'
       formId={formId}
+      submitButtonText='Update'
     >
       <ScoringScaleForm
         id={formId}

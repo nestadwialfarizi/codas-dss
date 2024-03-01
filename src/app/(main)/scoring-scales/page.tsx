@@ -3,12 +3,16 @@ import { CriteriaSelector } from '~/features/scoring-scales/criteria-selector';
 import { ScoringScaleDataTable } from '~/features/scoring-scales/scoring-scale-data-table';
 import { CreateScoringScaleDialog } from '~/features/scoring-scales/create-scoring-scale-dialog';
 
+export const metadata = {
+  title: 'Scoring Scales',
+};
+
 export default function ScoringScalePage() {
   return (
-    <>
+    <section>
       <PageHeader
         heading='Scoring Scales'
-        description='Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt, eos.'
+        description='List of scoring scale data based on each criteria. Additions and changes can also be made.'
       />
       <div className='space-y-4'>
         <div className='flex items-center justify-between'>
@@ -17,6 +21,6 @@ export default function ScoringScalePage() {
         </div>
         <ScoringScaleDataTable />
       </div>
-    </>
+    </section>
   );
 }

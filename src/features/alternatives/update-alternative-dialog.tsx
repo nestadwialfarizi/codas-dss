@@ -45,7 +45,9 @@ export function UpdateAlternativeDialog({
       isOpen={isOpen}
       onOpenChange={onClose}
       title={`Update ${alternative.name}`}
+      description='Make changes to this data, click update when finished.'
       formId={formId}
+      submitButtonText='Update'
     >
       <AlternativeForm
         id={formId}

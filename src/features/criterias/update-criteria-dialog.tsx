@@ -54,7 +54,8 @@ export function UpdateCriteriaDialog({
       onOpenChange={onClose}
       formId={formId}
       title={`Update ${criteria.name}`}
-      description='Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eveniet, repellendus.'
+      description='Make changes to this data, click update when finished.'
+      submitButtonText='Update'
     >
       <CriteriaForm
         id={formId}
