@@ -1,5 +1,6 @@
 'use client';
 
+import { trpc } from '~/lib/trpc';
 import { PageHeader } from '~/components/common/page-header';
 import { StepSelector } from '~/features/analytics/step-selector';
 import { StepState, useStep } from '~/features/analytics/use-step';
@@ -38,6 +39,10 @@ const tables: Tables[] = [
 export default function AnalyticsPage() {
   const { step } = useStep();
   const table = tables.find((table) => table.name === step)?.table;
+
+  const { data: alternatives } = trpc.alternative.get.useQuery();
+
+  if (!alternatives?.length) return <div>No alternatives found</div>;
 
   return (
     <section>

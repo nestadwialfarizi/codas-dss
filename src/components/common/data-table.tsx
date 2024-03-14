@@ -64,7 +64,7 @@ export function DataTable<TData, TValue>({
     onColumnVisibilityChange: setColumnVisibility,
     initialState: {
       pagination: {
-        pageSize: 6,
+        pageSize: 5,
       },
     },
     state: {
