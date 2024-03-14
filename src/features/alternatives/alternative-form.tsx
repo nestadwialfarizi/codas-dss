@@ -118,6 +118,7 @@ export function AlternativeForm({
               evaluation.alternativeId === prevAlternative?.id &&
               evaluation.criteriaId === criteria.id,
           )?.scoringScaleId;
+
           return (
             <div key={criteria.id}>
               <FormField
