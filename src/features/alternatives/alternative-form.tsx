@@ -70,10 +70,7 @@ export function AlternativeForm({
     resolver: zodResolver(alternativeFormSchema),
     defaultValues: {
       name: prevAlternative?.name || '',
-      evaluations:
-        evaluations?.filter(
-          (evaluation) => evaluation.alternativeId === prevAlternative?.id,
-        ) || [],
+      evaluations: [],
     },
   });
 
@@ -116,6 +113,11 @@ export function AlternativeForm({
             (scoringScale) => scoringScale.criteriaId === criteria.id,
           );
 
+          const defaultScoringScaleId = evaluations?.find(
+            (evaluation) =>
+              evaluation.alternativeId === prevAlternative?.id &&
+              evaluation.criteriaId === criteria.id,
+          )?.scoringScaleId;
           return (
             <div key={criteria.id}>
               <FormField
@@ -134,12 +136,13 @@ export function AlternativeForm({
               <FormField
                 control={form.control}
                 name={`evaluations.${index}.scoringScaleId`}
+                defaultValue={defaultScoringScaleId || ''}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>{criteria.name}</FormLabel>
                     <Select
                       onValueChange={field.onChange}
-                      defaultValue={field.value}
+                      defaultValue={field.value || ''}
                     >
                       <FormControl>
                         <SelectTrigger>
