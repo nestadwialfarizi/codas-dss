@@ -9,7 +9,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '~/components/ui/dropdown-menu';
-import { type Criteria } from '~/lib/drizzle/schema';
+import { type Criteria } from '~/server/drizzle/schema';
 import { DeleteCriteria } from './delete-criteria-dialog';
 import { UpdateCriteria } from './update-criteria-dialog';
 
