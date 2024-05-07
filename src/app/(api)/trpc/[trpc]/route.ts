@@ -8,7 +8,7 @@ function handler(request: NextRequest) {
     endpoint: '/trpc',
     req: request,
     router: router,
-    createContext: () => createContext({ req: request }),
+    createContext,
   });
 }
 
