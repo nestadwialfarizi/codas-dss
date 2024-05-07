@@ -15,6 +15,7 @@ type ConfirmDialogProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   action: () => Promise<void> | void;
+  isPending: boolean;
   children?: React.ReactNode;
 };
 
@@ -22,6 +23,7 @@ export function ConfirmDialog({
   open,
   onOpenChange,
   action,
+  isPending,
   children,
 }: ConfirmDialogProps) {
   return (
@@ -37,7 +39,9 @@ export function ConfirmDialog({
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Batal</AlertDialogCancel>
-          <AlertDialogAction onClick={action}>Hapus</AlertDialogAction>
+          <AlertDialogAction onClick={action} disabled={isPending}>
+            Hapus
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

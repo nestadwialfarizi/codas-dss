@@ -5,6 +5,7 @@ import {
   pgEnum,
   pgTable,
   serial,
+  text,
   varchar,
 } from 'drizzle-orm/pg-core';
 
@@ -20,4 +21,15 @@ export const criterias = pgTable('criterias', {
   weight: doublePrecision('weight'),
 });
 
+export const scoringScales = pgTable('scoring_scales', {
+  id: serial('id').primaryKey(),
+  organizationId: varchar('organization_id', { length: 255 }).notNull(),
+  criteriaId: integer('criteria_id')
+    .notNull()
+    .references(() => criterias.id),
+  description: text('description').notNull(),
+  value: integer('value').notNull(),
+});
+
 export type Criteria = InferSelectModel<typeof criterias>;
+export type ScoringScale = InferSelectModel<typeof scoringScales>;

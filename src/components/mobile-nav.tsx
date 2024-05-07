@@ -7,7 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '~/components/ui/dropdown-menu';
-import { navItems } from './nav-config';
+import { navItems } from '~/lib/config';
 
 export function MobileNav() {
   return (

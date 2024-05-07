@@ -3,8 +3,8 @@
 import type { ColumnDef } from '@tanstack/react-table';
 import { SortableButton } from '~/components/data-table';
 import { Badge } from '~/components/ui/badge';
-import type { Criteria } from '~/lib/drizzle/schema';
-import { CriteriaTableRowActions } from './row-actions';
+import type { Criteria } from '~/server/drizzle/schema';
+import { CriteriaTableRowActions } from './criteria-table-row-actions';
 
 export const criteriaTableColumns: ColumnDef<Criteria>[] = [
   {
