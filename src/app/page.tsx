@@ -1,3 +1,9 @@
+import { SignInButton } from '@clerk/nextjs';
+
 export default function RootPage() {
-  return <div>root page</div>;
+  return (
+    <div>
+      <SignInButton />
+    </div>
+  );
 }

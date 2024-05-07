@@ -1,7 +1,7 @@
+import { ClerkProvider } from '@clerk/nextjs';
 import type { Metadata } from 'next';
-import { siteConfig } from '~/lib/config';
-import { inter } from '~/lib/fonts';
-import '~/styles/globals.css';
+import './globals.css';
+import { inter, siteConfig } from './config';
 
 export const metadata: Metadata = {
   title: {
@@ -9,7 +9,6 @@ export const metadata: Metadata = {
     default: siteConfig.name,
   },
   description: siteConfig.description,
-  icons: [{ rel: 'icon', url: siteConfig.faviconUrl }],
 };
 
 type RootLayoutProps = {
@@ -18,10 +17,12 @@ type RootLayoutProps = {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang='en'>
-      <body className={`font-sans antialiased ${inter.variable}`}>
-        {children}
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang='en'>
+        <body className={`font-sans antialiased ${inter.variable}`}>
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
