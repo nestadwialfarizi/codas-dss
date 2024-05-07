@@ -9,17 +9,17 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '~/components/ui/dropdown-menu';
-import { type Criteria } from '~/server/drizzle/schema';
-import { DeleteCriteriaDialog } from './delete-criteria-dialog';
-import { UpdateCriteriaDialog } from './update-criteria-dialog';
+import { type ScoringScale } from '~/server/drizzle/schema';
+import { DeleteScoringScaleDialog } from './delete-scoring-scale-dialog';
+import { UpdateScoringScaleDialog } from './update-scoring-scale-dialog';
 
-type CriteriaTableRowActionsProps = {
-  criteria: Criteria;
+type ScoringScaleTableRowActionsProps = {
+  scoringScale: ScoringScale;
 };
 
-export function CriteriaTableRowActions({
-  criteria,
-}: CriteriaTableRowActionsProps) {
+export function ScoringScaleTableRowActions({
+  scoringScale,
+}: ScoringScaleTableRowActionsProps) {
   const updateDialog = useDisclosure();
   const deleteDialog = useDisclosure();
 
@@ -34,15 +34,15 @@ export function CriteriaTableRowActions({
           <DropdownMenuItem onClick={deleteDialog.open}>Hapus</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <UpdateCriteriaDialog
+      <UpdateScoringScaleDialog
         isOpen={updateDialog.isOpen}
         onOpenChange={updateDialog.toggle}
-        criteria={criteria}
+        scoringScale={scoringScale}
       />
-      <DeleteCriteriaDialog
+      <DeleteScoringScaleDialog
         isOpen={deleteDialog.isOpen}
         onOpenChange={deleteDialog.toggle}
-        criteriaId={criteria.id}
+        scoringScaleId={scoringScale.id}
       />
     </Fragment>
   );

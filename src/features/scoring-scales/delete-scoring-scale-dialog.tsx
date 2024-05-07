@@ -1,23 +1,25 @@
+'use client';
+
 import { ConfirmDialog } from '~/components/confirm-dialog';
 import { toastError, toastSuccess, trpc } from '~/lib/utils';
 
-type DeleteCriteriaDialogProps = {
+type DeleteScoringScaleDialogProps = {
   isOpen: boolean;
   onOpenChange: () => void;
-  criteriaId: number;
+  scoringScaleId: number;
 };
 
-export function DeleteCriteriaDialog({
+export function DeleteScoringScaleDialog({
   isOpen,
   onOpenChange,
-  criteriaId,
-}: DeleteCriteriaDialogProps) {
+  scoringScaleId,
+}: DeleteScoringScaleDialogProps) {
   const utils = trpc.useUtils();
 
-  const { mutate, isPending } = trpc.criterias.delete.useMutation({
+  const { mutate, isPending } = trpc.scoringScales.delete.useMutation({
     onSuccess: (data) => {
-      utils.criterias.invalidate();
-      toastSuccess(`${data.name} berhasil dihapus.`);
+      utils.scoringScales.invalidate();
+      toastSuccess(`${data.description} berhasil dihapus.`);
     },
     onError: (error) => toastError(error.message),
   });
@@ -26,7 +28,7 @@ export function DeleteCriteriaDialog({
     <ConfirmDialog
       open={isOpen}
       onOpenChange={onOpenChange}
-      action={() => mutate({ id: criteriaId })}
+      action={() => mutate({ id: scoringScaleId })}
       isPending={isPending}
     />
   );

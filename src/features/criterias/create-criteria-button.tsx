@@ -14,12 +14,14 @@ import {
   DialogTrigger,
 } from '~/components/ui/dialog';
 import { toastError, toastSuccess, trpc } from '~/lib/utils';
+import { useCriteriaSwitcher } from '../scoring-scales/use-criteria-switcher';
 import { CriteriaForm } from './criteria-form';
 
-export function CreateCriteria() {
+export function CreateCriteriaButton() {
   const formId = useId();
   const utils = trpc.useUtils();
 
+  const { setCriteria } = useCriteriaSwitcher();
   const { isOpen, toggle, close } = useDisclosure();
 
   const { mutate, isPending } = trpc.criterias.create.useMutation({

@@ -9,7 +9,7 @@ import {
   PageHeaderDescription,
   PageHeaderTitle,
 } from '~/components/page-header';
-import { CreateCriteria } from '~/features/criterias/create-criteria';
+import { CreateCriteriaButton } from '~/features/criterias/create-criteria-button';
 import { criteriaTableColumns } from '~/features/criterias/criteria-table-columns';
 import { trpc } from '~/lib/utils';
 
@@ -33,7 +33,7 @@ export default function CriteriaPage() {
                 </PageHeaderDescription>
               </PageHeaderContent>
               <PageHeaderAction asChild>
-                <CreateCriteria />
+                <CreateCriteriaButton />
               </PageHeaderAction>
             </PageHeader>
             <DataTable

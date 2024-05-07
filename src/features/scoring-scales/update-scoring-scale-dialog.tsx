@@ -1,3 +1,5 @@
+'use client';
+
 import { useId } from 'react';
 import { Button } from '~/components/ui/button';
 import {
@@ -9,28 +11,28 @@ import {
   DialogTitle,
 } from '~/components/ui/dialog';
 import { toastError, toastSuccess, trpc } from '~/lib/utils';
-import { Criteria } from '~/server/drizzle/schema';
-import { CriteriaForm } from './criteria-form';
+import type { ScoringScale } from '~/server/drizzle/schema';
+import { ScoringScaleForm } from './scoring-scale-form';
 
-type UpdateCriteriaDialogProps = {
+type UpdateScoringScaleDialogProps = {
   isOpen: boolean;
   onOpenChange: () => void;
-  criteria: Criteria;
+  scoringScale: ScoringScale;
 };
 
-export function UpdateCriteriaDialog({
+export function UpdateScoringScaleDialog({
   isOpen,
   onOpenChange,
-  criteria,
-}: UpdateCriteriaDialogProps) {
+  scoringScale,
+}: UpdateScoringScaleDialogProps) {
   const formId = useId();
   const utils = trpc.useUtils();
 
-  const { mutate, isPending } = trpc.criterias.update.useMutation({
+  const { mutate, isPending } = trpc.scoringScales.update.useMutation({
     onSuccess: () => {
-      utils.criterias.invalidate();
+      utils.scoringScales.invalidate();
       onOpenChange();
-      toastSuccess(`${criteria.name} berhasil diperbarui.`);
+      toastSuccess(`${scoringScale.description} berhasil diperbarui.`);
     },
     onError: (error) => toastError(error.message),
   });
@@ -39,16 +41,16 @@ export function UpdateCriteriaDialog({
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Ubah {criteria.name}</DialogTitle>
+          <DialogTitle>Ubah {scoringScale.description}</DialogTitle>
           <DialogDescription>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem,
             eaque.
           </DialogDescription>
         </DialogHeader>
-        <CriteriaForm
+        <ScoringScaleForm
           formId={formId}
-          prevCriteria={criteria}
-          onSubmit={(values) => mutate({ id: criteria.id, data: values })}
+          prevScoringScale={scoringScale}
+          onSubmit={(values) => mutate({ id: scoringScale.id, data: values })}
         />
         <DialogFooter>
           <Button form={formId} disabled={isPending}>
