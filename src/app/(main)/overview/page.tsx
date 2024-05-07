@@ -1,9 +1,17 @@
-import { PageHeader } from '~/components/page-header';
+import {
+  PageHeader,
+  PageHeaderContent,
+  PageHeaderTitle,
+} from '~/components/page-header';
 
 export default function OverviewPage() {
   return (
     <div>
-      <PageHeader title='Tinjauan' />
+      <PageHeader>
+        <PageHeaderContent>
+          <PageHeaderTitle>Tinjauan</PageHeaderTitle>
+        </PageHeaderContent>
+      </PageHeader>
     </div>
   );
 }

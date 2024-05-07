@@ -1,5 +1,6 @@
 import { ClerkProvider } from '@clerk/nextjs';
 import type { Metadata } from 'next';
+import { Toaster } from '~/components/ui/sonner';
 import './globals.css';
 import { inter, siteConfig } from './config';
 
@@ -21,6 +22,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <html lang='en'>
         <body className={`font-sans antialiased ${inter.variable}`}>
           {children}
+          <Toaster />
         </body>
       </html>
     </ClerkProvider>

@@ -1,21 +1,51 @@
-type PageHeaderProps = {
-  title: string;
-  description: string;
-  children: React.ReactNode;
-};
+import { cn } from '~/lib/utils';
+import { Button, type ButtonProps } from './ui/button';
 
 export function PageHeader({
-  title,
-  description,
-  children,
-}: Partial<PageHeaderProps>) {
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className='mb-6 flex flex-wrap items-center justify-between gap-y-2'>
-      <div>
-        <h1 className='text-3xl font-bold tracking-tight'>{title}</h1>
-        <p className='text-sm text-muted-foreground'>{description}</p>
-      </div>
-      <div className='ml-auto'>{children}</div>
-    </div>
+    <div
+      className={cn(
+        'mb-6 flex flex-wrap items-center justify-between gap-x-6 gap-y-2',
+        className,
+      )}
+      {...props}
+    />
   );
+}
+
+export function PageHeaderContent({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) {
+  return (
+    <div className={cn('flex flex-col space-y-0.5', className)} {...props} />
+  );
+}
+
+export function PageHeaderTitle({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLHeadingElement>) {
+  return (
+    <h1
+      className={cn('text-3xl font-bold tracking-tight', className)}
+      {...props}
+    />
+  );
+}
+
+export function PageHeaderDescription({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLParagraphElement>) {
+  return (
+    <p className={cn('text-sm text-muted-foreground', className)} {...props} />
+  );
+}
+
+export function PageHeaderAction({ ...props }: ButtonProps) {
+  return <Button {...props} />;
 }
