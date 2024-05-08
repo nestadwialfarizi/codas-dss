@@ -13,9 +13,9 @@ const scoringScaleInput = z.object({
 export const scoringScaleRouter = createRouter({
   list: protectedProcedure.query(async ({ ctx }) => {
     return await ctx.db.query.scoringScales.findMany({
-      where: (scoringScales, { eq }) =>
-        eq(scoringScales.organizationId, ctx.auth.organizationId),
-      orderBy: (scoringScales, { asc }) => [asc(scoringScales.id)],
+      where: ({ organizationId }, { eq }) =>
+        eq(organizationId, ctx.auth.organizationId),
+      orderBy: ({ id }, { asc }) => [asc(id)],
     });
   }),
   create: protectedProcedure
@@ -23,10 +23,10 @@ export const scoringScaleRouter = createRouter({
     .mutation(async ({ ctx, input }) => {
       const duplicatedScoringScale = await ctx.db.query.scoringScales.findFirst(
         {
-          where: (scoringScales, { and, eq }) =>
+          where: ({ criteriaId, description }, { and, eq }) =>
             and(
-              eq(scoringScales.criteriaId, input.criteriaId),
-              eq(scoringScales.description, input.description),
+              eq(criteriaId, input.criteriaId),
+              eq(description, input.description),
             ),
         },
       );
@@ -57,15 +57,15 @@ export const scoringScaleRouter = createRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const intendedScoringScale = await ctx.db.query.scoringScales.findFirst({
-        where: (scoringScales, { eq }) => eq(scoringScales.id, input.id),
+        where: ({ id }, { eq }) => eq(id, input.id),
       });
 
       const duplicatedScoringScale = await ctx.db.query.scoringScales.findFirst(
         {
-          where: (scoringScales, { and, eq }) =>
+          where: ({ criteriaId, description }, { and, eq }) =>
             and(
-              eq(scoringScales.criteriaId, input.data.criteriaId),
-              eq(scoringScales.description, input.data.description),
+              eq(criteriaId, input.data.criteriaId),
+              eq(description, input.data.description),
             ),
         },
       );

@@ -17,9 +17,9 @@ export const criteriaRouter = createRouter({
   list: protectedProcedure.query(async ({ ctx }) => {
     await updateCriteriaWeight();
     return await db.query.criterias.findMany({
-      where: (criterias, { eq }) =>
-        eq(criterias.organizationId, ctx.auth.organizationId),
-      orderBy: (criterias, { asc }) => [asc(criterias.id)],
+      where: ({ organizationId }, { eq }) =>
+        eq(organizationId, ctx.auth.organizationId),
+      orderBy: ({ id }, { asc }) => [asc(id)],
     });
   }),
   bySlug: protectedProcedure
@@ -30,17 +30,17 @@ export const criteriaRouter = createRouter({
     )
     .query(async ({ ctx, input }) => {
       return await ctx.db.query.criterias.findFirst({
-        where: (criterias, { eq }) => eq(criterias.slug, input.slug),
+        where: ({ slug }, { eq }) => eq(slug, input.slug),
       });
     }),
   create: protectedProcedure
     .input(criteriaInput)
     .mutation(async ({ ctx, input }) => {
       const duplicatedCriteria = await db.query.criterias.findFirst({
-        where: (criterias, { and, eq }) =>
+        where: ({ name, organizationId }, { and, eq }) =>
           and(
-            eq(criterias.name, input.name),
-            eq(criterias.organizationId, ctx.auth.organizationId),
+            eq(name, input.name),
+            eq(organizationId, ctx.auth.organizationId),
           ),
       });
 
@@ -72,14 +72,14 @@ export const criteriaRouter = createRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const intendedCriteria = await db.query.criterias.findFirst({
-        where: (criterias, { eq }) => eq(criterias.id, input.id),
+        where: ({ id }, { eq }) => eq(id, input.id),
       });
 
       const duplicatedCriteria = await db.query.criterias.findFirst({
-        where: (criterias, { and, eq }) =>
+        where: ({ name, organizationId }, { and, eq }) =>
           and(
-            eq(criterias.name, input.data.name),
-            eq(criterias.organizationId, ctx.auth.organizationId),
+            eq(name, input.data.name),
+            eq(organizationId, ctx.auth.organizationId),
           ),
       });
 
@@ -119,7 +119,7 @@ async function updateCriteriaWeight() {
   const organizationId = getOrganizationId();
 
   const foundCriterias = await db.query.criterias.findMany({
-    where: (criterias, { eq }) => eq(criterias.organizationId, organizationId),
+    where: ({ organizationId }, { eq }) => eq(organizationId, organizationId),
   });
 
   const totalValue = foundCriterias.reduce(
