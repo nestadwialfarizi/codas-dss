@@ -45,8 +45,7 @@ export function CreateCriteriaButton() {
         <DialogHeader>
           <DialogTitle>Buat data kriteria</DialogTitle>
           <DialogDescription>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem,
-            eaque.
+            Penuhi form di bawah ini, klik simpan untuk menyimpan data.
           </DialogDescription>
         </DialogHeader>
         <CriteriaForm formId={formId} onSubmit={(values) => mutate(values)} />

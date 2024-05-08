@@ -41,8 +41,8 @@ export function UpdateCriteriaDialog({
         <DialogHeader>
           <DialogTitle>Ubah {criteria.name}</DialogTitle>
           <DialogDescription>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem,
-            eaque.
+            Ubah data yang tertera pada form di bawah ini, klik simpan perubahan
+            untuk menyimpan perubahan.
           </DialogDescription>
         </DialogHeader>
         <CriteriaForm

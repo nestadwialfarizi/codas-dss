@@ -43,8 +43,8 @@ export function UpdateScoringScaleDialog({
         <DialogHeader>
           <DialogTitle>Ubah {scoringScale.description}</DialogTitle>
           <DialogDescription>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem,
-            eaque.
+            Ubah data yang tertera pada form di bawah ini, klik simpan perubahan
+            untuk menyimpan perubahan.
           </DialogDescription>
         </DialogHeader>
         <ScoringScaleForm

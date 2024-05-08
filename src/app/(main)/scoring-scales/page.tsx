@@ -54,8 +54,9 @@ export default function ScoringScalePage() {
                   Skala Penilaian ({filteredScoringScales.length})
                 </PageHeaderTitle>
                 <PageHeaderDescription>
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure
-                  quas tenetur quibusdam? Expedita, quam odit!
+                  Daftar skala penilaian, tabel disajikan berdasarkan kriteria
+                  referensinya yang dapat diubah pada menu dropdown di bawah
+                  ini.
                 </PageHeaderDescription>
               </PageHeaderContent>
             </PageHeader>

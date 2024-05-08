@@ -43,8 +43,7 @@ export function CreateScoringScaleButton() {
         <DialogHeader>
           <DialogTitle>Buat skala penilaian</DialogTitle>
           <DialogDescription>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Minus,
-            voluptate?
+            Penuhi form di bawah ini, klik simpan untuk menyimpan data.
           </DialogDescription>
         </DialogHeader>
         <ScoringScaleForm

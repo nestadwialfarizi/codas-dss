@@ -19,7 +19,7 @@ export default function CriteriaPage() {
   return (
     <Fragment>
       {isLoading ? (
-        <div>loading...</div>
+        <div>Loading...</div>
       ) : (
         criterias && (
           <Fragment>
@@ -27,9 +27,8 @@ export default function CriteriaPage() {
               <PageHeaderContent>
                 <PageHeaderTitle>Kriteria ({criterias.length})</PageHeaderTitle>
                 <PageHeaderDescription>
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Voluptates, consequuntur quidem dolore deleniti voluptatem
-                  excepturi?
+                  Daftar data kriteria, anda juga dapat menambah kriteria baru
+                  atau mengubah dan menghapus kriteria yang sudah ada.
                 </PageHeaderDescription>
               </PageHeaderContent>
               <PageHeaderAction asChild>
