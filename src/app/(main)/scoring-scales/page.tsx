@@ -20,14 +20,14 @@ export default function ScoringScalePage() {
   const { criteria } = useCriteriaSwitcher();
 
   const { data: criterias, isLoading: isLoadingCriterias } =
-    trpc.criterias.list.useQuery();
+    trpc.criteria.list.useQuery();
   const { data: scoringScales, isLoading: isLoadingScoringScales } =
-    trpc.scoringScales.list.useQuery();
+    trpc.scoringScale.list.useQuery();
 
   const isLoading = isLoadingCriterias || isLoadingScoringScales;
 
   const filteredScoringScales = scoringScales?.filter(
-    (scoringScale) => scoringScale.criteriaId === criteria?.id,
+    ({ criteriaId }) => criteriaId === criteria?.id,
   );
 
   return (

@@ -14,7 +14,7 @@ import { criteriaTableColumns } from '~/features/criterias/criteria-table-column
 import { trpc } from '~/lib/utils';
 
 export default function CriteriaPage() {
-  const { data: criterias, isLoading } = trpc.criterias.list.useQuery();
+  const { data: criterias, isLoading } = trpc.criteria.list.useQuery();
 
   return (
     <Fragment>

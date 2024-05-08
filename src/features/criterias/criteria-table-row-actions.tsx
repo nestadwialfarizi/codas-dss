@@ -1,5 +1,6 @@
 'use client';
 
+import type { Criteria } from '@prisma/client';
 import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 import { Fragment } from 'react';
 import { useDisclosure } from 'react-use-disclosure';
@@ -9,7 +10,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '~/components/ui/dropdown-menu';
-import { type Criteria } from '~/server/drizzle/schema';
 import { DeleteCriteriaDialog } from './delete-criteria-dialog';
 import { UpdateCriteriaDialog } from './update-criteria-dialog';
 

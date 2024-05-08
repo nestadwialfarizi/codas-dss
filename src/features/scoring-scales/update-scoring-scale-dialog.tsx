@@ -1,5 +1,6 @@
 'use client';
 
+import type { ScoringScale } from '@prisma/client';
 import { useId } from 'react';
 import { Button } from '~/components/ui/button';
 import {
@@ -11,7 +12,6 @@ import {
   DialogTitle,
 } from '~/components/ui/dialog';
 import { toastError, toastSuccess, trpc } from '~/lib/utils';
-import type { ScoringScale } from '~/server/drizzle/schema';
 import { ScoringScaleForm } from './scoring-scale-form';
 
 type UpdateScoringScaleDialogProps = {
@@ -28,9 +28,9 @@ export function UpdateScoringScaleDialog({
   const formId = useId();
   const utils = trpc.useUtils();
 
-  const { mutate, isPending } = trpc.scoringScales.update.useMutation({
+  const { mutate, isPending } = trpc.scoringScale.update.useMutation({
     onSuccess: () => {
-      utils.scoringScales.invalidate();
+      utils.scoringScale.invalidate();
       onOpenChange();
       toastSuccess(`${scoringScale.description} berhasil diperbarui.`);
     },

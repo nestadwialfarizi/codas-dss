@@ -1,5 +1,5 @@
+import type { Criteria } from '@prisma/client';
 import { create } from 'zustand';
-import type { Criteria } from '~/server/drizzle/schema';
 
 type CriteriaSwitcherState = {
   criteria: Criteria | null;

@@ -1,9 +1,9 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import type { Criteria } from '@prisma/client';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { Button } from '~/components/ui/button';
 import {
   Form,
   FormControl,
@@ -20,7 +20,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '~/components/ui/select';
-import type { Criteria } from '~/server/drizzle/schema';
 
 const criteriaFormSchema = z.object({
   name: z.string().min(1, { message: 'Required' }),
@@ -55,7 +54,7 @@ export function CriteriaForm({
       value: parseInt(values.value),
     };
 
-    return onSubmit(parsedData);
+    onSubmit(parsedData);
   }
 
   return (
@@ -95,8 +94,8 @@ export function CriteriaForm({
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value='benefit'>Benefit</SelectItem>
-                  <SelectItem value='cost'>Cost</SelectItem>
+                  <SelectItem value='BENEFIT'>Benefit</SelectItem>
+                  <SelectItem value='COST'>Cost</SelectItem>
                 </SelectContent>
               </Select>
               <FormMessage />

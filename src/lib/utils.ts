@@ -3,7 +3,7 @@ import { createTRPCReact } from '@trpc/react-query';
 import { type ClassValue, clsx } from 'clsx';
 import { toast } from 'sonner';
 import { twMerge } from 'tailwind-merge';
-import type { Router } from '~/server/router';
+import { Router } from '~/server/routers';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));

@@ -24,9 +24,9 @@ export function CreateCriteriaButton() {
   const { setCriteria } = useCriteriaSwitcher();
   const { isOpen, toggle, close } = useDisclosure();
 
-  const { mutate, isPending } = trpc.criterias.create.useMutation({
+  const { mutate, isPending } = trpc.criteria.create.useMutation({
     onSuccess: (data) => {
-      utils.criterias.invalidate();
+      utils.criteria.invalidate();
       close();
       toastSuccess(`${data.name} berhasil ditambahkan.`);
     },

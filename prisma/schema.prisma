@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Criteria {
+  id             String         @id @default(auto()) @map("_id") @db.ObjectId
+  organizationId String
+  name           String
+  type           CriteriaType
+  value          Int
+  weight         Float?
+  scoringScales  ScoringScale[]
+  evaluations    Evaluation[]
+}
+
+enum CriteriaType {
+  BENEFIT
+  COST
+}
+
+model ScoringScale {
+  id          String       @id @default(auto()) @map("_id") @db.ObjectId
+  criteria    Criteria     @relation(fields: [criteriaId], references: [id], onDelete: Cascade)
+  criteriaId  String       @db.ObjectId
+  description String
+  value       Int
+  evaluations Evaluation[]
+}
+
+model Alternative {
+  id             String       @id @default(auto()) @map("_id") @db.ObjectId
+  organizationId String
+  name           String
+  evaluations    Evaluation[]
+}
+
+model Evaluation {
+  id             String       @id @default(auto()) @map("_id") @db.ObjectId
+  alternative    Alternative  @relation(fields: [alternativeId], references: [id], onDelete: Cascade)
+  alternativeId  String       @db.ObjectId
+  criteria       Criteria     @relation(fields: [criteriaId], references: [id], onDelete: Cascade)
+  criteriaId     String       @db.ObjectId
+  scoringScale   ScoringScale @relation(fields: [scoringScaleId], references: [id], onDelete: Cascade)
+  scoringScaleId String       @db.ObjectId
+}

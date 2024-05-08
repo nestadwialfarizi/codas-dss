@@ -1,8 +1,8 @@
 'use client';
 
+import type { ScoringScale } from '@prisma/client';
 import type { ColumnDef } from '@tanstack/react-table';
 import { SortableButton } from '~/components/data-table';
-import type { ScoringScale } from '~/server/drizzle/schema';
 import { ScoringScaleTableRowActions } from './scoring-scale-table-row-actions';
 
 export const scoringScaleTableColumns: ColumnDef<ScoringScale>[] = [

@@ -1,5 +1,6 @@
 'use client';
 
+import type { ScoringScale } from '@prisma/client';
 import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 import { Fragment } from 'react';
 import { useDisclosure } from 'react-use-disclosure';
@@ -9,7 +10,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '~/components/ui/dropdown-menu';
-import { type ScoringScale } from '~/server/drizzle/schema';
 import { DeleteScoringScaleDialog } from './delete-scoring-scale-dialog';
 import { UpdateScoringScaleDialog } from './update-scoring-scale-dialog';
 

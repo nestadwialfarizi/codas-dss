@@ -1,6 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import type { ScoringScale } from '@prisma/client';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { z } from 'zod';
 import {
@@ -20,9 +21,7 @@ import {
   SelectValue,
 } from '~/components/ui/select';
 import { trpc } from '~/lib/utils';
-import type { ScoringScale } from '~/server/drizzle/schema';
 import { useCriteriaSwitcher } from './use-criteria-switcher';
-import { Button } from '~/components/ui/button';
 
 const scoringScaleFormSchema = z.object({
   criteriaId: z.string().min(1, { message: 'Tidak boleh kosong' }),
@@ -44,7 +43,7 @@ export function ScoringScaleForm({
   prevScoringScale,
 }: ScoringScaleFormProps) {
   const { criteria, setCriteria } = useCriteriaSwitcher();
-  const { data: criterias, isLoading } = trpc.criterias.list.useQuery();
+  const { data: criterias, isLoading } = trpc.criteria.list.useQuery();
 
   const form = useForm<z.infer<typeof scoringScaleFormSchema>>({
     resolver: zodResolver(scoringScaleFormSchema),
@@ -60,7 +59,7 @@ export function ScoringScaleForm({
 
   function handleSubmit(values: z.infer<typeof scoringScaleFormSchema>) {
     const parsedData = {
-      criteriaId: parseInt(values.criteriaId),
+      criteriaId: values.criteriaId,
       description: values.description,
       value: parseInt(values.value),
     };

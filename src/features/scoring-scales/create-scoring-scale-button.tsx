@@ -22,9 +22,9 @@ export function CreateScoringScaleButton() {
 
   const { isOpen, toggle, close } = useDisclosure();
 
-  const { mutate, isPending } = trpc.scoringScales.create.useMutation({
+  const { mutate, isPending } = trpc.scoringScale.create.useMutation({
     onSuccess: (data) => {
-      utils.scoringScales.invalidate();
+      utils.scoringScale.invalidate();
       close();
       toastSuccess(`${data.description} berhasil ditambahkan.`);
     },

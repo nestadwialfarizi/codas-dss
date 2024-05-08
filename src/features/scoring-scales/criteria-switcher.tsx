@@ -14,7 +14,7 @@ import { useCriteriaSwitcher } from './use-criteria-switcher';
 
 export function CriteriaSwitcher() {
   const { criteria, setCriteria } = useCriteriaSwitcher();
-  const { data: criterias, isLoading } = trpc.criterias.list.useQuery();
+  const { data: criterias, isLoading } = trpc.criteria.list.useQuery();
 
   useEffect(() => {
     if (criteria && criterias?.length) {

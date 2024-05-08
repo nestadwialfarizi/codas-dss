@@ -1,9 +1,9 @@
 import { auth } from '@clerk/nextjs/server';
-import { db } from './drizzle/db';
+import { prisma } from './prisma';
 
 export async function createContext() {
   return {
-    db,
+    prisma,
     auth: auth(),
   };
 }

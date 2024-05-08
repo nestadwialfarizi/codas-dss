@@ -1,3 +1,4 @@
+import type { Criteria } from '@prisma/client';
 import { useId } from 'react';
 import { Button } from '~/components/ui/button';
 import {
@@ -9,7 +10,6 @@ import {
   DialogTitle,
 } from '~/components/ui/dialog';
 import { toastError, toastSuccess, trpc } from '~/lib/utils';
-import { Criteria } from '~/server/drizzle/schema';
 import { CriteriaForm } from './criteria-form';
 
 type UpdateCriteriaDialogProps = {
@@ -26,9 +26,9 @@ export function UpdateCriteriaDialog({
   const formId = useId();
   const utils = trpc.useUtils();
 
-  const { mutate, isPending } = trpc.criterias.update.useMutation({
+  const { mutate, isPending } = trpc.criteria.update.useMutation({
     onSuccess: () => {
-      utils.criterias.invalidate();
+      utils.criteria.invalidate();
       onOpenChange();
       toastSuccess(`${criteria.name} berhasil diperbarui.`);
     },

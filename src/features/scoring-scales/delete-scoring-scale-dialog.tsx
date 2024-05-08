@@ -6,7 +6,7 @@ import { toastError, toastSuccess, trpc } from '~/lib/utils';
 type DeleteScoringScaleDialogProps = {
   isOpen: boolean;
   onOpenChange: () => void;
-  scoringScaleId: number;
+  scoringScaleId: string;
 };
 
 export function DeleteScoringScaleDialog({
@@ -16,9 +16,9 @@ export function DeleteScoringScaleDialog({
 }: DeleteScoringScaleDialogProps) {
   const utils = trpc.useUtils();
 
-  const { mutate, isPending } = trpc.scoringScales.delete.useMutation({
+  const { mutate, isPending } = trpc.scoringScale.delete.useMutation({
     onSuccess: (data) => {
-      utils.scoringScales.invalidate();
+      utils.scoringScale.invalidate();
       toastSuccess(`${data.description} berhasil dihapus.`);
     },
     onError: (error) => toastError(error.message),

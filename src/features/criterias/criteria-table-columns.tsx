@@ -1,9 +1,9 @@
 'use client';
 
+import type { Criteria } from '@prisma/client';
 import type { ColumnDef } from '@tanstack/react-table';
 import { SortableButton } from '~/components/data-table';
 import { Badge } from '~/components/ui/badge';
-import type { Criteria } from '~/server/drizzle/schema';
 import { CriteriaTableRowActions } from './criteria-table-row-actions';
 
 export const criteriaTableColumns: ColumnDef<Criteria>[] = [
@@ -27,7 +27,7 @@ export const criteriaTableColumns: ColumnDef<Criteria>[] = [
       const type = cell.getValue() as Criteria['type'];
       return (
         <Badge
-          variant={type === 'benefit' ? 'default' : 'destructive'}
+          variant={type === 'BENEFIT' ? 'default' : 'destructive'}
           className='capitalize'
         >
           {type}

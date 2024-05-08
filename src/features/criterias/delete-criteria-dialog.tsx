@@ -4,7 +4,7 @@ import { toastError, toastSuccess, trpc } from '~/lib/utils';
 type DeleteCriteriaDialogProps = {
   isOpen: boolean;
   onOpenChange: () => void;
-  criteriaId: number;
+  criteriaId: string;
 };
 
 export function DeleteCriteriaDialog({
@@ -14,9 +14,9 @@ export function DeleteCriteriaDialog({
 }: DeleteCriteriaDialogProps) {
   const utils = trpc.useUtils();
 
-  const { mutate, isPending } = trpc.criterias.delete.useMutation({
+  const { mutate, isPending } = trpc.criteria.delete.useMutation({
     onSuccess: (data) => {
-      utils.criterias.invalidate();
+      utils.criteria.invalidate();
       toastSuccess(`${data.name} berhasil dihapus.`);
     },
     onError: (error) => toastError(error.message),
