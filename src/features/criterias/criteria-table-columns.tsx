@@ -60,6 +60,7 @@ export const criteriaTableColumns: ColumnDef<Criteria>[] = [
   {
     id: 'actions',
     enableHiding: false,
+    header: () => <div className='mr-1 text-right'>(Aksi)</div>,
     cell: ({ row }) => (
       <div className='text-right'>
         <CriteriaTableRowActions criteria={row.original} />
