@@ -24,9 +24,7 @@ export const criterias = pgTable('criterias', {
 export const scoringScales = pgTable('scoring_scales', {
   id: serial('id').primaryKey(),
   organizationId: varchar('organization_id', { length: 255 }).notNull(),
-  criteriaId: integer('criteria_id')
-    .notNull()
-    .references(() => criterias.id),
+  criteriaId: integer('criteria_id').references(() => criterias.id),
   description: text('description').notNull(),
   value: integer('value').notNull(),
 });
