@@ -1,48 +1,49 @@
-'use client';
+"use client";
 
-import { Fragment } from 'react';
-import { DataTable } from '~/components/data-table';
+import { trpc } from "src/lib/utils";
+import { DataTable } from "src/components/data-table";
 import {
   PageHeader,
   PageHeaderAction,
   PageHeaderContent,
   PageHeaderDescription,
   PageHeaderTitle,
-} from '~/components/page-header';
-import { CreateCriteriaButton } from '~/features/criterias/create-criteria-button';
-import { criteriaTableColumns } from '~/features/criterias/criteria-table-columns';
-import { trpc } from '~/lib/utils';
+} from "src/components/page-header";
+import { CreateCriteriaButton } from "src/features/criterias/create-criteria-button";
+import { criteriaTableColumns } from "src/features/criterias/criteria-table-columns";
 
 export default function CriteriaPage() {
   const { data: criterias, isLoading } = trpc.criteria.list.useQuery();
 
+  if (isLoading) return <div>Loading...</div>;
+
   return (
-    <Fragment>
-      {isLoading ? (
-        <div>Loading...</div>
-      ) : (
-        criterias && (
-          <Fragment>
-            <PageHeader>
-              <PageHeaderContent>
-                <PageHeaderTitle>Kriteria ({criterias.length})</PageHeaderTitle>
-                <PageHeaderDescription>
-                  Daftar data kriteria, anda juga dapat menambah kriteria baru
-                  atau mengubah dan menghapus kriteria yang sudah ada.
-                </PageHeaderDescription>
-              </PageHeaderContent>
-              <PageHeaderAction asChild>
-                <CreateCriteriaButton />
-              </PageHeaderAction>
-            </PageHeader>
-            <DataTable
-              data={criterias}
-              columns={criteriaTableColumns}
-              filter={{ columnId: 'name', header: 'nama' }}
-            />
-          </Fragment>
-        )
-      )}
-    </Fragment>
+    criterias && (
+      <>
+        <CriteriaPageHeader length={criterias.length} />
+        <DataTable
+          data={criterias}
+          columns={criteriaTableColumns}
+          filter={{ columnId: "name", header: "nama" }}
+        />
+      </>
+    )
+  );
+}
+
+function CriteriaPageHeader({ length }: { length: number }) {
+  return (
+    <PageHeader>
+      <PageHeaderContent>
+        <PageHeaderTitle>Kriteria ({length})</PageHeaderTitle>
+        <PageHeaderDescription>
+          Daftar data kriteria, anda juga dapat menambah kriteria baru atau
+          mengubah dan menghapus kriteria yang sudah ada.
+        </PageHeaderDescription>
+      </PageHeaderContent>
+      <PageHeaderAction asChild>
+        <CreateCriteriaButton />
+      </PageHeaderAction>
+    </PageHeader>
   );
 }

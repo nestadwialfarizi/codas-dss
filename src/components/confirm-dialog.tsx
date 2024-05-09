@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   AlertDialog,
@@ -9,7 +9,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from './ui/alert-dialog';
+} from "src/components/ui/alert-dialog";
 
 type ConfirmDialogProps = {
   open: boolean;
@@ -34,7 +34,7 @@ export function ConfirmDialog({
           <AlertDialogDescription>
             {children
               ? children
-              : 'Ini akan menghapus data beserta relasinya secara permanen dari server.'}
+              : "Ini akan menghapus data beserta relasinya secara permanen dari server."}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

@@ -1,6 +1,7 @@
-'use client';
+"use client";
 
-import { CaretSortIcon } from '@radix-ui/react-icons';
+import { useState } from "react";
+import { CaretSortIcon } from "@radix-ui/react-icons";
 import {
   getCoreRowModel,
   useReactTable,
@@ -12,11 +13,11 @@ import {
   type ColumnDef,
   type ColumnFiltersState,
   type SortingState,
-} from '@tanstack/react-table';
-import { useState } from 'react';
-import { cn } from '~/lib/utils';
-import { Button, type ButtonProps } from './ui/button';
-import { Input } from './ui/input';
+} from "@tanstack/react-table";
+
+import { cn } from "src/lib/utils";
+import { Button, type ButtonProps } from "src/components/ui/button";
+import { Input } from "src/components/ui/input";
 import {
   Table,
   TableBody,
@@ -24,7 +25,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from './ui/table';
+} from "src/components/ui/table";
 
 type DataTableProps<TData, TValue> = {
   data: TData[];
@@ -65,26 +66,26 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div className='space-y-4'>
+    <div className="space-y-4">
       {filter && (
-        <div className='flex items-center justify-between'>
+        <div className="flex items-center justify-between">
           <Input
             name={`filter-${filter.columnId}`}
             placeholder={`Cari berdasarkan ${filter.header}...`}
             value={
               (table.getColumn(filter.columnId)?.getFilterValue() as string) ??
-              ''
+              ""
             }
             onChange={(event) =>
               table
                 .getColumn(filter.columnId)
                 ?.setFilterValue(event.target.value)
             }
-            className='w-[320px]'
+            className="w-[320px]"
           />
         </div>
       )}
-      <div className='rounded-md border'>
+      <div className="rounded-md border">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -94,13 +95,13 @@ export function DataTable<TData, TValue>({
                     key={header.id}
                     colSpan={header.colSpan}
                     className={cn(
-                      styles.bordered && 'border-r last:border-r-0',
+                      styles.bordered && "border-r last:border-r-0"
                     )}
                   >
                     {!header.isPlaceholder &&
                       flexRender(
                         header.column.columnDef.header,
-                        header.getContext(),
+                        header.getContext()
                       )}
                   </TableHead>
                 ))}
@@ -112,18 +113,18 @@ export function DataTable<TData, TValue>({
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  data-state={row.getIsSelected() && 'selected'}
+                  data-state={row.getIsSelected() && "selected"}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell
                       key={cell.id}
                       className={cn(
-                        styles.bordered && 'border-r last:border-r-0',
+                        styles.bordered && "border-r last:border-r-0"
                       )}
                     >
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext(),
+                        cell.getContext()
                       )}
                     </TableCell>
                   ))}
@@ -133,7 +134,7 @@ export function DataTable<TData, TValue>({
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className='h-24 text-center'
+                  className="h-24 text-center"
                 >
                   Tidak ada data ditemukan.
                 </TableCell>
@@ -142,19 +143,19 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <div className='flex items-center justify-between'>
-        <div className='ml-auto space-x-2'>
+      <div className="flex items-center justify-between">
+        <div className="ml-auto space-x-2">
           <Button
-            variant='outline'
-            size='sm'
+            variant="outline"
+            size="sm"
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           >
             Sebelumnya
           </Button>
           <Button
-            variant='outline'
-            size='sm'
+            variant="outline"
+            size="sm"
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >
@@ -177,12 +178,12 @@ export function SortableButton<TData, TValue>({
 }: SortableButtonProps<TData, TValue>) {
   return (
     <Button
-      variant='ghost'
-      onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+      variant="ghost"
+      onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
       {...props}
     >
       {children}
-      <CaretSortIcon className='ml-2' />
+      <CaretSortIcon className="ml-2" />
     </Button>
   );
 }

@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { ConfirmDialog } from '~/components/confirm-dialog';
-import { toastError, toastSuccess, trpc } from '~/lib/utils';
+import { toastError, toastSuccess, trpc } from "src/lib/utils";
+import { ConfirmDialog } from "src/components/confirm-dialog";
 
 type DeleteScoringScaleDialogProps = {
   isOpen: boolean;

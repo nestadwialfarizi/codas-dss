@@ -1,9 +1,12 @@
-'use client';
+"use client";
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import type { ScoringScale } from '@prisma/client';
-import { useForm, type SubmitHandler } from 'react-hook-form';
-import { z } from 'zod';
+import type { ScoringScale } from "@prisma/client";
+import { z } from "zod";
+import { useForm, type SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import { trpc } from "src/lib/utils";
+import { Input } from "src/components/ui/input";
 import {
   Form,
   FormControl,
@@ -11,28 +14,27 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '~/components/ui/form';
-import { Input } from '~/components/ui/input';
+} from "src/components/ui/form";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '~/components/ui/select';
-import { trpc } from '~/lib/utils';
-import { useCriteriaSwitcher } from './use-criteria-switcher';
+} from "src/components/ui/select";
+
+import { useCriteriaSwitcher } from "./use-criteria-switcher";
 
 const scoringScaleFormSchema = z.object({
-  criteriaId: z.string().min(1, { message: 'Tidak boleh kosong' }),
-  description: z.string().min(1, { message: 'Tidak boleh kosong' }),
-  value: z.string().min(1, { message: 'Tidak boleh kosong' }),
+  criteriaId: z.string().min(1, { message: "Tidak boleh kosong" }),
+  description: z.string().min(1, { message: "Tidak boleh kosong" }),
+  value: z.string().min(1, { message: "Tidak boleh kosong" }),
 });
 
 type ScoringScaleFormProps = {
   formId: string;
   onSubmit: SubmitHandler<
-    Pick<ScoringScale, 'criteriaId' | 'description' | 'value'>
+    Pick<ScoringScale, "criteriaId" | "description" | "value">
   >;
   prevScoringScale?: ScoringScale;
 };
@@ -51,9 +53,9 @@ export function ScoringScaleForm({
       criteriaId:
         prevScoringScale?.criteriaId.toString() ??
         criteria?.id.toString() ??
-        '',
-      description: prevScoringScale?.description ?? '',
-      value: prevScoringScale?.value.toString() ?? '',
+        "",
+      description: prevScoringScale?.description ?? "",
+      value: prevScoringScale?.value.toString() ?? "",
     },
   });
 
@@ -65,7 +67,7 @@ export function ScoringScaleForm({
     };
 
     const currentCriteria = criterias?.find(
-      ({ id }) => id === parsedData.criteriaId,
+      ({ id }) => id === parsedData.criteriaId
     );
 
     onSubmit(parsedData);
@@ -77,18 +79,18 @@ export function ScoringScaleForm({
       <form
         id={formId}
         onSubmit={form.handleSubmit(handleSubmit)}
-        className='space-y-4'
+        className="space-y-4"
       >
         <FormField
           control={form.control}
-          name='criteriaId'
+          name="criteriaId"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Kriteria referensi</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue placeholder='Tentukan referensi kriteria' />
+                    <SelectValue placeholder="Tentukan referensi kriteria" />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
@@ -113,13 +115,13 @@ export function ScoringScaleForm({
         />
         <FormField
           control={form.control}
-          name='description'
+          name="description"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Nama</FormLabel>
               <FormControl>
                 <Input
-                  placeholder='e.g. < 50 atau Support/Tidak Support'
+                  placeholder="e.g. < 50 atau Support/Tidak Support"
                   {...field}
                 />
               </FormControl>
@@ -129,22 +131,22 @@ export function ScoringScaleForm({
         />
         <FormField
           control={form.control}
-          name='value'
+          name="value"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Nilai</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue placeholder='Tentukan nilai skala' />
+                    <SelectValue placeholder="Tentukan nilai skala" />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value='1'>1</SelectItem>
-                  <SelectItem value='2'>2</SelectItem>
-                  <SelectItem value='3'>3</SelectItem>
-                  <SelectItem value='4'>4</SelectItem>
-                  <SelectItem value='5'>5</SelectItem>
+                  <SelectItem value="1">1</SelectItem>
+                  <SelectItem value="2">2</SelectItem>
+                  <SelectItem value="3">3</SelectItem>
+                  <SelectItem value="4">4</SelectItem>
+                  <SelectItem value="5">5</SelectItem>
                 </SelectContent>
               </Select>
               <FormMessage />

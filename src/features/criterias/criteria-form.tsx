@@ -1,9 +1,11 @@
-'use client';
+"use client";
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import type { Criteria } from '@prisma/client';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { z } from 'zod';
+import type { Criteria } from "@prisma/client";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { SubmitHandler, useForm } from "react-hook-form";
+
+import { Input } from "src/components/ui/input";
 import {
   Form,
   FormControl,
@@ -11,25 +13,24 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '~/components/ui/form';
-import { Input } from '~/components/ui/input';
+} from "src/components/ui/form";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '~/components/ui/select';
+} from "src/components/ui/select";
 
 const criteriaFormSchema = z.object({
-  name: z.string().min(1, { message: 'Required' }),
-  type: z.string().min(1, { message: 'Required' }),
-  value: z.string().min(1, { message: 'Required' }),
+  name: z.string().min(1, { message: "Required" }),
+  type: z.string().min(1, { message: "Required" }),
+  value: z.string().min(1, { message: "Required" }),
 });
 
 type CriteriaFormProps = {
   formId: string;
-  onSubmit: SubmitHandler<Pick<Criteria, 'name' | 'type' | 'value'>>;
+  onSubmit: SubmitHandler<Pick<Criteria, "name" | "type" | "value">>;
   prevCriteria?: Criteria;
 };
 
@@ -41,16 +42,16 @@ export function CriteriaForm({
   const form = useForm<z.infer<typeof criteriaFormSchema>>({
     resolver: zodResolver(criteriaFormSchema),
     defaultValues: {
-      name: prevCriteria?.name ?? '',
-      type: prevCriteria?.type ?? '',
-      value: prevCriteria?.value.toString() ?? '',
+      name: prevCriteria?.name ?? "",
+      type: prevCriteria?.type ?? "",
+      value: prevCriteria?.value.toString() ?? "",
     },
   });
 
   async function handleSubmit(values: z.infer<typeof criteriaFormSchema>) {
     const parsedData = {
       name: values.name,
-      type: values.type as Criteria['type'],
+      type: values.type as Criteria["type"],
       value: parseInt(values.value),
     };
 
@@ -62,16 +63,16 @@ export function CriteriaForm({
       <form
         id={formId}
         onSubmit={form.handleSubmit(handleSubmit)}
-        className='space-y-4'
+        className="space-y-4"
       >
         <FormField
           control={form.control}
-          name='name'
+          name="name"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Nama</FormLabel>
               <FormControl>
-                <Input placeholder='e.g. Banyak Pilihan Amplifier' {...field} />
+                <Input placeholder="e.g. Banyak Pilihan Amplifier" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -79,7 +80,7 @@ export function CriteriaForm({
         />
         <FormField
           control={form.control}
-          name='type'
+          name="type"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Tipe</FormLabel>
@@ -90,12 +91,12 @@ export function CriteriaForm({
               >
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue placeholder='Tentukan tipe kriteria' />
+                    <SelectValue placeholder="Tentukan tipe kriteria" />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value='BENEFIT'>Benefit</SelectItem>
-                  <SelectItem value='COST'>Cost</SelectItem>
+                  <SelectItem value="BENEFIT">Benefit</SelectItem>
+                  <SelectItem value="COST">Cost</SelectItem>
                 </SelectContent>
               </Select>
               <FormMessage />
@@ -104,22 +105,22 @@ export function CriteriaForm({
         />
         <FormField
           control={form.control}
-          name='value'
+          name="value"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Nilai</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue placeholder='Tentukan nilai kriteria' />
+                    <SelectValue placeholder="Tentukan nilai kriteria" />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value='1'>1</SelectItem>
-                  <SelectItem value='2'>2</SelectItem>
-                  <SelectItem value='3'>3</SelectItem>
-                  <SelectItem value='4'>4</SelectItem>
-                  <SelectItem value='5'>5</SelectItem>
+                  <SelectItem value="1">1</SelectItem>
+                  <SelectItem value="2">2</SelectItem>
+                  <SelectItem value="3">3</SelectItem>
+                  <SelectItem value="4">4</SelectItem>
+                  <SelectItem value="5">5</SelectItem>
                 </SelectContent>
               </Select>
               <FormMessage />

@@ -1,9 +1,10 @@
-import { auth } from '@clerk/nextjs/server';
-import { createTRPCReact } from '@trpc/react-query';
-import { type ClassValue, clsx } from 'clsx';
-import { toast } from 'sonner';
-import { twMerge } from 'tailwind-merge';
-import { Router } from '~/server/routers';
+import { auth } from "@clerk/nextjs/server";
+import { createTRPCReact } from "@trpc/react-query";
+import { type ClassValue, clsx } from "clsx";
+import { toast } from "sonner";
+import { twMerge } from "tailwind-merge";
+
+import { Router } from "src/server/routers";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -14,12 +15,12 @@ export const trpc = createTRPCReact<Router>();
 export function getOrganizationId() {
   const { orgId, userId } = auth();
 
-  if (!userId) throw new Error('Unauthorized');
+  if (!userId) throw new Error("Unauthorized");
 
   return orgId ?? userId;
 }
 export function getBaseUrl() {
-  if (typeof window !== 'undefined') return '';
+  if (typeof window !== "undefined") return "";
   if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
   if (process.env.RENDER_INTERNAL_HOSTNAME)
     return `http://${process.env.RENDER_INTERNAL_HOSTNAME}:${process.env.PORT}`;
@@ -27,9 +28,9 @@ export function getBaseUrl() {
 }
 
 export function toastSuccess(description?: string) {
-  toast.success('Yeah, berhasil!', { description });
+  toast.success("Yeah, berhasil!", { description });
 }
 
 export function toastError(description?: string) {
-  toast.success('Oops, terjadi kesalahan!', { description });
+  toast.success("Oops, terjadi kesalahan!", { description });
 }

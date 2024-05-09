@@ -1,6 +1,8 @@
-import type { Criteria } from '@prisma/client';
-import { useId } from 'react';
-import { Button } from '~/components/ui/button';
+import { useId } from "react";
+import type { Criteria } from "@prisma/client";
+
+import { toastError, toastSuccess, trpc } from "src/lib/utils";
+import { Button } from "src/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -8,9 +10,9 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '~/components/ui/dialog';
-import { toastError, toastSuccess, trpc } from '~/lib/utils';
-import { CriteriaForm } from './criteria-form';
+} from "src/components/ui/dialog";
+
+import { CriteriaForm } from "./criteria-form";
 
 type UpdateCriteriaDialogProps = {
   isOpen: boolean;

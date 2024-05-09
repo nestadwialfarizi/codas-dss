@@ -1,14 +1,15 @@
-import { ClerkProvider } from '@clerk/nextjs';
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import { TRPCProvider } from '~/components/trpc-provider';
-import { Toaster } from '~/components/ui/sonner';
-import { siteConfig } from '~/lib/config';
-import '~/styles/globals.css';
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import { ClerkProvider } from "@clerk/nextjs";
+
+import "src/styles/globals.css";
+import { siteConfig } from "src/lib/config";
+import { TRPCProvider } from "src/components/trpc-provider";
+import { Toaster } from "src/components/ui/sonner";
 
 const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-sans',
+  subsets: ["latin"],
+  variable: "--font-sans",
 });
 
 export const metadata: Metadata = {
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
     default: siteConfig.name,
   },
   description: siteConfig.description,
-  icons: [{ rel: 'icon', url: siteConfig.faviconUrl }],
+  icons: [{ rel: "icon", url: siteConfig.faviconUrl }],
 };
 
 type RootLayoutProps = {
@@ -27,7 +28,7 @@ type RootLayoutProps = {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <ClerkProvider>
-      <html lang='en'>
+      <html lang="en">
         <body className={`font-sans antialiased ${inter.variable}`}>
           <TRPCProvider>
             {children}

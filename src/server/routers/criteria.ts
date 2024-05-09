@@ -1,12 +1,14 @@
-import { TRPCError } from '@trpc/server';
-import { z } from 'zod';
-import { getOrganizationId } from '~/lib/utils';
-import { prisma } from '../prisma';
-import { createRouter, protectedProcedure } from '../trpc';
+import { z } from "zod";
+import { TRPCError } from "@trpc/server";
+
+import { getOrganizationId } from "src/lib/utils";
+
+import { prisma } from "../prisma";
+import { createRouter, protectedProcedure } from "../trpc";
 
 const criteriaInput = z.object({
   name: z.string(),
-  type: z.enum(['BENEFIT', 'COST']),
+  type: z.enum(["BENEFIT", "COST"]),
   value: z.number(),
 });
 
@@ -29,7 +31,7 @@ export const criteriaRouter = createRouter({
 
       if (duplicated) {
         throw new TRPCError({
-          code: 'BAD_REQUEST',
+          code: "BAD_REQUEST",
           message: `${input.name} sudah ada.`,
         });
       }
@@ -49,7 +51,7 @@ export const criteriaRouter = createRouter({
       z.object({
         id: z.string(),
         data: criteriaInput,
-      }),
+      })
     )
     .mutation(async ({ ctx, input }) => {
       const intended = await ctx.prisma.criteria.findUnique({
@@ -65,7 +67,7 @@ export const criteriaRouter = createRouter({
 
       if (duplicated && input.data.name !== intended?.name) {
         throw new TRPCError({
-          code: 'BAD_REQUEST',
+          code: "BAD_REQUEST",
           message: `${input.data.name} sudah ada.`,
         });
       }
@@ -82,7 +84,7 @@ export const criteriaRouter = createRouter({
     .input(
       z.object({
         id: z.string(),
-      }),
+      })
     )
     .mutation(async ({ ctx, input }) => {
       const deleted = await ctx.prisma.criteria.delete({
@@ -103,7 +105,7 @@ async function updateEachCriteriaWeight() {
 
   const totalValue = criterias.reduce(
     (accumulator, criteria) => accumulator + criteria.value,
-    0,
+    0
   );
 
   criterias.forEach(
@@ -111,6 +113,6 @@ async function updateEachCriteriaWeight() {
       await prisma.criteria.update({
         where: { id: criteria.id },
         data: { weight: criteria.value / totalValue },
-      }),
+      })
   );
 }

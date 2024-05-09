@@ -1,11 +1,12 @@
-import { TRPCError, initTRPC } from '@trpc/server';
-import type { Context } from './context';
+import { TRPCError, initTRPC } from "@trpc/server";
+
+import type { Context } from "./context";
 
 const t = initTRPC.context<Context>().create();
 
 const isAuthed = t.middleware(async ({ ctx, next }) => {
   if (!ctx.auth.userId) {
-    throw new TRPCError({ code: 'UNAUTHORIZED' });
+    throw new TRPCError({ code: "UNAUTHORIZED" });
   }
 
   return next({

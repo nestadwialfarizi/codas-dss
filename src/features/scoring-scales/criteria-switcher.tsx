@@ -1,16 +1,18 @@
-'use client';
+"use client";
 
-import { CaretDownIcon } from '@radix-ui/react-icons';
-import { Fragment, useEffect } from 'react';
-import { Button } from '~/components/ui/button';
+import { Fragment, useEffect } from "react";
+import { CaretDownIcon } from "@radix-ui/react-icons";
+
+import { trpc } from "src/lib/utils";
+import { Button } from "src/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '~/components/ui/dropdown-menu';
-import { trpc } from '~/lib/utils';
-import { useCriteriaSwitcher } from './use-criteria-switcher';
+} from "src/components/ui/dropdown-menu";
+
+import { useCriteriaSwitcher } from "./use-criteria-switcher";
 
 export function CriteriaSwitcher() {
   const { criteria, setCriteria } = useCriteriaSwitcher();
@@ -33,12 +35,12 @@ export function CriteriaSwitcher() {
         criterias && (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant='outline'>
+              <Button variant="outline">
                 {criteria?.name}
-                <CaretDownIcon className='ml-2' />
+                <CaretDownIcon className="ml-2" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align='start'>
+            <DropdownMenuContent align="start">
               {criterias.map((criteria) => (
                 <DropdownMenuItem
                   key={criteria.id}

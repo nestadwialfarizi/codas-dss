@@ -1,8 +1,10 @@
-'use client';
+"use client";
 
-import type { ScoringScale } from '@prisma/client';
-import { useId } from 'react';
-import { Button } from '~/components/ui/button';
+import { useId } from "react";
+import type { ScoringScale } from "@prisma/client";
+
+import { toastError, toastSuccess, trpc } from "src/lib/utils";
+import { Button } from "src/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -10,9 +12,9 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '~/components/ui/dialog';
-import { toastError, toastSuccess, trpc } from '~/lib/utils';
-import { ScoringScaleForm } from './scoring-scale-form';
+} from "src/components/ui/dialog";
+
+import { ScoringScaleForm } from "./scoring-scale-form";
 
 type UpdateScoringScaleDialogProps = {
   isOpen: boolean;

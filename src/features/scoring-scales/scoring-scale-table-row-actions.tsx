@@ -1,17 +1,19 @@
-'use client';
+"use client";
 
-import type { ScoringScale } from '@prisma/client';
-import { DotsHorizontalIcon } from '@radix-ui/react-icons';
-import { Fragment } from 'react';
-import { useDisclosure } from 'react-use-disclosure';
+import { Fragment } from "react";
+import type { ScoringScale } from "@prisma/client";
+import { DotsHorizontalIcon } from "@radix-ui/react-icons";
+import { useDisclosure } from "react-use-disclosure";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '~/components/ui/dropdown-menu';
-import { DeleteScoringScaleDialog } from './delete-scoring-scale-dialog';
-import { UpdateScoringScaleDialog } from './update-scoring-scale-dialog';
+} from "src/components/ui/dropdown-menu";
+
+import { DeleteScoringScaleDialog } from "./delete-scoring-scale-dialog";
+import { UpdateScoringScaleDialog } from "./update-scoring-scale-dialog";
 
 type ScoringScaleTableRowActionsProps = {
   scoringScale: ScoringScale;
@@ -29,7 +31,7 @@ export function ScoringScaleTableRowActions({
         <DropdownMenuTrigger>
           <DotsHorizontalIcon />
         </DropdownMenuTrigger>
-        <DropdownMenuContent align='end'>
+        <DropdownMenuContent align="end">
           <DropdownMenuItem onClick={updateDialog.open}>Ubah</DropdownMenuItem>
           <DropdownMenuItem onClick={deleteDialog.open}>Hapus</DropdownMenuItem>
         </DropdownMenuContent>

@@ -1,9 +1,11 @@
-'use client';
+"use client";
 
-import { PlusIcon } from '@radix-ui/react-icons';
-import { useId } from 'react';
-import { useDisclosure } from 'react-use-disclosure';
-import { Button } from '~/components/ui/button';
+import { useId } from "react";
+import { useDisclosure } from "react-use-disclosure";
+import { PlusIcon } from "@radix-ui/react-icons";
+
+import { toastError, toastSuccess, trpc } from "src/lib/utils";
+import { Button } from "src/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -12,10 +14,10 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '~/components/ui/dialog';
-import { toastError, toastSuccess, trpc } from '~/lib/utils';
-import { useCriteriaSwitcher } from '../scoring-scales/use-criteria-switcher';
-import { CriteriaForm } from './criteria-form';
+} from "src/components/ui/dialog";
+
+import { useCriteriaSwitcher } from "../scoring-scales/use-criteria-switcher";
+import { CriteriaForm } from "./criteria-form";
 
 export function CreateCriteriaButton() {
   const formId = useId();
@@ -37,7 +39,7 @@ export function CreateCriteriaButton() {
     <Dialog open={isOpen} onOpenChange={toggle}>
       <DialogTrigger asChild>
         <Button>
-          <PlusIcon className='mr-2' />
+          <PlusIcon className="mr-2" />
           Buat Kriteria
         </Button>
       </DialogTrigger>
