@@ -18,18 +18,12 @@ import { useCriteriaSwitcher } from "src/features/scoring-scales/use-criteria-sw
 export default function ScoringScalePage() {
   const { criteria } = useCriteriaSwitcher();
 
-  const { data: criterias, isLoading: isLoadingCriterias } =
-    trpc.criteria.list.useQuery();
-  const { data: scoringScales, isLoading: isLoadingScoringScales } =
-    trpc.scoringScale.list.useQuery();
+  const { data: criterias } = trpc.criteria.list.useQuery();
+  const { data: scoringScales } = trpc.scoringScale.list.useQuery();
 
   const filteredScoringScales = scoringScales?.filter(
     ({ criteriaId }) => criteriaId === criteria?.id
   );
-
-  if (isLoadingCriterias || isLoadingScoringScales) {
-    return <div>Loading...</div>;
-  }
 
   if (!criterias?.length) return <NoCriteriasHeader />;
 

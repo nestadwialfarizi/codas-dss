@@ -45,7 +45,7 @@ export function ScoringScaleForm({
   prevScoringScale,
 }: ScoringScaleFormProps) {
   const { criteria, setCriteria } = useCriteriaSwitcher();
-  const { data: criterias, isLoading } = trpc.criteria.list.useQuery();
+  const { data: criterias } = trpc.criteria.list.useQuery();
 
   const form = useForm<z.infer<typeof scoringScaleFormSchema>>({
     resolver: zodResolver(scoringScaleFormSchema),
@@ -94,10 +94,7 @@ export function ScoringScaleForm({
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {isLoading ? (
-                    <div>Loading...</div>
-                  ) : (
-                    criterias &&
+                  {criterias &&
                     criterias.map((criteria) => (
                       <SelectItem
                         key={criteria.id}
@@ -105,8 +102,7 @@ export function ScoringScaleForm({
                       >
                         {criteria.name}
                       </SelectItem>
-                    ))
-                  )}
+                    ))}
                 </SelectContent>
               </Select>
               <FormMessage />

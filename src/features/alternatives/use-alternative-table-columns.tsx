@@ -8,14 +8,8 @@ import { Badge } from "src/components/ui/badge";
 import { AlternativeTableRowActions } from "./alternative-table-row-actions";
 
 export function useAlternativeTableColumns() {
-  const { data: criterias, isLoading: isLoadingCriterias } =
-    trpc.criteria.list.useQuery();
-  const { data: evaluations, isLoading: isLoadingEvaluations } =
-    trpc.evaluation.list.useQuery();
-
-  if (isLoadingCriterias || isLoadingEvaluations) {
-    return undefined;
-  }
+  const { data: criterias } = trpc.criteria.list.useQuery();
+  const { data: evaluations } = trpc.evaluation.list.useQuery();
 
   return (
     criterias &&

@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useEffect } from "react";
+import { useEffect } from "react";
 import { CaretDownIcon } from "@radix-ui/react-icons";
 
 import { trpc } from "src/lib/utils";
@@ -16,7 +16,7 @@ import { useCriteriaSwitcher } from "./use-criteria-switcher";
 
 export function CriteriaSwitcher() {
   const { criteria, setCriteria } = useCriteriaSwitcher();
-  const { data: criterias, isLoading } = trpc.criteria.list.useQuery();
+  const { data: criterias } = trpc.criteria.list.useQuery();
 
   useEffect(() => {
     if (criteria && criterias?.length) {
@@ -28,31 +28,25 @@ export function CriteriaSwitcher() {
   }, [criteria, criterias, setCriteria]);
 
   return (
-    <Fragment>
-      {isLoading ? (
-        <div>loading...</div>
-      ) : (
-        criterias && (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline">
-                {criteria?.name}
-                <CaretDownIcon className="ml-2" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="start">
-              {criterias.map((criteria) => (
-                <DropdownMenuItem
-                  key={criteria.id}
-                  onClick={() => setCriteria(criteria)}
-                >
-                  {criteria.name}
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
-        )
-      )}
-    </Fragment>
+    criterias && (
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="outline">
+            {criteria?.name}
+            <CaretDownIcon className="ml-2" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="start">
+          {criterias.map((criteria) => (
+            <DropdownMenuItem
+              key={criteria.id}
+              onClick={() => setCriteria(criteria)}
+            >
+              {criteria.name}
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenuContent>
+      </DropdownMenu>
+    )
   );
 }

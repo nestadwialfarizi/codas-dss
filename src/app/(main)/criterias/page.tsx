@@ -13,9 +13,7 @@ import { CreateCriteriaButton } from "src/features/criterias/create-criteria-but
 import { criteriaTableColumns } from "src/features/criterias/criteria-table-columns";
 
 export default function CriteriaPage() {
-  const { data: criterias, isLoading } = trpc.criteria.list.useQuery();
-
-  if (isLoading) return <div>Loading...</div>;
+  const { data: criterias } = trpc.criteria.list.useQuery();
 
   return (
     criterias && (

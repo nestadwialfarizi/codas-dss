@@ -14,9 +14,7 @@ import { useAlternativeTableColumns } from "src/features/alternatives/use-altern
 
 export default function AlternativePage() {
   const columns = useAlternativeTableColumns();
-  const { data: alternatives, isLoading } = trpc.alternative.list.useQuery();
-
-  if (isLoading) return <div>Loading...</div>;
+  const { data: alternatives } = trpc.alternative.list.useQuery();
 
   return (
     alternatives &&
