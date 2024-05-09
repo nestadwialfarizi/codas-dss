@@ -1,4 +1,6 @@
-import { toastError, toastSuccess, trpc } from "src/lib/utils";
+import { toast } from "sonner";
+
+import { trpc } from "src/lib/utils";
 import { ConfirmDialog } from "src/components/confirm-dialog";
 
 type DeleteCriteriaDialogProps = {
@@ -17,9 +19,10 @@ export function DeleteCriteriaDialog({
   const { mutate, isPending } = trpc.criteria.delete.useMutation({
     onSuccess: (data) => {
       utils.criteria.invalidate();
-      toastSuccess(`${data.name} berhasil dihapus.`);
+      toast.success("Yeah, berhasil!", {
+        description: `${data.name} berhasil dihapus.`,
+      });
     },
-    onError: (error) => toastError(error.message),
   });
 
   return (

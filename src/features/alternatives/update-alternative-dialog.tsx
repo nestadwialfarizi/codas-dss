@@ -1,5 +1,5 @@
 import { useId } from "react";
-import type { Criteria } from "@prisma/client";
+import type { Alternative } from "@prisma/client";
 import { toast } from "sonner";
 
 import { trpc } from "src/lib/utils";
@@ -13,28 +13,28 @@ import {
   DialogTitle,
 } from "src/components/ui/dialog";
 
-import { CriteriaForm } from "./criteria-form";
+import { AlternativeForm } from "./alternative-form";
 
-type UpdateCriteriaDialogProps = {
+type UpdateAlternativeDialogProps = {
   isOpen: boolean;
   onOpenChange: () => void;
-  criteria: Criteria;
+  alternative: Alternative;
 };
 
-export function UpdateCriteriaDialog({
+export function UpdateAlternativeDialog({
   isOpen,
   onOpenChange,
-  criteria,
-}: UpdateCriteriaDialogProps) {
+  alternative,
+}: UpdateAlternativeDialogProps) {
   const formId = useId();
   const utils = trpc.useUtils();
 
-  const { mutate, isPending } = trpc.criteria.update.useMutation({
+  const { mutate, isPending } = trpc.alternative.update.useMutation({
     onSuccess: () => {
-      utils.criteria.invalidate();
+      utils.alternative.invalidate();
       onOpenChange();
       toast.success("Yeah, berhasil!", {
-        description: `${criteria.name} berhasil diperbarui.`,
+        description: `${alternative.name} berhasil diperbarui.`,
       });
     },
     onError: (error) => {
@@ -48,16 +48,16 @@ export function UpdateCriteriaDialog({
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Ubah {criteria.name}</DialogTitle>
+          <DialogTitle>Ubah {alternative.name}</DialogTitle>
           <DialogDescription>
             Ubah data yang tertera pada form di bawah ini, klik simpan perubahan
             untuk menyimpan perubahan.
           </DialogDescription>
         </DialogHeader>
-        <CriteriaForm
+        <AlternativeForm
           formId={formId}
-          prevCriteria={criteria}
-          onSubmit={(values) => mutate({ id: criteria.id, data: values })}
+          prevAlternative={alternative}
+          onSubmit={(values) => mutate({ id: alternative.id, data: values })}
         />
         <DialogFooter>
           <Button form={formId} disabled={isPending}>

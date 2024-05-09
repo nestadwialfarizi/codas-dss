@@ -1,10 +1,11 @@
 "use client";
 
 import { useId } from "react";
-import { useDisclosure } from "react-use-disclosure";
 import { PlusIcon } from "@radix-ui/react-icons";
+import { useDisclosure } from "react-use-disclosure";
+import { toast } from "sonner";
 
-import { toastError, toastSuccess, trpc } from "src/lib/utils";
+import { trpc } from "src/lib/utils";
 import { Button } from "src/components/ui/button";
 import {
   Dialog,
@@ -16,23 +17,26 @@ import {
   DialogTrigger,
 } from "src/components/ui/dialog";
 
-import { useCriteriaSwitcher } from "../scoring-scales/use-criteria-switcher";
 import { CriteriaForm } from "./criteria-form";
 
 export function CreateCriteriaButton() {
   const formId = useId();
   const utils = trpc.useUtils();
-
-  const { setCriteria } = useCriteriaSwitcher();
   const { isOpen, toggle, close } = useDisclosure();
 
   const { mutate, isPending } = trpc.criteria.create.useMutation({
     onSuccess: (data) => {
       utils.criteria.invalidate();
       close();
-      toastSuccess(`${data.name} berhasil ditambahkan.`);
+      toast.success("Yeah, berhasil!", {
+        description: `${data.name} berhasil ditambahkan.`,
+      });
     },
-    onError: (error) => toastError(error.message),
+    onError: (error) => {
+      toast.error("Oops, terjadi kesalahan!", {
+        description: error.message,
+      });
+    },
   });
 
   return (

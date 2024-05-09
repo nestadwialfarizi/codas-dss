@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
+import { ClerkLoaded, OrganizationSwitcher, UserButton } from "@clerk/nextjs";
 
 import { MobileNav } from "src/components/mobile-nav";
 import { DesktopNav } from "src/components/desktop-nav";
@@ -14,7 +14,7 @@ type MainLayoutProps = {
 
 export default function MainLayout({ children }: MainLayoutProps) {
   return (
-    <div>
+    <ClerkLoaded>
       <header className="container flex h-[70px] items-center justify-between border-b">
         <MobileNav />
         <div className="inline-flex items-center">
@@ -44,6 +44,6 @@ export default function MainLayout({ children }: MainLayoutProps) {
         </div>
       </header>
       <main className="container my-6">{children}</main>
-    </div>
+    </ClerkLoaded>
   );
 }

@@ -1,10 +1,11 @@
 "use client";
 
-import { PlusIcon } from "@radix-ui/react-icons";
 import { useId } from "react";
+import { PlusIcon } from "@radix-ui/react-icons";
 import { useDisclosure } from "react-use-disclosure";
+import { toast } from "sonner";
 
-import { toastError, toastSuccess, trpc } from "src/lib/utils";
+import { trpc } from "src/lib/utils";
 import { Button } from "src/components/ui/button";
 import {
   Dialog,
@@ -15,12 +16,26 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "src/components/ui/dialog";
+import { AlternativeForm } from "./alternative-form";
 
 export function CreateAlternativeButton() {
   const formId = useId();
   const utils = trpc.useUtils();
-
   const { isOpen, toggle, close } = useDisclosure();
+
+  const { mutate, isPending } = trpc.alternative.create.useMutation({
+    onSuccess: (data) => {
+      utils.alternative.invalidate();
+      utils.evaluation.invalidate();
+      toast.success("Yeah, berhasil!", {
+        description: `${data.name} berhasil ditambahkan.`,
+      });
+      close();
+    },
+    onError: (error) => {
+      toast.error("Oops, terjadi kesalahan!", { description: error.message });
+    },
+  });
 
   return (
     <Dialog open={isOpen} onOpenChange={toggle}>
@@ -30,16 +45,21 @@ export function CreateAlternativeButton() {
           Buat Alternatif
         </Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="max-h-[550px] overflow-auto">
         <DialogHeader>
           <DialogTitle>Buat data alternatif</DialogTitle>
           <DialogDescription>
             Penuhi form di bawah ini, klik simpan untuk menyimpan data.
           </DialogDescription>
         </DialogHeader>
-        {/* <CriteriaForm formId={formId} onSubmit={(values) => mutate(values)} /> */}
+        <AlternativeForm
+          formId={formId}
+          onSubmit={(values) => mutate(values)}
+        />
         <DialogFooter>
-          <Button form={formId}>Simpan</Button>
+          <Button form={formId} disabled={isPending}>
+            Simpan
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

@@ -3,6 +3,7 @@
 import { useId } from "react";
 import { PlusIcon } from "@radix-ui/react-icons";
 import { useDisclosure } from "react-use-disclosure";
+import { toast } from "sonner";
 
 import { toastError, toastSuccess, trpc } from "src/lib/utils";
 import { Button } from "src/components/ui/button";
@@ -28,9 +29,15 @@ export function CreateScoringScaleButton() {
     onSuccess: (data) => {
       utils.scoringScale.invalidate();
       close();
-      toastSuccess(`${data.description} berhasil ditambahkan.`);
+      toast.success("Yeah, berhasil!", {
+        description: `${data.description} berhasil ditambahkan.`,
+      });
     },
-    onError: (error) => toastError(error.message),
+    onError: (error) => {
+      toast.error("Oops, terjadi kesalahan!", {
+        description: error.message,
+      });
+    },
   });
 
   return (

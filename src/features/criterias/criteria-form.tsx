@@ -54,7 +54,6 @@ export function CriteriaForm({
       type: values.type as Criteria["type"],
       value: parseInt(values.value),
     };
-
     onSubmit(parsedData);
   }
 

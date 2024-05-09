@@ -1,28 +1,26 @@
-"use client";
-
 import { toast } from "sonner";
 
 import { trpc } from "src/lib/utils";
 import { ConfirmDialog } from "src/components/confirm-dialog";
 
-type DeleteScoringScaleDialogProps = {
+type DeleteAlternativeDialogProps = {
   isOpen: boolean;
   onOpenChange: () => void;
-  scoringScaleId: string;
+  alternativeId: string;
 };
 
-export function DeleteScoringScaleDialog({
+export function DeleteAlternativeDialog({
   isOpen,
   onOpenChange,
-  scoringScaleId,
-}: DeleteScoringScaleDialogProps) {
+  alternativeId,
+}: DeleteAlternativeDialogProps) {
   const utils = trpc.useUtils();
 
-  const { mutate, isPending } = trpc.scoringScale.delete.useMutation({
+  const { mutate, isPending } = trpc.alternative.delete.useMutation({
     onSuccess: (data) => {
-      utils.scoringScale.invalidate();
+      utils.alternative.invalidate();
       toast.success("Yeah, berhasil!", {
-        description: `${data.description} berhasil dihapus.`,
+        description: `${data.name} berhasil dihapus.`,
       });
     },
   });
@@ -31,7 +29,7 @@ export function DeleteScoringScaleDialog({
     <ConfirmDialog
       open={isOpen}
       onOpenChange={onOpenChange}
-      action={() => mutate({ id: scoringScaleId })}
+      action={() => mutate({ id: alternativeId })}
       isPending={isPending}
     />
   );

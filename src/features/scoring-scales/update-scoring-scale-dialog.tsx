@@ -2,8 +2,9 @@
 
 import { useId } from "react";
 import type { ScoringScale } from "@prisma/client";
+import { toast } from "sonner";
 
-import { toastError, toastSuccess, trpc } from "src/lib/utils";
+import { trpc } from "src/lib/utils";
 import { Button } from "src/components/ui/button";
 import {
   Dialog,
@@ -34,9 +35,15 @@ export function UpdateScoringScaleDialog({
     onSuccess: () => {
       utils.scoringScale.invalidate();
       onOpenChange();
-      toastSuccess(`${scoringScale.description} berhasil diperbarui.`);
+      toast.success("Yeah, berhasil!", {
+        description: `${scoringScale.description} berhasil diperbarui.`,
+      });
     },
-    onError: (error) => toastError(error.message),
+    onError: (error) => {
+      toast.error("Oops, terjadi kesalahan!", {
+        description: error.message,
+      });
+    },
   });
 
   return (

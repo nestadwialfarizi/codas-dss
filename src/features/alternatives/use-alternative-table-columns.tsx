@@ -5,6 +5,7 @@ import type { ColumnDef } from "@tanstack/react-table";
 
 import { trpc } from "src/lib/utils";
 import { Badge } from "src/components/ui/badge";
+import { AlternativeTableRowActions } from "./alternative-table-row-actions";
 
 export function useAlternativeTableColumns() {
   const { data: criterias, isLoading: isLoadingCriterias } =
@@ -60,7 +61,7 @@ export function useAlternativeTableColumns() {
         header: () => <div className="mr-1 text-right">(Opsi)</div>,
         cell: ({ row }) => (
           <div className="mr-2 text-right">
-            {/* <CriteriaTableRowActions criteria={row.original} /> */}
+            <AlternativeTableRowActions alternative={row.original} />
           </div>
         ),
       },

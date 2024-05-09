@@ -48,4 +48,64 @@ export const alternativeRouter = createRouter({
         },
       });
     }),
+  update: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        data: alternativeInput,
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const intended = await ctx.prisma.alternative.findUnique({
+        where: {
+          id: input.id,
+        },
+      });
+
+      const duplicated = await ctx.prisma.alternative.findFirst({
+        where: {
+          name: input.data.name,
+          organizationId: ctx.auth.organizationId,
+        },
+      });
+
+      if (duplicated && input.data.name !== intended?.name) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: `${input.data.name} sudah ada.`,
+        });
+      }
+
+      await ctx.prisma.evaluation.deleteMany({
+        where: {
+          alternativeId: input.id,
+        },
+      });
+
+      return await ctx.prisma.alternative.update({
+        where: { id: input.id },
+        data: {
+          name: input.data.name,
+          organizationId: ctx.auth.organizationId,
+          evaluations: {
+            createMany: {
+              data: input.data.evaluations,
+            },
+          },
+        },
+      });
+    }),
+  delete: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      return await ctx.prisma.alternative.delete({
+        where: {
+          id: input.id,
+        },
+      });
+    }),
 });
