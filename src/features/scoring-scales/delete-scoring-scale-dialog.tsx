@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { toast } from "sonner";
+import { toast } from 'sonner';
 
-import { trpc } from "src/lib/utils";
-import { ConfirmDialog } from "src/components/confirm-dialog";
+import { trpc } from 'src/lib/utils';
+import { ConfirmDialog } from 'src/components/confirm-dialog';
 
 type DeleteScoringScaleDialogProps = {
   isOpen: boolean;
@@ -21,7 +21,7 @@ export function DeleteScoringScaleDialog({
   const { mutate, isPending } = trpc.scoringScale.delete.useMutation({
     onSuccess: (data) => {
       utils.scoringScale.invalidate();
-      toast.success("Yeah, berhasil!", {
+      toast.success('Yeah, berhasil!', {
         description: `${data.description} berhasil dihapus.`,
       });
     },

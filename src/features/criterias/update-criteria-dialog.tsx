@@ -1,9 +1,9 @@
-import { useId } from "react";
-import type { Criteria } from "@prisma/client";
-import { toast } from "sonner";
+import { useId } from 'react';
+import type { Criteria } from '@prisma/client';
+import { toast } from 'sonner';
 
-import { trpc } from "src/lib/utils";
-import { Button } from "src/components/ui/button";
+import { trpc } from 'src/lib/utils';
+import { Button } from 'src/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -11,9 +11,9 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "src/components/ui/dialog";
+} from 'src/components/ui/dialog';
 
-import { CriteriaForm } from "./criteria-form";
+import { CriteriaForm } from './criteria-form';
 
 type UpdateCriteriaDialogProps = {
   isOpen: boolean;
@@ -33,12 +33,12 @@ export function UpdateCriteriaDialog({
     onSuccess: () => {
       utils.criteria.invalidate();
       onOpenChange();
-      toast.success("Yeah, berhasil!", {
+      toast.success('Yeah, berhasil!', {
         description: `${criteria.name} berhasil diperbarui.`,
       });
     },
     onError: (error) => {
-      toast.error("Oops, terjadi kesalahan!", {
+      toast.error('Oops, terjadi kesalahan!', {
         description: error.message,
       });
     },

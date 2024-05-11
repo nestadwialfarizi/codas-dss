@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import type { Alternative } from "@prisma/client";
-import type { ColumnDef } from "@tanstack/react-table";
+import type { Alternative } from '@prisma/client';
+import type { ColumnDef } from '@tanstack/react-table';
 
-import { trpc } from "src/lib/utils";
-import { Badge } from "src/components/ui/badge";
-import { AlternativeTableRowActions } from "./alternative-table-row-actions";
+import { trpc } from 'src/lib/utils';
+import { Badge } from 'src/components/ui/badge';
+import { AlternativeTableRowActions } from './alternative-table-row-actions';
 
 export function useAlternativeTableColumns() {
   const { data: criterias } = trpc.criteria.list.useQuery();
@@ -16,33 +16,33 @@ export function useAlternativeTableColumns() {
     evaluations &&
     ([
       {
-        id: "code",
-        header: () => <div className="ml-1">Kode</div>,
-        cell: ({ row }) => <div className="ml-1">A{row.index + 1}</div>,
+        id: 'code',
+        header: () => <div className='ml-1'>Kode</div>,
+        cell: ({ row }) => <div className='ml-1'>A{row.index + 1}</div>,
       },
       {
-        accessorKey: "name",
-        header: "Nama",
+        accessorKey: 'name',
+        header: 'Nama',
       },
       {
-        accessorKey: "id",
-        header: <div className="-ml-24 text-center">Penilaian</div>,
+        accessorKey: 'id',
+        header: <div className='-ml-24 text-center'>Penilaian</div>,
         cell: ({ cell }) => {
           const alternativeId = cell.getValue() as string;
           const filteredEvaluations = evaluations.filter(
-            (evaluation) => evaluation.alternativeId === alternativeId
+            (evaluation) => evaluation.alternativeId === alternativeId,
           );
 
           return (
-            <div className="text-center">
+            <div className='text-center'>
               <Badge
                 variant={
                   filteredEvaluations.length === criterias.length
-                    ? "default"
-                    : "destructive"
+                    ? 'default'
+                    : 'destructive'
                 }
               >
-                {filteredEvaluations.length} penilaian dari {criterias.length}{" "}
+                {filteredEvaluations.length} penilaian dari {criterias.length}{' '}
                 kriteria
               </Badge>
             </div>
@@ -50,11 +50,11 @@ export function useAlternativeTableColumns() {
         },
       },
       {
-        id: "actions",
+        id: 'actions',
         enableHiding: false,
-        header: () => <div className="mr-1 text-right">(Opsi)</div>,
+        header: () => <div className='mr-1 text-right'>(Opsi)</div>,
         cell: ({ row }) => (
-          <div className="mr-2 text-right">
+          <div className='mr-2 text-right'>
             <AlternativeTableRowActions alternative={row.original} />
           </div>
         ),

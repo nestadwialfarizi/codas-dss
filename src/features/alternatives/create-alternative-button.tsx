@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useId } from "react";
-import { PlusIcon } from "@radix-ui/react-icons";
-import { useDisclosure } from "react-use-disclosure";
-import { toast } from "sonner";
+import { useId } from 'react';
+import { PlusIcon } from '@radix-ui/react-icons';
+import { useDisclosure } from 'react-use-disclosure';
+import { toast } from 'sonner';
 
-import { trpc } from "src/lib/utils";
-import { Button } from "src/components/ui/button";
+import { trpc } from 'src/lib/utils';
+import { Button } from 'src/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -15,8 +15,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "src/components/ui/dialog";
-import { AlternativeForm } from "./alternative-form";
+} from 'src/components/ui/dialog';
+import { AlternativeForm } from './alternative-form';
 
 export function CreateAlternativeButton() {
   const formId = useId();
@@ -27,13 +27,13 @@ export function CreateAlternativeButton() {
     onSuccess: (data) => {
       utils.alternative.invalidate();
       utils.evaluation.invalidate();
-      toast.success("Yeah, berhasil!", {
+      toast.success('Yeah, berhasil!', {
         description: `${data.name} berhasil ditambahkan.`,
       });
       close();
     },
     onError: (error) => {
-      toast.error("Oops, terjadi kesalahan!", { description: error.message });
+      toast.error('Oops, terjadi kesalahan!', { description: error.message });
     },
   });
 
@@ -41,11 +41,11 @@ export function CreateAlternativeButton() {
     <Dialog open={isOpen} onOpenChange={toggle}>
       <DialogTrigger asChild>
         <Button>
-          <PlusIcon className="mr-2" />
+          <PlusIcon className='mr-2' />
           Buat Alternatif
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-h-[550px] overflow-auto">
+      <DialogContent className='max-h-[550px] overflow-auto'>
         <DialogHeader>
           <DialogTitle>Buat data alternatif</DialogTitle>
           <DialogDescription>

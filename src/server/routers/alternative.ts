@@ -1,7 +1,7 @@
-import { z } from "zod";
-import { TRPCError } from "@trpc/server";
+import { z } from 'zod';
+import { TRPCError } from '@trpc/server';
 
-import { createRouter, protectedProcedure } from "../trpc";
+import { createRouter, protectedProcedure } from '../trpc';
 
 const alternativeInput = z.object({
   name: z.string(),
@@ -9,7 +9,7 @@ const alternativeInput = z.object({
     z.object({
       criteriaId: z.string(),
       scoringScaleId: z.string(),
-    })
+    }),
   ),
 });
 
@@ -31,7 +31,7 @@ export const alternativeRouter = createRouter({
 
       if (duplicated) {
         throw new TRPCError({
-          code: "BAD_REQUEST",
+          code: 'BAD_REQUEST',
           message: `${input.name} sudah ada.`,
         });
       }
@@ -53,7 +53,7 @@ export const alternativeRouter = createRouter({
       z.object({
         id: z.string(),
         data: alternativeInput,
-      })
+      }),
     )
     .mutation(async ({ ctx, input }) => {
       const intended = await ctx.prisma.alternative.findUnique({
@@ -71,7 +71,7 @@ export const alternativeRouter = createRouter({
 
       if (duplicated && input.data.name !== intended?.name) {
         throw new TRPCError({
-          code: "BAD_REQUEST",
+          code: 'BAD_REQUEST',
           message: `${input.data.name} sudah ada.`,
         });
       }
@@ -99,7 +99,7 @@ export const alternativeRouter = createRouter({
     .input(
       z.object({
         id: z.string(),
-      })
+      }),
     )
     .mutation(async ({ ctx, input }) => {
       return await ctx.prisma.alternative.delete({

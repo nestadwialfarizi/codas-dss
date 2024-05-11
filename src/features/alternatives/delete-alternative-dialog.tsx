@@ -1,7 +1,7 @@
-import { toast } from "sonner";
+import { toast } from 'sonner';
 
-import { trpc } from "src/lib/utils";
-import { ConfirmDialog } from "src/components/confirm-dialog";
+import { trpc } from 'src/lib/utils';
+import { ConfirmDialog } from 'src/components/confirm-dialog';
 
 type DeleteAlternativeDialogProps = {
   isOpen: boolean;
@@ -19,7 +19,7 @@ export function DeleteAlternativeDialog({
   const { mutate, isPending } = trpc.alternative.delete.useMutation({
     onSuccess: (data) => {
       utils.alternative.invalidate();
-      toast.success("Yeah, berhasil!", {
+      toast.success('Yeah, berhasil!', {
         description: `${data.name} berhasil dihapus.`,
       });
     },

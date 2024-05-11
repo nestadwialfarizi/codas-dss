@@ -1,7 +1,7 @@
-import { z } from "zod";
-import { TRPCError } from "@trpc/server";
+import { z } from 'zod';
+import { TRPCError } from '@trpc/server';
 
-import { createRouter, protectedProcedure } from "../trpc";
+import { createRouter, protectedProcedure } from '../trpc';
 
 const scoringScaleInput = z.object({
   criteriaId: z.string(),
@@ -31,7 +31,7 @@ export const scoringScaleRouter = createRouter({
 
       if (duplicated) {
         throw new TRPCError({
-          code: "BAD_REQUEST",
+          code: 'BAD_REQUEST',
           message: `Skala penilaian dengan deskripsi ${input.description} sudah ada.`,
         });
       }
@@ -45,7 +45,7 @@ export const scoringScaleRouter = createRouter({
       z.object({
         id: z.string(),
         data: scoringScaleInput,
-      })
+      }),
     )
     .mutation(async ({ ctx, input }) => {
       const intended = await ctx.prisma.scoringScale.findUnique({
@@ -64,7 +64,7 @@ export const scoringScaleRouter = createRouter({
         (duplicated && input.data.criteriaId !== intended?.criteriaId)
       ) {
         throw new TRPCError({
-          code: "BAD_REQUEST",
+          code: 'BAD_REQUEST',
           message: `Skala penilaian dengan deskripsi ${input.data.description} sudah ada.`,
         });
       }
@@ -78,7 +78,7 @@ export const scoringScaleRouter = createRouter({
     .input(
       z.object({
         id: z.string(),
-      })
+      }),
     )
     .mutation(async ({ ctx, input }) => {
       return await ctx.prisma.scoringScale.delete({

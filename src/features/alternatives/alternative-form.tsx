@@ -1,10 +1,10 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import type { Alternative } from "@prisma/client";
-import { z } from "zod";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { zodResolver } from '@hookform/resolvers/zod';
+import type { Alternative } from '@prisma/client';
+import { z } from 'zod';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
-import { trpc } from "src/lib/utils";
-import { Input } from "src/components/ui/input";
+import { trpc } from 'src/lib/utils';
+import { Input } from 'src/components/ui/input';
 import {
   Form,
   FormControl,
@@ -12,14 +12,14 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "src/components/ui/form";
+} from 'src/components/ui/form';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "src/components/ui/select";
+} from 'src/components/ui/select';
 
 const alternativeFormSchema = z.object({
   name: z.string(),
@@ -27,7 +27,7 @@ const alternativeFormSchema = z.object({
     z.object({
       criteriaId: z.string(),
       scoringScaleId: z.string(),
-    })
+    }),
   ),
 });
 
@@ -49,7 +49,7 @@ export function AlternativeForm({
   const form = useForm<z.infer<typeof alternativeFormSchema>>({
     resolver: zodResolver(alternativeFormSchema),
     defaultValues: {
-      name: prevAlternative?.name ?? "",
+      name: prevAlternative?.name ?? '',
       evaluations: [],
     },
   });
@@ -62,16 +62,16 @@ export function AlternativeForm({
         <form
           id={formId}
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-4"
+          className='space-y-4'
         >
           <FormField
             control={form.control}
-            name="name"
+            name='name'
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Nama</FormLabel>
                 <FormControl>
-                  <Input placeholder="Line 6 Helix LT" {...field} />
+                  <Input placeholder='Line 6 Helix LT' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -79,12 +79,13 @@ export function AlternativeForm({
           />
           {criterias.map((criteria, index) => {
             const filteredScoringScales = scoringScales.filter(
-              (scoringScale) => scoringScale.criteriaId === criteria.id
+              (scoringScale) => scoringScale.criteriaId === criteria.id,
             );
 
             const defaultValue = evaluations
               .filter(
-                (evaluation) => evaluation.alternativeId === prevAlternative?.id
+                (evaluation) =>
+                  evaluation.alternativeId === prevAlternative?.id,
               )
               .find((evaluation) => evaluation.criteriaId === criteria.id);
 
@@ -93,11 +94,11 @@ export function AlternativeForm({
                 <FormField
                   control={form.control}
                   name={`evaluations.${index}.criteriaId`}
-                  defaultValue={defaultValue?.criteriaId ?? criteria.id ?? ""}
+                  defaultValue={defaultValue?.criteriaId ?? criteria.id ?? ''}
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <Input type="hidden" {...field} />
+                        <Input type='hidden' {...field} />
                       </FormControl>
                     </FormItem>
                   )}
@@ -105,7 +106,7 @@ export function AlternativeForm({
                 <FormField
                   control={form.control}
                   name={`evaluations.${index}.scoringScaleId`}
-                  defaultValue={defaultValue?.scoringScaleId ?? ""}
+                  defaultValue={defaultValue?.scoringScaleId ?? ''}
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>{criteria.name}</FormLabel>

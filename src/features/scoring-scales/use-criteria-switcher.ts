@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import type { Criteria } from "@prisma/client";
+import { create } from 'zustand';
+import type { Criteria } from '@prisma/client';
 
 type CriteriaSwitcherState = {
   criteria: Criteria | null;

@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { trpc } from "src/lib/utils";
-import { DataTable } from "src/components/data-table";
+import { trpc } from 'src/lib/utils';
+import { DataTable } from 'src/components/data-table';
 import {
   PageHeader,
   PageHeaderAction,
   PageHeaderContent,
   PageHeaderDescription,
   PageHeaderTitle,
-} from "src/components/page-header";
-import { CreateCriteriaButton } from "src/features/criterias/create-criteria-button";
-import { criteriaTableColumns } from "src/features/criterias/criteria-table-columns";
+} from 'src/components/page-header';
+import { CreateCriteriaButton } from 'src/features/criterias/create-criteria-button';
+import { criteriaTableColumns } from 'src/features/criterias/criteria-table-columns';
 
 export default function CriteriaPage() {
   const { data: criterias } = trpc.criteria.list.useQuery();
@@ -22,7 +22,7 @@ export default function CriteriaPage() {
         <DataTable
           data={criterias}
           columns={criteriaTableColumns}
-          filter={{ columnId: "name", header: "nama" }}
+          filter={{ columnId: 'name', header: 'nama' }}
         />
       </>
     )

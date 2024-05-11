@@ -1,9 +1,9 @@
-import { createRouter } from "../trpc";
+import { createRouter } from '../trpc';
 
-import { alternativeRouter } from "./alternative";
-import { criteriaRouter } from "./criteria";
-import { evaluationRouter } from "./evaluation";
-import { scoringScaleRouter } from "./scoring-scale";
+import { alternativeRouter } from './alternative';
+import { criteriaRouter } from './criteria';
+import { evaluationRouter } from './evaluation';
+import { scoringScaleRouter } from './scoring-scale';
 
 export const router = createRouter({
   criteria: criteriaRouter,

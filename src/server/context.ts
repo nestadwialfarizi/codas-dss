@@ -1,6 +1,6 @@
-import { auth } from "@clerk/nextjs/server";
+import { auth } from '@clerk/nextjs/server';
 
-import { prisma } from "./prisma";
+import { prisma } from './prisma';
 
 export async function createContext() {
   return {

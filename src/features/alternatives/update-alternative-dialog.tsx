@@ -1,9 +1,9 @@
-import { useId } from "react";
-import type { Alternative } from "@prisma/client";
-import { toast } from "sonner";
+import { useId } from 'react';
+import type { Alternative } from '@prisma/client';
+import { toast } from 'sonner';
 
-import { trpc } from "src/lib/utils";
-import { Button } from "src/components/ui/button";
+import { trpc } from 'src/lib/utils';
+import { Button } from 'src/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -11,9 +11,9 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "src/components/ui/dialog";
+} from 'src/components/ui/dialog';
 
-import { AlternativeForm } from "./alternative-form";
+import { AlternativeForm } from './alternative-form';
 
 type UpdateAlternativeDialogProps = {
   isOpen: boolean;
@@ -33,12 +33,12 @@ export function UpdateAlternativeDialog({
     onSuccess: () => {
       utils.alternative.invalidate();
       onOpenChange();
-      toast.success("Yeah, berhasil!", {
+      toast.success('Yeah, berhasil!', {
         description: `${alternative.name} berhasil diperbarui.`,
       });
     },
     onError: (error) => {
-      toast.error("Oops, terjadi kesalahan!", {
+      toast.error('Oops, terjadi kesalahan!', {
         description: error.message,
       });
     },

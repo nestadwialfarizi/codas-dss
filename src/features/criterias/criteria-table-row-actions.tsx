@@ -1,19 +1,19 @@
-"use client";
+'use client';
 
-import { Fragment } from "react";
-import type { Criteria } from "@prisma/client";
-import { DotsHorizontalIcon } from "@radix-ui/react-icons";
-import { useDisclosure } from "react-use-disclosure";
+import { Fragment } from 'react';
+import type { Criteria } from '@prisma/client';
+import { DotsHorizontalIcon } from '@radix-ui/react-icons';
+import { useDisclosure } from 'react-use-disclosure';
 
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "src/components/ui/dropdown-menu";
+} from 'src/components/ui/dropdown-menu';
 
-import { DeleteCriteriaDialog } from "./delete-criteria-dialog";
-import { UpdateCriteriaDialog } from "./update-criteria-dialog";
+import { DeleteCriteriaDialog } from './delete-criteria-dialog';
+import { UpdateCriteriaDialog } from './update-criteria-dialog';
 
 type CriteriaTableRowActionsProps = {
   criteria: Criteria;
@@ -31,7 +31,7 @@ export function CriteriaTableRowActions({
         <DropdownMenuTrigger>
           <DotsHorizontalIcon />
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
+        <DropdownMenuContent align='end'>
           <DropdownMenuItem onClick={updateDialog.open}>Ubah</DropdownMenuItem>
           <DropdownMenuItem onClick={deleteDialog.open}>Hapus</DropdownMenuItem>
         </DropdownMenuContent>

@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { trpc } from "src/lib/utils";
-import { DataTable } from "src/components/data-table";
+import { trpc } from 'src/lib/utils';
+import { DataTable } from 'src/components/data-table';
 import {
   PageHeader,
   PageHeaderAction,
   PageHeaderContent,
   PageHeaderDescription,
   PageHeaderTitle,
-} from "src/components/page-header";
-import { CreateAlternativeButton } from "src/features/alternatives/create-alternative-button";
-import { useAlternativeTableColumns } from "src/features/alternatives/use-alternative-table-columns";
+} from 'src/components/page-header';
+import { CreateAlternativeButton } from 'src/features/alternatives/create-alternative-button';
+import { useAlternativeTableColumns } from 'src/features/alternatives/use-alternative-table-columns';
 
 export default function AlternativePage() {
   const columns = useAlternativeTableColumns();
@@ -24,7 +24,7 @@ export default function AlternativePage() {
         <DataTable
           data={alternatives}
           columns={columns}
-          filter={{ columnId: "name", header: "nama" }}
+          filter={{ columnId: 'name', header: 'nama' }}
         />
       </>
     )

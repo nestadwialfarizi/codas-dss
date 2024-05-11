@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useId } from "react";
-import { PlusIcon } from "@radix-ui/react-icons";
-import { useDisclosure } from "react-use-disclosure";
-import { toast } from "sonner";
+import { useId } from 'react';
+import { PlusIcon } from '@radix-ui/react-icons';
+import { useDisclosure } from 'react-use-disclosure';
+import { toast } from 'sonner';
 
-import { trpc } from "src/lib/utils";
-import { Button } from "src/components/ui/button";
+import { trpc } from 'src/lib/utils';
+import { Button } from 'src/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -15,9 +15,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "src/components/ui/dialog";
+} from 'src/components/ui/dialog';
 
-import { CriteriaForm } from "./criteria-form";
+import { CriteriaForm } from './criteria-form';
 
 export function CreateCriteriaButton() {
   const formId = useId();
@@ -28,12 +28,12 @@ export function CreateCriteriaButton() {
     onSuccess: (data) => {
       utils.criteria.invalidate();
       close();
-      toast.success("Yeah, berhasil!", {
+      toast.success('Yeah, berhasil!', {
         description: `${data.name} berhasil ditambahkan.`,
       });
     },
     onError: (error) => {
-      toast.error("Oops, terjadi kesalahan!", {
+      toast.error('Oops, terjadi kesalahan!', {
         description: error.message,
       });
     },
@@ -43,7 +43,7 @@ export function CreateCriteriaButton() {
     <Dialog open={isOpen} onOpenChange={toggle}>
       <DialogTrigger asChild>
         <Button>
-          <PlusIcon className="mr-2" />
+          <PlusIcon className='mr-2' />
           Buat Kriteria
         </Button>
       </DialogTrigger>
