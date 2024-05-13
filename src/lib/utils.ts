@@ -2,7 +2,7 @@ import { auth } from '@clerk/nextjs/server';
 import { createTRPCReact } from '@trpc/react-query';
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import { Router } from 'src/server/routers';
+import { Router } from '~/server/routers';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));

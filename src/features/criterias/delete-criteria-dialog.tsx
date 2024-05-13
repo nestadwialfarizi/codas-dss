@@ -1,6 +1,6 @@
 import { toast } from 'sonner';
-import { trpc } from 'src/lib/utils';
-import { ConfirmDialog } from 'src/components/confirm-dialog';
+import { trpc } from '~/lib/utils';
+import { ConfirmDialog } from '~/components/confirm-dialog';
 
 type DeleteCriteriaDialogProps = {
   isOpen: boolean;

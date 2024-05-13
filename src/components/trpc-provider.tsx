@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { httpBatchLink } from '@trpc/client';
-import { getBaseUrl, trpc } from 'src/lib/utils';
+import { getBaseUrl, trpc } from '~/lib/utils';
 
 type TRPCProviderProps = {
   children: React.ReactNode;

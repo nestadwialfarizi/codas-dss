@@ -1,8 +1,8 @@
 import { PrismaClient } from '@prisma/client';
 
-const prismaClientSingleton = () => {
+function prismaClientSingleton() {
   return new PrismaClient();
-};
+}
 
 declare const globalThis: {
   prismaGlobal: ReturnType<typeof prismaClientSingleton>;

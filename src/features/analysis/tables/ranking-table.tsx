@@ -1,7 +1,7 @@
 'use client';
 
 import type { ColumnDef } from '@tanstack/react-table';
-import { DataTable } from 'src/components/data-table';
+import { DataTable } from '~/components/data-table';
 import { useCodas } from '../use-codas';
 
 const columns: ColumnDef<{

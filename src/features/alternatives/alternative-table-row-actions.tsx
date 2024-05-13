@@ -8,7 +8,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from 'src/components/ui/dropdown-menu';
+} from '~/components/ui/dropdown-menu';
 import { DeleteAlternativeDialog } from './delete-alternative-dialog';
 import { UpdateAlternativeDialog } from './update-alternative-dialog';
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from 'src/lib/utils';
+import { cn } from '~/lib/utils';
 import {
   Table,
   TableBody,
@@ -8,7 +8,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from 'src/components/ui/table';
+} from '~/components/ui/table';
 import { useCodas } from '../use-codas';
 
 export function NormalizedMatrixTable() {

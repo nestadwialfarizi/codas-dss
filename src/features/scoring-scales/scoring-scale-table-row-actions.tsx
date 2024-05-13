@@ -9,7 +9,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from 'src/components/ui/dropdown-menu';
+} from '~/components/ui/dropdown-menu';
 import { DeleteScoringScaleDialog } from './delete-scoring-scale-dialog';
 import { UpdateScoringScaleDialog } from './update-scoring-scale-dialog';
 

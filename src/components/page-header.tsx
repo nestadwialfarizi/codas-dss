@@ -1,5 +1,5 @@
-import { cn } from 'src/lib/utils';
-import { Button, type ButtonProps } from 'src/components/ui/button';
+import { cn } from '~/lib/utils';
+import { Button, type ButtonProps } from './ui/button';
 
 export function PageHeader({
   className,

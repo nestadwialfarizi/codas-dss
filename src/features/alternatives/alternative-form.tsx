@@ -2,8 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import type { Alternative } from '@prisma/client';
 import { z } from 'zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { trpc } from 'src/lib/utils';
-import { Input } from 'src/components/ui/input';
+import { trpc } from '~/lib/utils';
 import {
   Form,
   FormControl,
@@ -11,14 +10,15 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from 'src/components/ui/form';
+} from '~/components/ui/form';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from 'src/components/ui/select';
+} from '~/components/ui/select';
+import { Input } from '~/components/ui/input';
 
 const alternativeFormSchema = z.object({
   name: z.string(),

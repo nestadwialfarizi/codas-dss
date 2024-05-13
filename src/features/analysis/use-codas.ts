@@ -1,4 +1,4 @@
-import { trpc } from 'src/lib/utils';
+import { trpc } from '~/lib/utils';
 
 export function useCodas() {
   const { data: alternatives } = trpc.alternative.list.useQuery();

@@ -4,8 +4,8 @@ import { useId } from 'react';
 import { PlusIcon } from '@radix-ui/react-icons';
 import { useDisclosure } from 'react-use-disclosure';
 import { toast } from 'sonner';
-import { trpc } from 'src/lib/utils';
-import { Button } from 'src/components/ui/button';
+import { trpc } from '~/lib/utils';
+import { Button } from '~/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -14,7 +14,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from 'src/components/ui/dialog';
+} from '~/components/ui/dialog';
 import { ScoringScaleForm } from './scoring-scale-form';
 
 export function CreateScoringScaleButton() {

@@ -1,5 +1,6 @@
 'use client';
 
+import { cn } from '~/lib/utils';
 import {
   Table,
   TableBody,
@@ -7,8 +8,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from 'src/components/ui/table';
-import { cn } from 'src/lib/utils';
+} from '~/components/ui/table';
 import { useCodas } from '../use-codas';
 
 export const WeightedNormalizedMatrixTable = () => {

@@ -7,7 +7,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from 'src/components/ui/table';
+} from '~/components/ui/table';
 import { useCodas } from '../use-codas';
 
 export function AssessmentScoreTable() {

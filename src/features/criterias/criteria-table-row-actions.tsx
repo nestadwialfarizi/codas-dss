@@ -9,7 +9,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from 'src/components/ui/dropdown-menu';
+} from '~/components/ui/dropdown-menu';
 import { DeleteCriteriaDialog } from './delete-criteria-dialog';
 import { UpdateCriteriaDialog } from './update-criteria-dialog';
 

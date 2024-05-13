@@ -1,13 +1,13 @@
 'use client';
 
 import { CaretDownIcon } from '@radix-ui/react-icons';
-import { Button } from 'src/components/ui/button';
+import { Button } from '~/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from 'src/components/ui/dropdown-menu';
+} from '~/components/ui/dropdown-menu';
 import { useStep } from './use-step';
 
 const steps = [

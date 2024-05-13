@@ -1,19 +1,19 @@
 'use client';
 
-import { trpc } from 'src/lib/utils';
-import { DataTable } from 'src/components/data-table';
+import { trpc } from '~/lib/utils';
+import { DataTable } from '~/components/data-table';
 import {
   PageHeader,
   PageHeaderAction,
   PageHeaderContent,
   PageHeaderDescription,
   PageHeaderTitle,
-} from 'src/components/page-header';
-import { CreateCriteriaButton } from 'src/features/criterias/create-criteria-button';
-import { CreateScoringScaleButton } from 'src/features/scoring-scales/create-scoring-scale-button';
-import { CriteriaSwitcher } from 'src/features/scoring-scales/criteria-switcher';
-import { scoringScaleTableColumns } from 'src/features/scoring-scales/scoring-scale-table-columns';
-import { useCriteriaSwitcher } from 'src/features/scoring-scales/use-criteria-switcher';
+} from '~/components/page-header';
+import { CreateCriteriaButton } from '~/features/criterias/create-criteria-button';
+import { CreateScoringScaleButton } from '~/features/scoring-scales/create-scoring-scale-button';
+import { CriteriaSwitcher } from '~/features/scoring-scales/criteria-switcher';
+import { scoringScaleTableColumns } from '~/features/scoring-scales/scoring-scale-table-columns';
+import { useCriteriaSwitcher } from '~/features/scoring-scales/use-criteria-switcher';
 
 export default function ScoringScalePage() {
   const { criteria } = useCriteriaSwitcher();

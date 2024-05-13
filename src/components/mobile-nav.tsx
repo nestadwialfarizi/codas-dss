@@ -1,13 +1,13 @@
 import Link from 'next/link';
 import { ViewVerticalIcon } from '@radix-ui/react-icons';
-import { navItems } from 'src/lib/config';
-import { Button } from 'src/components/ui/button';
+import { navItems } from '~/lib/config';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from 'src/components/ui/dropdown-menu';
+} from './ui/dropdown-menu';
+import { Button } from './ui/button';
 
 export function MobileNav() {
   return (

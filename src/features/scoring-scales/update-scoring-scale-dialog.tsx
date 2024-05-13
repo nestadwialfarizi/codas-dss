@@ -3,8 +3,8 @@
 import { useId } from 'react';
 import type { ScoringScale } from '@prisma/client';
 import { toast } from 'sonner';
-import { trpc } from 'src/lib/utils';
-import { Button } from 'src/components/ui/button';
+import { trpc } from '~/lib/utils';
+import { Button } from '~/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -12,7 +12,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from 'src/components/ui/dialog';
+} from '~/components/ui/dialog';
 import { ScoringScaleForm } from './scoring-scale-form';
 
 type UpdateScoringScaleDialogProps = {

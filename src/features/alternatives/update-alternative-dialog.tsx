@@ -1,8 +1,8 @@
 import { useId } from 'react';
 import type { Alternative } from '@prisma/client';
 import { toast } from 'sonner';
-import { trpc } from 'src/lib/utils';
-import { Button } from 'src/components/ui/button';
+import { trpc } from '~/lib/utils';
+import { Button } from '~/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -10,7 +10,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from 'src/components/ui/dialog';
+} from '~/components/ui/dialog';
 import { AlternativeForm } from './alternative-form';
 
 type UpdateAlternativeDialogProps = {
@@ -44,7 +44,7 @@ export function UpdateAlternativeDialog({
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent>
+      <DialogContent className='max-h-[550px] overflow-auto'>
         <DialogHeader>
           <DialogTitle>Ubah {alternative.name}</DialogTitle>
           <DialogDescription>

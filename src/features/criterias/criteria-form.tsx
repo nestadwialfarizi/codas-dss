@@ -4,7 +4,6 @@ import type { Criteria } from '@prisma/client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Input } from 'src/components/ui/input';
 import {
   Form,
   FormControl,
@@ -12,14 +11,15 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from 'src/components/ui/form';
+} from '~/components/ui/form';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from 'src/components/ui/select';
+} from '~/components/ui/select';
+import { Input } from '~/components/ui/input';
 
 const criteriaFormSchema = z.object({
   name: z.string().min(1, { message: 'Required' }),

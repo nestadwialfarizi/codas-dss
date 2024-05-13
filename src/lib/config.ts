@@ -7,7 +7,6 @@ export const siteConfig = {
 export type SiteConfig = typeof siteConfig;
 
 export const navItems = [
-  { name: 'Tinjauan', href: '/overview' },
   { name: 'Kriteria', href: '/criterias' },
   { name: 'Skala Penilaian', href: '/scoring-scales' },
   { name: 'Alternatif', href: '/alternatives' },

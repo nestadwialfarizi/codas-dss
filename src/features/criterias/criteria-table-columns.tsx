@@ -3,8 +3,8 @@
 import type { Criteria } from '@prisma/client';
 import type { ColumnDef } from '@tanstack/react-table';
 import { pascalCase } from 'change-case';
-import { SortableButton } from 'src/components/data-table';
-import { Badge } from 'src/components/ui/badge';
+import { SortableButton } from '~/components/data-table';
+import { Badge } from '~/components/ui/badge';
 import { CriteriaTableRowActions } from './criteria-table-row-actions';
 
 export const criteriaTableColumns: ColumnDef<Criteria>[] = [

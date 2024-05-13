@@ -1,16 +1,16 @@
 'use client';
 
-import { trpc } from 'src/lib/utils';
-import { DataTable } from 'src/components/data-table';
+import { trpc } from '~/lib/utils';
+import { DataTable } from '~/components/data-table';
 import {
   PageHeader,
   PageHeaderAction,
   PageHeaderContent,
   PageHeaderDescription,
   PageHeaderTitle,
-} from 'src/components/page-header';
-import { CreateCriteriaButton } from 'src/features/criterias/create-criteria-button';
-import { criteriaTableColumns } from 'src/features/criterias/criteria-table-columns';
+} from '~/components/page-header';
+import { CreateCriteriaButton } from '~/features/criterias/create-criteria-button';
+import { criteriaTableColumns } from '~/features/criterias/criteria-table-columns';
 
 export default function CriteriaPage() {
   const { data: criterias } = trpc.criteria.list.useQuery();

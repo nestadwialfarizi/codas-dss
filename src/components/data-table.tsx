@@ -14,9 +14,7 @@ import {
   type ColumnFiltersState,
   type SortingState,
 } from '@tanstack/react-table';
-import { cn } from 'src/lib/utils';
-import { Button, type ButtonProps } from 'src/components/ui/button';
-import { Input } from 'src/components/ui/input';
+import { cn } from '~/lib/utils';
 import {
   Table,
   TableBody,
@@ -24,7 +22,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from 'src/components/ui/table';
+} from './ui/table';
+import { Input } from './ui/input';
+import { Button, type ButtonProps } from './ui/button';
 
 type DataTableProps<TData, TValue> = {
   data: TData[];

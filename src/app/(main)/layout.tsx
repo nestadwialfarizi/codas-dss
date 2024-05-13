@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { ClerkLoaded, OrganizationSwitcher, UserButton } from '@clerk/nextjs';
-import { DesktopNav } from 'src/components/desktop-nav';
-import { MobileNav } from 'src/components/mobile-nav';
+import { DesktopNav } from '~/components/desktop-nav';
+import { MobileNav } from '~/components/mobile-nav';
 
 export const metadata = {
   title: 'Dashboard',
@@ -22,12 +22,14 @@ export default function MainLayout({ children }: MainLayoutProps) {
               appearance={{
                 elements: {
                   organizationSwitcherTrigger: {
-                    '&:hover': { backgroundColor: 'transparent' },
+                    '&:hover': {
+                      backgroundColor: 'transparent',
+                    },
                   },
                 },
               }}
-              afterSelectOrganizationUrl='/overview'
-              afterSelectPersonalUrl='/overview'
+              afterSelectOrganizationUrl='/:id'
+              afterSelectPersonalUrl='/:id'
             />
           </div>
           <DesktopNav />
