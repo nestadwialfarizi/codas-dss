@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { ClerkProvider } from '@clerk/nextjs';
-
 import 'src/styles/globals.css';
 import { siteConfig } from 'src/lib/config';
 import { TRPCProvider } from 'src/components/trpc-provider';

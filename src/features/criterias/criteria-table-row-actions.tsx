@@ -4,14 +4,12 @@ import { Fragment } from 'react';
 import type { Criteria } from '@prisma/client';
 import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 import { useDisclosure } from 'react-use-disclosure';
-
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from 'src/components/ui/dropdown-menu';
-
 import { DeleteCriteriaDialog } from './delete-criteria-dialog';
 import { UpdateCriteriaDialog } from './update-criteria-dialog';
 

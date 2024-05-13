@@ -1,8 +1,7 @@
 import Link from 'next/link';
 import { ClerkLoaded, OrganizationSwitcher, UserButton } from '@clerk/nextjs';
-
-import { MobileNav } from 'src/components/mobile-nav';
 import { DesktopNav } from 'src/components/desktop-nav';
+import { MobileNav } from 'src/components/mobile-nav';
 
 export const metadata = {
   title: 'Dashboard',

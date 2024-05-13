@@ -2,7 +2,6 @@
 
 import type { Alternative } from '@prisma/client';
 import type { ColumnDef } from '@tanstack/react-table';
-
 import { trpc } from 'src/lib/utils';
 import { Badge } from 'src/components/ui/badge';
 import { AlternativeTableRowActions } from './alternative-table-row-actions';

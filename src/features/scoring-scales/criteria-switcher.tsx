@@ -2,7 +2,6 @@
 
 import { useEffect } from 'react';
 import { CaretDownIcon } from '@radix-ui/react-icons';
-
 import { trpc } from 'src/lib/utils';
 import { Button } from 'src/components/ui/button';
 import {
@@ -11,7 +10,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from 'src/components/ui/dropdown-menu';
-
 import { useCriteriaSwitcher } from './use-criteria-switcher';
 
 export function CriteriaSwitcher() {

@@ -1,8 +1,6 @@
 import { z } from 'zod';
 import { TRPCError } from '@trpc/server';
-
 import { getOrganizationId } from 'src/lib/utils';
-
 import { prisma } from '../prisma';
 import { createRouter, protectedProcedure } from '../trpc';
 

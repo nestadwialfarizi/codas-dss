@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { ViewVerticalIcon } from '@radix-ui/react-icons';
-
 import { navItems } from 'src/lib/config';
 import { Button } from 'src/components/ui/button';
 import {

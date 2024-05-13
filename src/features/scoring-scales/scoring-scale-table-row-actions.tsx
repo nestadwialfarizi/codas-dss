@@ -4,14 +4,12 @@ import { Fragment } from 'react';
 import type { ScoringScale } from '@prisma/client';
 import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 import { useDisclosure } from 'react-use-disclosure';
-
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from 'src/components/ui/dropdown-menu';
-
 import { DeleteScoringScaleDialog } from './delete-scoring-scale-dialog';
 import { UpdateScoringScaleDialog } from './update-scoring-scale-dialog';
 

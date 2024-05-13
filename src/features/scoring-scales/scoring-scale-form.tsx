@@ -4,7 +4,6 @@ import type { ScoringScale } from '@prisma/client';
 import { z } from 'zod';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-
 import { trpc } from 'src/lib/utils';
 import { Input } from 'src/components/ui/input';
 import {
@@ -22,7 +21,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from 'src/components/ui/select';
-
 import { useCriteriaSwitcher } from './use-criteria-switcher';
 
 const scoringScaleFormSchema = z.object({

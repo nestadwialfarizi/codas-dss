@@ -3,14 +3,12 @@
 import type { Alternative } from '@prisma/client';
 import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 import { useDisclosure } from 'react-use-disclosure';
-
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from 'src/components/ui/dropdown-menu';
-
 import { DeleteAlternativeDialog } from './delete-alternative-dialog';
 import { UpdateAlternativeDialog } from './update-alternative-dialog';
 

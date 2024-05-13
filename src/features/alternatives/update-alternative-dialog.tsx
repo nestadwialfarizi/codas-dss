@@ -1,7 +1,6 @@
 import { useId } from 'react';
 import type { Alternative } from '@prisma/client';
 import { toast } from 'sonner';
-
 import { trpc } from 'src/lib/utils';
 import { Button } from 'src/components/ui/button';
 import {
@@ -12,7 +11,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from 'src/components/ui/dialog';
-
 import { AlternativeForm } from './alternative-form';
 
 type UpdateAlternativeDialogProps = {

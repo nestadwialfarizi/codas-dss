@@ -1,6 +1,5 @@
 import { z } from 'zod';
 import { TRPCError } from '@trpc/server';
-
 import { createRouter, protectedProcedure } from '../trpc';
 
 const scoringScaleInput = z.object({

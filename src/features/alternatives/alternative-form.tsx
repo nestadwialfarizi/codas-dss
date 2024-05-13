@@ -2,7 +2,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import type { Alternative } from '@prisma/client';
 import { z } from 'zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
-
 import { trpc } from 'src/lib/utils';
 import { Input } from 'src/components/ui/input';
 import {

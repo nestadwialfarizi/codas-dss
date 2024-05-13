@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-
 import { navItems } from 'src/lib/config';
 import { cn } from 'src/lib/utils';
 
