@@ -1,17 +1,26 @@
+'use client';
+
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { ClerkLoaded, OrganizationSwitcher, UserButton } from '@clerk/nextjs';
 import { DesktopNav } from '~/components/desktop-nav';
 import { MobileNav } from '~/components/mobile-nav';
-
-export const metadata = {
-  title: 'Dashboard',
-};
+import { trpc } from '~/lib/utils';
 
 type MainLayoutProps = {
   children: React.ReactNode;
 };
 
 export default function MainLayout({ children }: MainLayoutProps) {
+  const utils = trpc.useUtils();
+  const router = useRouter();
+
+  function handleSwitchOrganization() {
+    utils.invalidate();
+    router.refresh();
+    return '';
+  }
+
   return (
     <ClerkLoaded>
       <header className='container flex h-[70px] items-center justify-between border-b'>
@@ -28,8 +37,8 @@ export default function MainLayout({ children }: MainLayoutProps) {
                   },
                 },
               }}
-              afterSelectOrganizationUrl='/:id'
-              afterSelectPersonalUrl='/:id'
+              afterSelectOrganizationUrl={handleSwitchOrganization}
+              afterSelectPersonalUrl={handleSwitchOrganization}
             />
           </div>
           <DesktopNav />
