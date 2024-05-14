@@ -2,6 +2,7 @@
 
 import { trpc } from '~/lib/utils';
 import { DataTable } from '~/components/data-table';
+import { LoadingIndicator } from '~/components/loading-indicator';
 import {
   PageHeader,
   PageHeaderAction,
@@ -13,8 +14,13 @@ import { CreateAlternativeButton } from '~/features/alternatives/create-alternat
 import { useAlternativeTableColumns } from '~/features/alternatives/use-alternative-table-columns';
 
 export default function AlternativePage() {
-  const columns = useAlternativeTableColumns();
-  const { data: alternatives } = trpc.alternative.list.useQuery();
+  const { columns, isLoading: isLoadingColumns } = useAlternativeTableColumns();
+  const { data: alternatives, isLoading: isLoadingAlternatives } =
+    trpc.alternative.list.useQuery();
+
+  if (isLoadingAlternatives || isLoadingColumns) {
+    return <LoadingIndicator />;
+  }
 
   return (
     alternatives &&

@@ -2,6 +2,7 @@
 
 import { trpc } from '~/lib/utils';
 import { DataTable } from '~/components/data-table';
+import { LoadingIndicator } from '~/components/loading-indicator';
 import {
   PageHeader,
   PageHeaderAction,
@@ -18,14 +19,22 @@ import { useCriteriaSwitcher } from '~/features/scoring-scales/use-criteria-swit
 export default function ScoringScalePage() {
   const { criteria } = useCriteriaSwitcher();
 
-  const { data: criterias } = trpc.criteria.list.useQuery();
-  const { data: scoringScales } = trpc.scoringScale.list.useQuery();
+  const { data: criterias, isLoading: isLoadingCriterias } =
+    trpc.criteria.list.useQuery();
+  const { data: scoringScales, isLoading: isLoadingScoringScales } =
+    trpc.scoringScale.list.useQuery();
 
   const filteredScoringScales = scoringScales?.filter(
     ({ criteriaId }) => criteriaId === criteria?.id,
   );
 
-  if (!criterias?.length) return <NoCriteriasHeader />;
+  if (isLoadingCriterias || isLoadingScoringScales) {
+    return <LoadingIndicator />;
+  }
+
+  if (!criterias?.length) {
+    return <NoCriteriasHeader />;
+  }
 
   return (
     filteredScoringScales && (

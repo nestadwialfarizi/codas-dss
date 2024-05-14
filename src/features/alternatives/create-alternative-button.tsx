@@ -32,7 +32,9 @@ export function CreateAlternativeButton() {
       close();
     },
     onError: (error) => {
-      toast.error('Oops, terjadi kesalahan!', { description: error.message });
+      toast.error('Oops, terjadi kesalahan!', {
+        description: error.message,
+      });
     },
   });
 

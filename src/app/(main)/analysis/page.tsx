@@ -1,6 +1,7 @@
 'use client';
 
 import { trpc } from '~/lib/utils';
+import { LoadingIndicator } from '~/components/loading-indicator';
 import {
   PageHeader,
   PageHeaderAction,
@@ -18,8 +19,13 @@ export default function AnalysisPage() {
   const { step } = useStep();
   const { data: alternatives, isLoading } = trpc.alternative.list.useQuery();
 
-  if (isLoading) return <div />;
-  if (!alternatives?.length) return <NoAlternativesHeader />;
+  if (isLoading) {
+    return <LoadingIndicator />;
+  }
+
+  if (!alternatives?.length) {
+    return <NoAlternativesHeader />;
+  }
 
   return (
     <>

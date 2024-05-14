@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { trpc } from '~/lib/utils';
+import { LoadingIndicator } from '~/components/loading-indicator';
 import { Input } from '~/components/ui/input';
 import {
   Form,
@@ -43,7 +44,7 @@ export function ScoringScaleForm({
   prevScoringScale,
 }: ScoringScaleFormProps) {
   const { criteria, setCriteria } = useCriteriaSwitcher();
-  const { data: criterias } = trpc.criteria.list.useQuery();
+  const { data: criterias, isLoading } = trpc.criteria.list.useQuery();
 
   const form = useForm<z.infer<typeof scoringScaleFormSchema>>({
     resolver: zodResolver(scoringScaleFormSchema),
@@ -70,6 +71,10 @@ export function ScoringScaleForm({
 
     onSubmit(parsedData);
     setCriteria(currentCriteria!);
+  }
+
+  if (isLoading) {
+    return <LoadingIndicator />;
   }
 
   return (
