@@ -47,7 +47,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
           <Link
             href='/docs/criterias'
             target='_blank'
-            className='text-sm text-muted-foreground hover:text-primary'
+            className='hidden text-sm text-muted-foreground hover:text-primary md:block'
           >
             Panduan
           </Link>

@@ -24,6 +24,9 @@ export function MobileNav() {
               <Link href={navItem.href}>{navItem.name}</Link>
             </DropdownMenuItem>
           ))}
+          <DropdownMenuItem asChild>
+            <Link href='/docs/criterias'>Panduan</Link>
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
