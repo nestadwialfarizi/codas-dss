@@ -45,7 +45,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
         </div>
         <div className='inline-flex items-center gap-x-8'>
           <Link
-            href='/docs'
+            href='/docs/get-started'
             target='_blank'
             className='text-sm text-muted-foreground hover:text-primary'
           >
