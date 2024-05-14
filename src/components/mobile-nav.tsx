@@ -25,7 +25,9 @@ export function MobileNav() {
             </DropdownMenuItem>
           ))}
           <DropdownMenuItem asChild>
-            <Link href='/docs/criterias'>Panduan</Link>
+            <Link target='_blank' href='/docs/criterias'>
+              Panduan
+            </Link>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
