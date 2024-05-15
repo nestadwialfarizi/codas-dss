@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { TRPCError } from '@trpc/server';
-import { createRouter, protectedProcedure } from '../trpc';
+import { createRouter, protectedProcedure, adminProcedure } from '../trpc';
 
 const alternativeInput = z.object({
   name: z.string(),
@@ -18,7 +18,7 @@ export const alternativeRouter = createRouter({
       where: { organizationId: ctx.auth.organizationId },
     });
   }),
-  create: protectedProcedure
+  create: adminProcedure
     .input(alternativeInput)
     .mutation(async ({ ctx, input }) => {
       const duplicated = await ctx.prisma.alternative.findFirst({
@@ -47,7 +47,7 @@ export const alternativeRouter = createRouter({
         },
       });
     }),
-  update: protectedProcedure
+  update: adminProcedure
     .input(
       z.object({
         id: z.string(),
@@ -94,7 +94,7 @@ export const alternativeRouter = createRouter({
         },
       });
     }),
-  delete: protectedProcedure
+  delete: adminProcedure
     .input(
       z.object({
         id: z.string(),

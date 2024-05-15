@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { TRPCError } from '@trpc/server';
 import { getOrganizationId } from '~/lib/utils';
 import { prisma } from '../prisma';
-import { createRouter, protectedProcedure } from '../trpc';
+import { createRouter, protectedProcedure, adminProcedure } from '../trpc';
 
 const criteriaInput = z.object({
   name: z.string(),
@@ -17,7 +17,7 @@ export const criteriaRouter = createRouter({
       where: { organizationId: ctx.auth.organizationId },
     });
   }),
-  create: protectedProcedure
+  create: adminProcedure
     .input(criteriaInput)
     .mutation(async ({ ctx, input }) => {
       const duplicated = await ctx.prisma.criteria.findFirst({
@@ -44,7 +44,7 @@ export const criteriaRouter = createRouter({
       await updateEachCriteriaWeight();
       return created;
     }),
-  update: protectedProcedure
+  update: adminProcedure
     .input(
       z.object({
         id: z.string(),
@@ -78,7 +78,7 @@ export const criteriaRouter = createRouter({
       await updateEachCriteriaWeight();
       return updated;
     }),
-  delete: protectedProcedure
+  delete: adminProcedure
     .input(
       z.object({
         id: z.string(),

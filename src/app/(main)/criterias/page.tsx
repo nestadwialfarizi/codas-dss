@@ -10,15 +10,15 @@ import {
   PageHeaderDescription,
   PageHeaderTitle,
 } from '~/components/page-header';
+import { useIsAdmin } from '~/features/auth/use-is-admin';
 import { CreateCriteriaButton } from '~/features/criterias/create-criteria-button';
-import { criteriaTableColumns } from '~/features/criterias/criteria-table-columns';
+import { useCriteriaTableColumns } from '~/features/criterias/use-criteria-table-columns';
 
 export default function CriteriaPage() {
+  const columns = useCriteriaTableColumns();
   const { data: criterias, isLoading } = trpc.criteria.list.useQuery();
 
-  if (isLoading) {
-    return <LoadingIndicator />;
-  }
+  if (isLoading) return <LoadingIndicator />;
 
   return (
     criterias && (
@@ -26,7 +26,7 @@ export default function CriteriaPage() {
         <CriteriaPageHeader length={criterias.length} />
         <DataTable
           data={criterias}
-          columns={criteriaTableColumns}
+          columns={columns}
           filter={{ columnId: 'name', header: 'nama' }}
         />
       </>
@@ -35,6 +35,8 @@ export default function CriteriaPage() {
 }
 
 function CriteriaPageHeader({ length }: { length: number }) {
+  const isAdmin = useIsAdmin();
+
   return (
     <PageHeader>
       <PageHeaderContent>
@@ -44,9 +46,11 @@ function CriteriaPageHeader({ length }: { length: number }) {
           mengubah dan menghapus kriteria yang sudah ada.
         </PageHeaderDescription>
       </PageHeaderContent>
-      <PageHeaderAction asChild>
-        <CreateCriteriaButton />
-      </PageHeaderAction>
+      {isAdmin && (
+        <PageHeaderAction asChild>
+          <CreateCriteriaButton />
+        </PageHeaderAction>
+      )}
     </PageHeader>
   );
 }

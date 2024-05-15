@@ -10,6 +10,7 @@ import {
   PageHeaderTitle,
 } from '~/components/page-header';
 import { Badge } from '~/components/ui/badge';
+import { useIsAdmin } from '~/features/auth/use-is-admin';
 import { CreateAlternativeButton } from '~/features/alternatives/create-alternative-button';
 import { AnalysisTable } from '~/features/analysis/analysis-table';
 import { StepSwitcher } from '~/features/analysis/step-switcher';
@@ -19,13 +20,8 @@ export default function AnalysisPage() {
   const { step } = useStep();
   const { data: alternatives, isLoading } = trpc.alternative.list.useQuery();
 
-  if (isLoading) {
-    return <LoadingIndicator />;
-  }
-
-  if (!alternatives?.length) {
-    return <NoAlternativesHeader />;
-  }
+  if (isLoading) return <LoadingIndicator />;
+  if (!alternatives?.length) return <NoAlternativesHeader />;
 
   return (
     <>
@@ -53,6 +49,8 @@ export default function AnalysisPage() {
 }
 
 function NoAlternativesHeader() {
+  const isAdmin = useIsAdmin();
+
   return (
     <PageHeader>
       <PageHeaderContent>
@@ -60,9 +58,11 @@ function NoAlternativesHeader() {
           Belum ada data alternatif.
         </PageHeaderDescription>
       </PageHeaderContent>
-      <PageHeaderAction asChild>
-        <CreateAlternativeButton />
-      </PageHeaderAction>
+      {isAdmin && (
+        <PageHeaderAction asChild>
+          <CreateAlternativeButton />
+        </PageHeaderAction>
+      )}
     </PageHeader>
   );
 }

@@ -10,6 +10,7 @@ import {
   PageHeaderDescription,
   PageHeaderTitle,
 } from '~/components/page-header';
+import { useIsAdmin } from '~/features/auth/use-is-admin';
 import { CreateAlternativeButton } from '~/features/alternatives/create-alternative-button';
 import { useAlternativeTableColumns } from '~/features/alternatives/use-alternative-table-columns';
 
@@ -18,9 +19,7 @@ export default function AlternativePage() {
   const { data: alternatives, isLoading: isLoadingAlternatives } =
     trpc.alternative.list.useQuery();
 
-  if (isLoadingAlternatives || isLoadingColumns) {
-    return <LoadingIndicator />;
-  }
+  if (isLoadingAlternatives || isLoadingColumns) return <LoadingIndicator />;
 
   return (
     alternatives &&
@@ -38,6 +37,8 @@ export default function AlternativePage() {
 }
 
 function AlternativePageHeader({ length }: { length: number }) {
+  const isAdmin = useIsAdmin();
+
   return (
     <PageHeader>
       <PageHeaderContent>
@@ -47,9 +48,11 @@ function AlternativePageHeader({ length }: { length: number }) {
           alternatif baru atau mengubah dan menghapus alternatif yang sudah ada.
         </PageHeaderDescription>
       </PageHeaderContent>
-      <PageHeaderAction asChild>
-        <CreateAlternativeButton />
-      </PageHeaderAction>
+      {isAdmin && (
+        <PageHeaderAction asChild>
+          <CreateAlternativeButton />
+        </PageHeaderAction>
+      )}
     </PageHeader>
   );
 }

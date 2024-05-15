@@ -5,6 +5,7 @@ import type { ColumnDef } from '@tanstack/react-table';
 import { trpc } from '~/lib/utils';
 import { Badge } from '~/components/ui/badge';
 import { AlternativeTableRowActions } from './alternative-table-row-actions';
+import { useIsAdmin } from '../auth/use-is-admin';
 
 export function useAlternativeTableColumns() {
   const { data: criterias, isLoading: isLoadingCriterias } =
@@ -12,6 +13,7 @@ export function useAlternativeTableColumns() {
   const { data: evaluations, isLoading: isLoadingEvaluations } =
     trpc.evaluation.list.useQuery();
 
+  const isAdmin = useIsAdmin();
   const isLoading = isLoadingCriterias || isLoadingEvaluations;
 
   const columns: ColumnDef<Alternative>[] = [
@@ -51,13 +53,15 @@ export function useAlternativeTableColumns() {
     },
     {
       id: 'actions',
-      enableHiding: false,
-      header: () => <div className='mr-1 text-right'>(Opsi)</div>,
-      cell: ({ row }) => (
-        <div className='mr-2 text-right'>
-          <AlternativeTableRowActions alternative={row.original} />
-        </div>
-      ),
+      ...(isAdmin && {
+        enableHiding: false,
+        header: () => <div className='mr-1 text-right'>(Opsi)</div>,
+        cell: ({ row }) => (
+          <div className='mr-2 text-right'>
+            <AlternativeTableRowActions alternative={row.original} />
+          </div>
+        ),
+      }),
     },
   ];
 

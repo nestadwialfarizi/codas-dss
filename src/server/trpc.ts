@@ -18,6 +18,31 @@ const isAuthed = t.middleware(async ({ ctx, next }) => {
   });
 });
 
+const isAdmin = t.middleware(async ({ ctx, next }) => {
+  if (!ctx.auth.userId) {
+    throw new TRPCError({ code: 'UNAUTHORIZED' });
+  }
+
+  if (
+    !(
+      (ctx.auth.userId && !ctx.auth.orgId) ||
+      (ctx.auth.orgId && ctx.auth.orgSlug === 'org:admin')
+    )
+  ) {
+    throw new TRPCError({ code: 'FORBIDDEN' });
+  }
+
+  return next({
+    ctx: {
+      auth: {
+        ...ctx.auth,
+        organizationId: ctx.auth.orgId ?? ctx.auth.userId,
+      },
+    },
+  });
+});
+
 export const createRouter = t.router;
 export const publicProcedure = t.procedure;
 export const protectedProcedure = t.procedure.use(isAuthed);
+export const adminProcedure = t.procedure.use(isAdmin);

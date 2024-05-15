@@ -10,14 +10,17 @@ import {
   PageHeaderDescription,
   PageHeaderTitle,
 } from '~/components/page-header';
+import { useIsAdmin } from '~/features/auth/use-is-admin';
 import { CreateCriteriaButton } from '~/features/criterias/create-criteria-button';
 import { CreateScoringScaleButton } from '~/features/scoring-scales/create-scoring-scale-button';
 import { CriteriaSwitcher } from '~/features/scoring-scales/criteria-switcher';
-import { scoringScaleTableColumns } from '~/features/scoring-scales/scoring-scale-table-columns';
 import { useCriteriaSwitcher } from '~/features/scoring-scales/use-criteria-switcher';
+import { useScoringScaleTableColumns } from '~/features/scoring-scales/use-scoring-scale-table-columns';
 
 export default function ScoringScalePage() {
+  const isAdmin = useIsAdmin();
   const { criteria } = useCriteriaSwitcher();
+  const columns = useScoringScaleTableColumns();
 
   const { data: criterias, isLoading: isLoadingCriterias } =
     trpc.criteria.list.useQuery();
@@ -28,13 +31,8 @@ export default function ScoringScalePage() {
     ({ criteriaId }) => criteriaId === criteria?.id,
   );
 
-  if (isLoadingCriterias || isLoadingScoringScales) {
-    return <LoadingIndicator />;
-  }
-
-  if (!criterias?.length) {
-    return <NoCriteriasHeader />;
-  }
+  if (isLoadingCriterias || isLoadingScoringScales) return <LoadingIndicator />;
+  if (!criterias?.length) return <NoCriteriasHeader />;
 
   return (
     filteredScoringScales && (
@@ -43,11 +41,11 @@ export default function ScoringScalePage() {
         <div className='flex flex-col gap-y-4'>
           <div className='flex flex-wrap items-center justify-between gap-y-4'>
             <CriteriaSwitcher />
-            <CreateScoringScaleButton />
+            {isAdmin && <CreateScoringScaleButton />}
           </div>
           <DataTable
             data={filteredScoringScales}
-            columns={scoringScaleTableColumns}
+            columns={columns}
             filter={{ columnId: 'description', header: 'deskripsi' }}
           />
         </div>
@@ -57,14 +55,18 @@ export default function ScoringScalePage() {
 }
 
 function NoCriteriasHeader() {
+  const isAdmin = useIsAdmin();
+
   return (
     <PageHeader>
       <PageHeaderContent>
         <PageHeaderDescription>Belum ada data kriteria.</PageHeaderDescription>
       </PageHeaderContent>
-      <PageHeaderAction asChild>
-        <CreateCriteriaButton />
-      </PageHeaderAction>
+      {isAdmin && (
+        <PageHeaderAction asChild>
+          <CreateCriteriaButton />
+        </PageHeaderAction>
+      )}
     </PageHeader>
   );
 }
