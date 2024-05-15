@@ -22,22 +22,36 @@ export default function ScoringScalePage() {
   const { criteria } = useCriteriaSwitcher();
   const columns = useScoringScaleTableColumns();
 
-  const { data: criterias, isLoading: isLoadingCriterias } =
-    trpc.criteria.list.useQuery();
-  const { data: scoringScales, isLoading: isLoadingScoringScales } =
-    trpc.scoringScale.list.useQuery();
+  const queries = trpc.useQueries((t) => [
+    t.criteria.list(),
+    t.scoringScale.list(),
+  ]);
+
+  const isLoading = queries.some((query) => query.isLoading);
+  const [{ data: criterias }, { data: scoringScales }] = queries;
 
   const filteredScoringScales = scoringScales?.filter(
     ({ criteriaId }) => criteriaId === criteria?.id,
   );
 
-  if (isLoadingCriterias || isLoadingScoringScales) return <LoadingIndicator />;
+  if (isLoading) return <LoadingIndicator />;
   if (!criterias?.length) return <NoCriteriasHeader />;
 
   return (
     filteredScoringScales && (
       <>
-        <ScoringScalePageHeader length={filteredScoringScales.length} />
+        <PageHeader>
+          <PageHeaderContent>
+            <PageHeaderTitle>
+              Skala Penilaian ({filteredScoringScales.length})
+            </PageHeaderTitle>
+            <PageHeaderDescription>
+              Daftar skala penilaian, tabel disajikan berdasarkan kriteria
+              referensinya yang dapat diubah pada menu dropdown di bawah ini.
+            </PageHeaderDescription>
+          </PageHeaderContent>
+        </PageHeader>
+
         <div className='flex flex-col gap-y-4'>
           <div className='flex flex-wrap items-center justify-between gap-y-4'>
             <CriteriaSwitcher />
@@ -67,20 +81,6 @@ function NoCriteriasHeader() {
           <CreateCriteriaButton />
         </PageHeaderAction>
       )}
-    </PageHeader>
-  );
-}
-
-function ScoringScalePageHeader({ length }: { length: number }) {
-  return (
-    <PageHeader>
-      <PageHeaderContent>
-        <PageHeaderTitle>Skala Penilaian ({length})</PageHeaderTitle>
-        <PageHeaderDescription>
-          Daftar skala penilaian, tabel disajikan berdasarkan kriteria
-          referensinya yang dapat diubah pada menu dropdown di bawah ini.
-        </PageHeaderDescription>
-      </PageHeaderContent>
     </PageHeader>
   );
 }

@@ -15,17 +15,34 @@ import { CreateAlternativeButton } from '~/features/alternatives/create-alternat
 import { useAlternativeTableColumns } from '~/features/alternatives/use-alternative-table-columns';
 
 export default function AlternativePage() {
-  const { columns, isLoading: isLoadingColumns } = useAlternativeTableColumns();
-  const { data: alternatives, isLoading: isLoadingAlternatives } =
-    trpc.alternative.list.useQuery();
+  const isAdmin = useIsAdmin();
+  const columns = useAlternativeTableColumns();
+  const { data: alternatives, isLoading } = trpc.alternative.list.useQuery();
 
-  if (isLoadingAlternatives || isLoadingColumns) return <LoadingIndicator />;
+  if (isLoading) return <LoadingIndicator />;
 
   return (
     alternatives &&
     columns && (
       <>
-        <AlternativePageHeader length={alternatives.length} />
+        <PageHeader>
+          <PageHeaderContent>
+            <PageHeaderTitle>
+              Alternatif ({alternatives.length})
+            </PageHeaderTitle>
+            <PageHeaderDescription>
+              Data alternatif beserta evaluasinya, anda juga dapat menambah
+              alternatif baru atau mengubah dan menghapus alternatif yang sudah
+              ada.
+            </PageHeaderDescription>
+          </PageHeaderContent>
+          {isAdmin && (
+            <PageHeaderAction asChild>
+              <CreateAlternativeButton />
+            </PageHeaderAction>
+          )}
+        </PageHeader>
+
         <DataTable
           data={alternatives}
           columns={columns}
@@ -33,26 +50,5 @@ export default function AlternativePage() {
         />
       </>
     )
-  );
-}
-
-function AlternativePageHeader({ length }: { length: number }) {
-  const isAdmin = useIsAdmin();
-
-  return (
-    <PageHeader>
-      <PageHeaderContent>
-        <PageHeaderTitle>Alternatif ({length})</PageHeaderTitle>
-        <PageHeaderDescription>
-          Data alternatif beserta evaluasinya, anda juga dapat menambah
-          alternatif baru atau mengubah dan menghapus alternatif yang sudah ada.
-        </PageHeaderDescription>
-      </PageHeaderContent>
-      {isAdmin && (
-        <PageHeaderAction asChild>
-          <CreateAlternativeButton />
-        </PageHeaderAction>
-      )}
-    </PageHeader>
   );
 }

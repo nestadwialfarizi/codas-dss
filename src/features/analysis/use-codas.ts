@@ -1,10 +1,24 @@
 import { trpc } from '~/lib/utils';
 
 export function useCodas() {
-  const { data: alternatives } = trpc.alternative.list.useQuery();
-  const { data: criterias } = trpc.criteria.list.useQuery();
-  const { data: scoringScales } = trpc.scoringScale.list.useQuery();
-  const { data: evaluations } = trpc.evaluation.list.useQuery();
+  const queries = trpc.useQueries((t) => [
+    t.alternative.list(),
+    t.criteria.list(),
+    t.scoringScale.list(),
+    t.evaluation.list(),
+  ]);
+
+  const [
+    alternativesQuery,
+    criteriasQuery,
+    scoringScalesQuery,
+    evaluationsQuery,
+  ] = queries;
+
+  const alternatives = alternativesQuery.data;
+  const criterias = criteriasQuery.data;
+  const scoringScales = scoringScalesQuery.data;
+  const evaluations = evaluationsQuery.data;
 
   const decisionMatrix = {} as any;
   const normalizedMatrix = {} as any;

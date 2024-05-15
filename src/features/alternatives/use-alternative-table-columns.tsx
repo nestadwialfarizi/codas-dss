@@ -4,19 +4,20 @@ import type { Alternative } from '@prisma/client';
 import type { ColumnDef } from '@tanstack/react-table';
 import { trpc } from '~/lib/utils';
 import { Badge } from '~/components/ui/badge';
-import { AlternativeTableRowActions } from './alternative-table-row-actions';
 import { useIsAdmin } from '../auth/use-is-admin';
+import { AlternativeTableRowActions } from './alternative-table-row-actions';
 
 export function useAlternativeTableColumns() {
-  const { data: criterias, isLoading: isLoadingCriterias } =
-    trpc.criteria.list.useQuery();
-  const { data: evaluations, isLoading: isLoadingEvaluations } =
-    trpc.evaluation.list.useQuery();
-
   const isAdmin = useIsAdmin();
-  const isLoading = isLoadingCriterias || isLoadingEvaluations;
 
-  const columns: ColumnDef<Alternative>[] = [
+  const queries = trpc.useQueries((t) => [
+    t.criteria.list(),
+    t.evaluation.list(),
+  ]);
+
+  const [{ data: criterias }, { data: evaluations }] = queries;
+
+  return [
     {
       id: 'code',
       header: () => <div className='ml-1'>Kode</div>,
@@ -63,10 +64,5 @@ export function useAlternativeTableColumns() {
         ),
       }),
     },
-  ];
-
-  return {
-    columns,
-    isLoading,
-  };
+  ] as ColumnDef<Alternative>[];
 }

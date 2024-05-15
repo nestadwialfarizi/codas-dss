@@ -42,12 +42,18 @@ export function AlternativeForm({
   onSubmit,
   prevAlternative,
 }: AlternativeFormProps) {
-  const { data: criterias, isLoading: isLoadingCriterias } =
-    trpc.criteria.list.useQuery();
-  const { data: scoringScales, isLoading: isLoadingScoringScales } =
-    trpc.scoringScale.list.useQuery();
-  const { data: evaluations, isLoading: isLoadingEvaluations } =
-    trpc.evaluation.list.useQuery();
+  const queries = trpc.useQueries((t) => [
+    t.criteria.list(),
+    t.scoringScale.list(),
+    t.evaluation.list(),
+  ]);
+
+  const [criteriasQuery, scoringScalesQuery, evaluationsQuery] = queries;
+
+  const criterias = criteriasQuery.data;
+  const scoringScales = scoringScalesQuery.data;
+  const evaluations = evaluationsQuery.data;
+  const isLoading = queries.some((query) => query.isLoading);
 
   const form = useForm<z.infer<typeof alternativeFormSchema>>({
     resolver: zodResolver(alternativeFormSchema),
@@ -57,9 +63,7 @@ export function AlternativeForm({
     },
   });
 
-  if (isLoadingCriterias || isLoadingScoringScales || isLoadingEvaluations) {
-    return <LoadingIndicator />;
-  }
+  if (isLoading) return <LoadingIndicator />;
 
   return (
     criterias &&

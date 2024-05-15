@@ -15,6 +15,7 @@ import { CreateCriteriaButton } from '~/features/criterias/create-criteria-butto
 import { useCriteriaTableColumns } from '~/features/criterias/use-criteria-table-columns';
 
 export default function CriteriaPage() {
+  const isAdmin = useIsAdmin();
   const columns = useCriteriaTableColumns();
   const { data: criterias, isLoading } = trpc.criteria.list.useQuery();
 
@@ -23,7 +24,21 @@ export default function CriteriaPage() {
   return (
     criterias && (
       <>
-        <CriteriaPageHeader length={criterias.length} />
+        <PageHeader>
+          <PageHeaderContent>
+            <PageHeaderTitle>Kriteria ({criterias.length})</PageHeaderTitle>
+            <PageHeaderDescription>
+              Daftar data kriteria, anda juga dapat menambah kriteria baru atau
+              mengubah dan menghapus kriteria yang sudah ada.
+            </PageHeaderDescription>
+          </PageHeaderContent>
+          {isAdmin && (
+            <PageHeaderAction asChild>
+              <CreateCriteriaButton />
+            </PageHeaderAction>
+          )}
+        </PageHeader>
+
         <DataTable
           data={criterias}
           columns={columns}
@@ -31,26 +46,5 @@ export default function CriteriaPage() {
         />
       </>
     )
-  );
-}
-
-function CriteriaPageHeader({ length }: { length: number }) {
-  const isAdmin = useIsAdmin();
-
-  return (
-    <PageHeader>
-      <PageHeaderContent>
-        <PageHeaderTitle>Kriteria ({length})</PageHeaderTitle>
-        <PageHeaderDescription>
-          Daftar data kriteria, anda juga dapat menambah kriteria baru atau
-          mengubah dan menghapus kriteria yang sudah ada.
-        </PageHeaderDescription>
-      </PageHeaderContent>
-      {isAdmin && (
-        <PageHeaderAction asChild>
-          <CreateCriteriaButton />
-        </PageHeaderAction>
-      )}
-    </PageHeader>
   );
 }
