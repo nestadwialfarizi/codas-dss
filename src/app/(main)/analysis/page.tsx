@@ -23,7 +23,7 @@ export default function AnalysisPage() {
   const { step } = useStep();
   const { data: alternatives, isLoading } = trpc.alternative.list.useQuery();
 
-  if (isLoading) return <LoadingIndicator />;
+  if (isLoading) return <LoadingIndicator className='mt-52' />;
   if (!alternatives?.length) return <NoAlternativesHeader />;
 
   return (

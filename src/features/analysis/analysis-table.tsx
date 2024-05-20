@@ -13,22 +13,22 @@ import { useStep } from './use-step';
 export function AnalysisTable() {
   const { step } = useStep();
 
-  switch (step) {
-    case 'Matriks Keputusan':
+  switch (step.slug) {
+    case 'decision-matrix':
       return <DecisionMatrixTable />;
-    case 'Matriks Normalisasi':
+    case 'normalized-matrix':
       return <NormalizedMatrixTable />;
-    case 'Matriks Normalisasi Terbobot':
+    case 'weighted-normalized-matrix':
       return <WeightedNormalizedMatrixTable />;
-    case 'Nilai Ideal-negatif':
+    case 'ideal-negative-value':
       return <IdealNegativeValueTable />;
-    case 'Jarak Euclidean dan Taxicab':
+    case 'euclidean-and-taxicab-distance':
       return <EuclideanAndTaxicabDistanceTable />;
-    case 'Matriks Relative Assessment':
+    case 'relative-assessment-matrix':
       return <RelativeAssessmentMatrixTable />;
-    case 'Nilai Assessment':
+    case 'assessment-score':
       return <AssessmentScoreTable />;
-    case 'Perankingan':
+    case 'ranking':
       return <RankingTable />;
     default:
       break;

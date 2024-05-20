@@ -119,7 +119,7 @@ export function ScoringScaleForm({
               <DialogTitle>
                 {prevScoringScale
                   ? `Ubah data skala penilaian ${prevScoringScale.description}`
-                  : 'Buat data kriteria'}
+                  : 'Buat data skala penilaian'}
               </DialogTitle>
               <DialogDescription>
                 {prevScoringScale

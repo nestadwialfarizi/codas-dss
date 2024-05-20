@@ -1,7 +1,16 @@
 import { create } from 'zustand';
 
-export type StepState = {
-  step:
+export type Step = {
+  slug:
+    | 'decision-matrix'
+    | 'normalized-matrix'
+    | 'weighted-normalized-matrix'
+    | 'ideal-negative-value'
+    | 'euclidean-and-taxicab-distance'
+    | 'relative-assessment-matrix'
+    | 'assessment-score'
+    | 'ranking';
+  name:
     | 'Matriks Keputusan'
     | 'Matriks Normalisasi'
     | 'Matriks Normalisasi Terbobot'
@@ -10,10 +19,14 @@ export type StepState = {
     | 'Matriks Relative Assessment'
     | 'Nilai Assessment'
     | 'Perankingan';
-  setStep: (step: StepState['step']) => void;
+};
+
+export type StepState = {
+  step: Step;
+  setStep: (step: Step) => void;
 };
 
 export const useStep = create<StepState>()((set) => ({
-  step: 'Matriks Keputusan',
+  step: { slug: 'decision-matrix', name: 'Matriks Keputusan' },
   setStep: (step) => set(() => ({ step })),
 }));

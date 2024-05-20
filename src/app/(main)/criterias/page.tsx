@@ -21,31 +21,29 @@ export default function CriteriaPage() {
   const { isOpen, open, close } = useDisclosure();
   const { data: criterias, isLoading } = trpc.criteria.list.useQuery();
 
-  if (isLoading) return <LoadingIndicator />;
+  if (isLoading) return <LoadingIndicator className='mt-52' />;
 
   return (
-    criterias && (
-      <>
-        <PageHeader>
-          <PageHeaderContent>
-            <PageHeaderTitle>Kriteria ({criterias.length})</PageHeaderTitle>
-            <PageHeaderDescription>
-              Daftar data kriteria, anda juga dapat menambah kriteria baru atau
-              mengubah dan menghapus kriteria yang sudah ada.
-            </PageHeaderDescription>
-          </PageHeaderContent>
-          {isAdmin && (
-            <PageHeaderAction asChild>
-              <Button onClick={open}>
-                <PlusIcon className='mr-2' />
-                Buat Kriteria
-              </Button>
-            </PageHeaderAction>
-          )}
-        </PageHeader>
-        <CriteriaTable criterias={criterias} />
-        <CriteriaForm open={isOpen} onOpenChange={close} />
-      </>
-    )
+    <>
+      <PageHeader>
+        <PageHeaderContent>
+          <PageHeaderTitle>Kriteria ({criterias?.length})</PageHeaderTitle>
+          <PageHeaderDescription>
+            Daftar data kriteria, anda juga dapat menambah kriteria baru atau
+            mengubah dan menghapus kriteria yang sudah ada.
+          </PageHeaderDescription>
+        </PageHeaderContent>
+        {isAdmin && (
+          <PageHeaderAction asChild>
+            <Button onClick={open}>
+              <PlusIcon className='mr-2' />
+              Buat Kriteria
+            </Button>
+          </PageHeaderAction>
+        )}
+      </PageHeader>
+      {criterias && <CriteriaTable criterias={criterias} />}
+      <CriteriaForm open={isOpen} onOpenChange={close} />
+    </>
   );
 }

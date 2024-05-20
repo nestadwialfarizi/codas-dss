@@ -21,7 +21,7 @@ export default function AlternativePage() {
   const { isOpen, open, close } = useDisclosure();
   const { data: alternatives, isLoading } = trpc.alternative.list.useQuery();
 
-  if (isLoading) return <LoadingIndicator />;
+  if (isLoading) return <LoadingIndicator className='mt-52' />;
 
   return (
     alternatives && (

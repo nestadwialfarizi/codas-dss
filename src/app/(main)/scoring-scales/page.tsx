@@ -33,7 +33,9 @@ export default function ScoringScalePage() {
     ({ criteriaId }) => criteriaId === criteria?.id,
   );
 
-  if (isLoadingCriterias || isLoadingScoringScales) return <LoadingIndicator />;
+  const isLoading = isLoadingCriterias || isLoadingScoringScales;
+
+  if (isLoading) return <LoadingIndicator className='mt-52' />;
   if (!criterias?.length) return <NoCriteriasHeader />;
 
   return (

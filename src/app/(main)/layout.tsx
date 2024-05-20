@@ -1,11 +1,17 @@
 'use client';
 
-import { ClerkLoaded, OrganizationSwitcher, UserButton } from '@clerk/nextjs';
+import {
+  ClerkLoaded,
+  ClerkLoading,
+  OrganizationSwitcher,
+  UserButton,
+} from '@clerk/nextjs';
 import { ViewVerticalIcon } from '@radix-ui/react-icons';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useMemo } from 'react';
 import { cn, trpc } from '~/lib/utils';
+import { LoadingIndicator } from '~/components/loading-indicator';
 import { Button } from '~/components/ui/button';
 import {
   DropdownMenu,
@@ -25,21 +31,28 @@ function CustomizedOrganizationSwitcher() {
   }
 
   return (
-    <div className='rounded-md border px-1 text-center hover:bg-accent'>
-      <OrganizationSwitcher
-        appearance={{
-          elements: {
-            organizationSwitcherTrigger: {
-              '&:hover': {
-                backgroundColor: 'transparent',
+    <>
+      <ClerkLoading>
+        <LoadingIndicator className='h-4 w-4' />
+      </ClerkLoading>
+      <ClerkLoaded>
+        <div className='rounded-md border px-1 text-center hover:bg-accent'>
+          <OrganizationSwitcher
+            appearance={{
+              elements: {
+                organizationSwitcherTrigger: {
+                  '&:hover': {
+                    backgroundColor: 'transparent',
+                  },
+                },
               },
-            },
-          },
-        }}
-        afterSelectOrganizationUrl={handleSwitchOrganization}
-        afterSelectPersonalUrl={handleSwitchOrganization}
-      />
-    </div>
+            }}
+            afterSelectOrganizationUrl={handleSwitchOrganization}
+            afterSelectPersonalUrl={handleSwitchOrganization}
+          />
+        </div>
+      </ClerkLoaded>
+    </>
   );
 }
 
@@ -61,7 +74,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
   );
 
   return (
-    <ClerkLoaded>
+    <>
       <header className='container flex h-16 items-center justify-between border-b'>
         <nav className='lg:hidden'>
           <DropdownMenu>
@@ -104,10 +117,15 @@ export default function MainLayout({ children }: MainLayoutProps) {
           >
             Panduan
           </Link>
-          <UserButton />
+          <ClerkLoading>
+            <LoadingIndicator className='h-4 w-4' />
+          </ClerkLoading>
+          <ClerkLoaded>
+            <UserButton />
+          </ClerkLoaded>
         </div>
       </header>
       <main className='container my-6'>{children}</main>
-    </ClerkLoaded>
+    </>
   );
 }
