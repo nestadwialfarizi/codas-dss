@@ -5,12 +5,3 @@ export const siteConfig = {
 };
 
 export type SiteConfig = typeof siteConfig;
-
-export const navItems = [
-  { name: 'Kriteria', href: '/criterias' },
-  { name: 'Skala Penilaian', href: '/scoring-scales' },
-  { name: 'Alternatif', href: '/alternatives' },
-  { name: 'Analisis', href: '/analysis' },
-];
-
-export type NavItems = typeof navItems;

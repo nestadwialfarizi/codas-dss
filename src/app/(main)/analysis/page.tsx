@@ -1,5 +1,7 @@
 'use client';
 
+import { PlusIcon } from '@radix-ui/react-icons';
+import { useDisclosure } from 'react-use-disclosure';
 import { trpc } from '~/lib/utils';
 import { LoadingIndicator } from '~/components/loading-indicator';
 import {
@@ -10,11 +12,12 @@ import {
   PageHeaderTitle,
 } from '~/components/page-header';
 import { Badge } from '~/components/ui/badge';
-import { useIsAdmin } from '~/features/auth/use-is-admin';
-import { CreateAlternativeButton } from '~/features/alternatives/create-alternative-button';
+import { Button } from '~/components/ui/button';
+import { AlternativeForm } from '~/features/alternatives/alternative-form';
 import { AnalysisTable } from '~/features/analysis/analysis-table';
 import { StepSwitcher } from '~/features/analysis/step-switcher';
 import { useStep } from '~/features/analysis/use-step';
+import { useIsAdmin } from '~/features/auth/use-is-admin';
 
 export default function AnalysisPage() {
   const { step } = useStep();
@@ -50,19 +53,26 @@ export default function AnalysisPage() {
 
 function NoAlternativesHeader() {
   const isAdmin = useIsAdmin();
+  const { isOpen, open, close } = useDisclosure();
 
   return (
-    <PageHeader>
-      <PageHeaderContent>
-        <PageHeaderDescription>
-          Belum ada data alternatif.
-        </PageHeaderDescription>
-      </PageHeaderContent>
-      {isAdmin && (
-        <PageHeaderAction asChild>
-          <CreateAlternativeButton />
-        </PageHeaderAction>
-      )}
-    </PageHeader>
+    <>
+      <PageHeader>
+        <PageHeaderContent>
+          <PageHeaderDescription>
+            Belum ada data alternatif.
+          </PageHeaderDescription>
+        </PageHeaderContent>
+        {isAdmin && (
+          <PageHeaderAction asChild>
+            <Button onClick={open}>
+              <PlusIcon className='mr-2' />
+              Buat Alternatif
+            </Button>
+          </PageHeaderAction>
+        )}
+      </PageHeader>
+      <AlternativeForm open={isOpen} onOpenChange={close} />
+    </>
   );
 }

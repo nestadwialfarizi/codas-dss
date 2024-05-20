@@ -1,8 +1,9 @@
 'use client';
 
+import { PlusIcon } from '@radix-ui/react-icons';
+import { useDisclosure } from 'react-use-disclosure';
 import { trpc } from '~/lib/utils';
-import { DataTable } from '~/components/data-table';
-import { LoadingIndicator } from '~/components/loading-indicator';
+import { Button } from '~/components/ui/button';
 import {
   PageHeader,
   PageHeaderAction,
@@ -10,20 +11,20 @@ import {
   PageHeaderDescription,
   PageHeaderTitle,
 } from '~/components/page-header';
+import { LoadingIndicator } from '~/components/loading-indicator';
+import { AlternativeForm } from '~/features/alternatives/alternative-form';
+import { AlternativeTable } from '~/features/alternatives/alternative-table';
 import { useIsAdmin } from '~/features/auth/use-is-admin';
-import { CreateAlternativeButton } from '~/features/alternatives/create-alternative-button';
-import { useAlternativeTableColumns } from '~/features/alternatives/use-alternative-table-columns';
 
 export default function AlternativePage() {
   const isAdmin = useIsAdmin();
-  const columns = useAlternativeTableColumns();
+  const { isOpen, open, close } = useDisclosure();
   const { data: alternatives, isLoading } = trpc.alternative.list.useQuery();
 
   if (isLoading) return <LoadingIndicator />;
 
   return (
-    alternatives &&
-    columns && (
+    alternatives && (
       <>
         <PageHeader>
           <PageHeaderContent>
@@ -38,16 +39,15 @@ export default function AlternativePage() {
           </PageHeaderContent>
           {isAdmin && (
             <PageHeaderAction asChild>
-              <CreateAlternativeButton />
+              <Button onClick={open}>
+                <PlusIcon className='mr-2' />
+                Buat Alternatif
+              </Button>
             </PageHeaderAction>
           )}
         </PageHeader>
-
-        <DataTable
-          data={alternatives}
-          columns={columns}
-          filter={{ columnId: 'name', header: 'nama' }}
-        />
+        <AlternativeTable alternatives={alternatives} />
+        <AlternativeForm open={isOpen} onOpenChange={close} />
       </>
     )
   );

@@ -1,7 +1,8 @@
 'use client';
 
+import { PlusIcon } from '@radix-ui/react-icons';
+import { useDisclosure } from 'react-use-disclosure';
 import { trpc } from '~/lib/utils';
-import { DataTable } from '~/components/data-table';
 import { LoadingIndicator } from '~/components/loading-indicator';
 import {
   PageHeader,
@@ -10,77 +11,86 @@ import {
   PageHeaderDescription,
   PageHeaderTitle,
 } from '~/components/page-header';
+import { Button } from '~/components/ui/button';
 import { useIsAdmin } from '~/features/auth/use-is-admin';
-import { CreateCriteriaButton } from '~/features/criterias/create-criteria-button';
-import { CreateScoringScaleButton } from '~/features/scoring-scales/create-scoring-scale-button';
+import { CriteriaForm } from '~/features/criterias/criteria-form';
 import { CriteriaSwitcher } from '~/features/scoring-scales/criteria-switcher';
+import { ScoringScaleForm } from '~/features/scoring-scales/scoring-scale-form';
+import { ScoringScaleTable } from '~/features/scoring-scales/scoring-scale-table';
 import { useCriteriaSwitcher } from '~/features/scoring-scales/use-criteria-switcher';
-import { useScoringScaleTableColumns } from '~/features/scoring-scales/use-scoring-scale-table-columns';
 
 export default function ScoringScalePage() {
   const isAdmin = useIsAdmin();
   const { criteria } = useCriteriaSwitcher();
-  const columns = useScoringScaleTableColumns();
+  const { isOpen, open, close } = useDisclosure();
 
-  const queries = trpc.useQueries((t) => [
-    t.criteria.list(),
-    t.scoringScale.list(),
-  ]);
-
-  const isLoading = queries.some((query) => query.isLoading);
-  const [{ data: criterias }, { data: scoringScales }] = queries;
+  const { data: criterias, isLoading: isLoadingCriterias } =
+    trpc.criteria.list.useQuery();
+  const { data: scoringScales, isLoading: isLoadingScoringScales } =
+    trpc.scoringScale.list.useQuery();
 
   const filteredScoringScales = scoringScales?.filter(
     ({ criteriaId }) => criteriaId === criteria?.id,
   );
 
-  if (isLoading) return <LoadingIndicator />;
+  if (isLoadingCriterias || isLoadingScoringScales) return <LoadingIndicator />;
   if (!criterias?.length) return <NoCriteriasHeader />;
 
   return (
-    filteredScoringScales && (
-      <>
-        <PageHeader>
-          <PageHeaderContent>
-            <PageHeaderTitle>
-              Skala Penilaian ({filteredScoringScales.length})
-            </PageHeaderTitle>
-            <PageHeaderDescription>
-              Daftar skala penilaian, tabel disajikan berdasarkan kriteria
-              referensinya yang dapat diubah pada menu dropdown di bawah ini.
-            </PageHeaderDescription>
-          </PageHeaderContent>
-        </PageHeader>
+    <>
+      <PageHeader>
+        <PageHeaderContent>
+          <PageHeaderTitle>
+            Skala Penilaian ({filteredScoringScales?.length})
+          </PageHeaderTitle>
+          <PageHeaderDescription>
+            Daftar skala penilaian, tabel disajikan berdasarkan kriteria
+            referensinya yang dapat diubah pada menu dropdown di bawah ini.
+          </PageHeaderDescription>
+        </PageHeaderContent>
+      </PageHeader>
 
-        <div className='flex flex-col gap-y-4'>
-          <div className='flex flex-wrap items-center justify-between gap-y-4'>
-            <CriteriaSwitcher />
-            {isAdmin && <CreateScoringScaleButton />}
-          </div>
-          <DataTable
-            data={filteredScoringScales}
-            columns={columns}
-            filter={{ columnId: 'description', header: 'deskripsi' }}
-          />
+      <div className='flex flex-col gap-y-4'>
+        <div className='flex flex-wrap items-center justify-between gap-y-4'>
+          <CriteriaSwitcher />
+          {isAdmin && (
+            <Button onClick={open}>
+              <PlusIcon className='mr-2' />
+              Buat Skala Penilaian
+            </Button>
+          )}
         </div>
-      </>
-    )
+        {filteredScoringScales && (
+          <ScoringScaleTable scoringScales={filteredScoringScales} />
+        )}
+        <ScoringScaleForm open={isOpen} onOpenChange={close} />
+      </div>
+    </>
   );
 }
 
 function NoCriteriasHeader() {
   const isAdmin = useIsAdmin();
+  const { isOpen, open, close } = useDisclosure();
 
   return (
-    <PageHeader>
-      <PageHeaderContent>
-        <PageHeaderDescription>Belum ada data kriteria.</PageHeaderDescription>
-      </PageHeaderContent>
-      {isAdmin && (
-        <PageHeaderAction asChild>
-          <CreateCriteriaButton />
-        </PageHeaderAction>
-      )}
-    </PageHeader>
+    <>
+      <PageHeader>
+        <PageHeaderContent>
+          <PageHeaderDescription>
+            Belum ada data kriteria.
+          </PageHeaderDescription>
+        </PageHeaderContent>
+        {isAdmin && (
+          <PageHeaderAction asChild>
+            <Button onClick={open}>
+              <PlusIcon className='mr-2' />
+              Buat Kriteria
+            </Button>
+          </PageHeaderAction>
+        )}
+      </PageHeader>
+      <CriteriaForm open={isOpen} onOpenChange={close} />
+    </>
   );
 }

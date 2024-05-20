@@ -10,29 +10,27 @@ import { RelativeAssessmentMatrixTable } from './tables/relative-assessment-matr
 import { WeightedNormalizedMatrixTable } from './tables/weighted-normalized-matrix-table';
 import { useStep } from './use-step';
 
-const tables = [
-  { name: 'Matriks Keputusan', table: <DecisionMatrixTable /> },
-  { name: 'Matriks Normalisasi', table: <NormalizedMatrixTable /> },
-  {
-    name: 'Matriks Normalisasi Terbobot',
-    table: <WeightedNormalizedMatrixTable />,
-  },
-  { name: 'Nilai Ideal-negatif', table: <IdealNegativeValueTable /> },
-  {
-    name: 'Jarak Euclidean dan Taxicab',
-    table: <EuclideanAndTaxicabDistanceTable />,
-  },
-  {
-    name: 'Matriks Relative Assessment',
-    table: <RelativeAssessmentMatrixTable />,
-  },
-  { name: 'Nilai Assessment', table: <AssessmentScoreTable /> },
-  { name: 'Perankingan', table: <RankingTable /> },
-];
-
 export function AnalysisTable() {
   const { step } = useStep();
-  const table = tables.find((table) => table.name === step)?.table;
 
-  return table;
+  switch (step) {
+    case 'Matriks Keputusan':
+      return <DecisionMatrixTable />;
+    case 'Matriks Normalisasi':
+      return <NormalizedMatrixTable />;
+    case 'Matriks Normalisasi Terbobot':
+      return <WeightedNormalizedMatrixTable />;
+    case 'Nilai Ideal-negatif':
+      return <IdealNegativeValueTable />;
+    case 'Jarak Euclidean dan Taxicab':
+      return <EuclideanAndTaxicabDistanceTable />;
+    case 'Matriks Relative Assessment':
+      return <RelativeAssessmentMatrixTable />;
+    case 'Nilai Assessment':
+      return <AssessmentScoreTable />;
+    case 'Perankingan':
+      return <RankingTable />;
+    default:
+      break;
+  }
 }

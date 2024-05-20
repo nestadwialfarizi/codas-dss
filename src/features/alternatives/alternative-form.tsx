@@ -1,8 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import type { Alternative } from '@prisma/client';
+import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 import { z } from 'zod';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { trpc } from '~/lib/utils';
+import { getErrorMessage, trpc } from '~/lib/utils';
+import { Button } from '~/components/ui/button';
 import {
   Form,
   FormControl,
@@ -19,7 +21,14 @@ import {
   SelectValue,
 } from '~/components/ui/select';
 import { Input } from '~/components/ui/input';
-import { LoadingIndicator } from '~/components/loading-indicator';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '~/components/ui/dialog';
 
 const alternativeFormSchema = z.object({
   name: z.string(),
@@ -31,31 +40,31 @@ const alternativeFormSchema = z.object({
   ),
 });
 
+type AlternativeFormValues = z.infer<typeof alternativeFormSchema>;
+
 type AlternativeFormProps = {
-  formId: string;
-  onSubmit: SubmitHandler<z.infer<typeof alternativeFormSchema>>;
+  open: boolean;
+  onOpenChange: () => void;
   prevAlternative?: Alternative;
 };
 
 export function AlternativeForm({
-  formId,
-  onSubmit,
+  open,
+  onOpenChange,
   prevAlternative,
 }: AlternativeFormProps) {
-  const queries = trpc.useQueries((t) => [
-    t.criteria.list(),
-    t.scoringScale.list(),
-    t.evaluation.list(),
-  ]);
+  const utils = trpc.useUtils();
 
-  const [criteriasQuery, scoringScalesQuery, evaluationsQuery] = queries;
+  const { data: criterias } = trpc.criteria.list.useQuery();
+  const { data: scoringScales } = trpc.scoringScale.list.useQuery();
+  const { data: evaluations } = trpc.evaluation.list.useQuery();
 
-  const criterias = criteriasQuery.data;
-  const scoringScales = scoringScalesQuery.data;
-  const evaluations = evaluationsQuery.data;
-  const isLoading = queries.some((query) => query.isLoading);
+  const { mutateAsync: createAlternative } =
+    trpc.alternative.create.useMutation();
+  const { mutateAsync: updateAlternative } =
+    trpc.alternative.update.useMutation();
 
-  const form = useForm<z.infer<typeof alternativeFormSchema>>({
+  const form = useForm<AlternativeFormValues>({
     resolver: zodResolver(alternativeFormSchema),
     defaultValues: {
       name: prevAlternative?.name ?? '',
@@ -63,94 +72,137 @@ export function AlternativeForm({
     },
   });
 
-  if (isLoading) return <LoadingIndicator />;
+  async function handleSubmit(formValues: AlternativeFormValues) {
+    let result;
+
+    try {
+      if (prevAlternative) {
+        result = await updateAlternative({
+          id: prevAlternative.id,
+          data: formValues,
+        });
+      } else {
+        result = await createAlternative(formValues);
+      }
+
+      utils.alternative.invalidate();
+      onOpenChange();
+      toast.success(
+        `${result.name} berhasil ${prevAlternative ? 'diperbarui' : 'ditambahkan'}`,
+      );
+    } catch (error) {
+      toast.error(getErrorMessage(error));
+    }
+  }
 
   return (
-    criterias &&
-    scoringScales &&
-    evaluations && (
-      <Form {...form}>
-        <form
-          id={formId}
-          onSubmit={form.handleSubmit(onSubmit)}
-          className='space-y-4'
-        >
-          <FormField
-            control={form.control}
-            name='name'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Nama</FormLabel>
-                <FormControl>
-                  <Input placeholder='Line 6 Helix LT' {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          {criterias.map((criteria, index) => {
-            const filteredScoringScales = scoringScales.filter(
-              (scoringScale) => scoringScale.criteriaId === criteria.id,
-            );
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className='max-h-[550px] overflow-auto'>
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(handleSubmit)}
+            className='space-y-6'
+          >
+            <DialogHeader>
+              <DialogTitle>
+                {prevAlternative
+                  ? `Ubah data alternatif ${prevAlternative.name}`
+                  : 'Buat data alternatif'}
+              </DialogTitle>
+              <DialogDescription>
+                {prevAlternative
+                  ? 'Ubah isi pada form di bawah ini, klik simpan perubahan untuk menyimpan data.'
+                  : 'Penuhi form di bawah ini, klik simpan untuk menyimpan data.'}
+              </DialogDescription>
+            </DialogHeader>
+            <div className='space-y-4'>
+              <FormField
+                control={form.control}
+                name='name'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Nama</FormLabel>
+                    <FormControl>
+                      <Input placeholder='Line 6 Helix LT' {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              {criterias?.map((criteria, index) => {
+                const filteredScoringScales = scoringScales?.filter(
+                  (scoringScale) => scoringScale.criteriaId === criteria.id,
+                );
 
-            const defaultValue = evaluations
-              .filter(
-                (evaluation) =>
-                  evaluation.alternativeId === prevAlternative?.id,
-              )
-              .find((evaluation) => evaluation.criteriaId === criteria.id);
+                const filteredEvaluations = evaluations?.filter(
+                  (evaluation) =>
+                    evaluation.alternativeId === prevAlternative?.id,
+                );
 
-            return (
-              <div key={criteria.id}>
-                <FormField
-                  control={form.control}
-                  name={`evaluations.${index}.criteriaId`}
-                  defaultValue={defaultValue?.criteriaId ?? criteria.id ?? ''}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input type='hidden' {...field} />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name={`evaluations.${index}.scoringScaleId`}
-                  defaultValue={defaultValue?.scoringScaleId ?? ''}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{criteria.name}</FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue
-                              placeholder={`Nilai ${criteria.name}`}
-                            />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          {filteredScoringScales.map((scoringScale) => (
-                            <SelectItem
-                              key={scoringScale.id}
-                              value={scoringScale.id}
-                            >
-                              {scoringScale.description}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </FormItem>
-                  )}
-                />
-              </div>
-            );
-          })}
-        </form>
-      </Form>
-    )
+                const defaultValue = filteredEvaluations?.find(
+                  (evaluation) => evaluation.criteriaId === criteria.id,
+                );
+
+                return (
+                  <div key={criteria.id}>
+                    <FormField
+                      control={form.control}
+                      name={`evaluations.${index}.criteriaId`}
+                      defaultValue={
+                        defaultValue?.criteriaId ?? criteria.id ?? ''
+                      }
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <Input type='hidden' {...field} />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name={`evaluations.${index}.scoringScaleId`}
+                      defaultValue={defaultValue?.scoringScaleId ?? ''}
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>{criteria.name}</FormLabel>
+                          <Select
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                          >
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue
+                                  placeholder={`Nilai ${criteria.name}`}
+                                />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {filteredScoringScales?.map((scoringScale) => (
+                                <SelectItem
+                                  key={scoringScale.id}
+                                  value={scoringScale.id}
+                                >
+                                  {scoringScale.description}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+            <DialogFooter>
+              <Button type='submit' disabled={form.formState.isSubmitting}>
+                {prevAlternative ? 'Simpan perubahan' : 'Simpan'}
+              </Button>
+            </DialogFooter>
+          </form>
+        </Form>
+      </DialogContent>
+    </Dialog>
   );
 }

@@ -1,5 +1,3 @@
-'use client';
-
 import {
   AlertDialog,
   AlertDialogAction,
@@ -13,7 +11,7 @@ import {
 
 type ConfirmDialogProps = {
   open: boolean;
-  onOpenChange: (open: boolean) => void;
+  onOpenChange: () => void;
   action: () => Promise<void> | void;
   isPending: boolean;
   children?: React.ReactNode;

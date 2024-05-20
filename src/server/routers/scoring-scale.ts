@@ -1,5 +1,5 @@
-import { z } from 'zod';
 import { TRPCError } from '@trpc/server';
+import { z } from 'zod';
 import { createRouter, protectedProcedure, adminProcedure } from '../trpc';
 
 const scoringScaleInput = z.object({
@@ -13,8 +13,11 @@ export const scoringScaleRouter = createRouter({
     return await ctx.prisma.scoringScale.findMany({
       where: {
         criteria: {
-          organizationId: ctx.auth.organizationId,
+          ownerId: ctx.auth.ownerId,
         },
+      },
+      orderBy: {
+        id: 'asc',
       },
     });
   }),
@@ -48,7 +51,9 @@ export const scoringScaleRouter = createRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const intended = await ctx.prisma.scoringScale.findUnique({
-        where: { id: input.id },
+        where: {
+          id: input.id,
+        },
       });
 
       const duplicated = await ctx.prisma.scoringScale.findFirst({
@@ -69,7 +74,9 @@ export const scoringScaleRouter = createRouter({
       }
 
       return await ctx.prisma.scoringScale.update({
-        where: { id: input.id },
+        where: {
+          id: input.id,
+        },
         data: input.data,
       });
     }),
@@ -81,7 +88,9 @@ export const scoringScaleRouter = createRouter({
     )
     .mutation(async ({ ctx, input }) => {
       return await ctx.prisma.scoringScale.delete({
-        where: { id: input.id },
+        where: {
+          id: input.id,
+        },
       });
     }),
 });

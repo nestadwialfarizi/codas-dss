@@ -6,5 +6,5 @@ export function useIsAdmin() {
   const isPersonal = userId && !orgId;
   const isOrganizationAdmin = orgId && orgRole === 'org:admin';
 
-  return (isPersonal || isOrganizationAdmin) as boolean;
+  return !!(isPersonal || isOrganizationAdmin);
 }

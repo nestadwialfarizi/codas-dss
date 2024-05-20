@@ -12,23 +12,23 @@ const isAuthed = t.middleware(async ({ ctx, next }) => {
     ctx: {
       auth: {
         ...ctx.auth,
-        organizationId: ctx.auth.orgId ?? ctx.auth.userId,
+        ownerId: ctx.auth.orgId ?? ctx.auth.userId,
       },
     },
   });
 });
 
 const isAdmin = t.middleware(async ({ ctx, next }) => {
-  if (!ctx.auth.userId) {
+  const { userId, orgId, orgRole } = ctx.auth;
+
+  if (!userId) {
     throw new TRPCError({ code: 'UNAUTHORIZED' });
   }
 
-  if (
-    !(
-      (ctx.auth.userId && !ctx.auth.orgId) ||
-      (ctx.auth.orgId && ctx.auth.orgSlug === 'org:admin')
-    )
-  ) {
+  const isPersonal = userId && !orgId;
+  const isOrganizationAdmin = orgId && orgRole === 'org:admin';
+
+  if (!(isPersonal || isOrganizationAdmin)) {
     throw new TRPCError({ code: 'FORBIDDEN' });
   }
 
@@ -36,7 +36,7 @@ const isAdmin = t.middleware(async ({ ctx, next }) => {
     ctx: {
       auth: {
         ...ctx.auth,
-        organizationId: ctx.auth.orgId ?? ctx.auth.userId,
+        ownerId: orgId ?? userId,
       },
     },
   });

@@ -1,5 +1,5 @@
-import { z } from 'zod';
 import { TRPCError } from '@trpc/server';
+import { z } from 'zod';
 import { createRouter, protectedProcedure, adminProcedure } from '../trpc';
 
 const alternativeInput = z.object({
@@ -15,7 +15,12 @@ const alternativeInput = z.object({
 export const alternativeRouter = createRouter({
   list: protectedProcedure.query(async ({ ctx }) => {
     return await ctx.prisma.alternative.findMany({
-      where: { organizationId: ctx.auth.organizationId },
+      where: {
+        ownerId: ctx.auth.ownerId,
+      },
+      orderBy: {
+        id: 'asc',
+      },
     });
   }),
   create: adminProcedure
@@ -24,7 +29,7 @@ export const alternativeRouter = createRouter({
       const duplicated = await ctx.prisma.alternative.findFirst({
         where: {
           name: input.name,
-          organizationId: ctx.auth.organizationId,
+          ownerId: ctx.auth.ownerId,
         },
       });
 
@@ -38,7 +43,7 @@ export const alternativeRouter = createRouter({
       return await ctx.prisma.alternative.create({
         data: {
           name: input.name,
-          organizationId: ctx.auth.organizationId,
+          ownerId: ctx.auth.ownerId,
           evaluations: {
             createMany: {
               data: input.evaluations,
@@ -64,7 +69,7 @@ export const alternativeRouter = createRouter({
       const duplicated = await ctx.prisma.alternative.findFirst({
         where: {
           name: input.data.name,
-          organizationId: ctx.auth.organizationId,
+          ownerId: ctx.auth.ownerId,
         },
       });
 
@@ -82,10 +87,12 @@ export const alternativeRouter = createRouter({
       });
 
       return await ctx.prisma.alternative.update({
-        where: { id: input.id },
+        where: {
+          id: input.id,
+        },
         data: {
           name: input.data.name,
-          organizationId: ctx.auth.organizationId,
+          ownerId: ctx.auth.ownerId,
           evaluations: {
             createMany: {
               data: input.data.evaluations,

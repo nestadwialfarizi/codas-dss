@@ -1,7 +1,9 @@
 'use client';
 
+import { PlusIcon } from '@radix-ui/react-icons';
+import { useDisclosure } from 'react-use-disclosure';
 import { trpc } from '~/lib/utils';
-import { DataTable } from '~/components/data-table';
+import { Button } from '~/components/ui/button';
 import { LoadingIndicator } from '~/components/loading-indicator';
 import {
   PageHeader,
@@ -11,12 +13,12 @@ import {
   PageHeaderTitle,
 } from '~/components/page-header';
 import { useIsAdmin } from '~/features/auth/use-is-admin';
-import { CreateCriteriaButton } from '~/features/criterias/create-criteria-button';
-import { useCriteriaTableColumns } from '~/features/criterias/use-criteria-table-columns';
+import { CriteriaForm } from '~/features/criterias/criteria-form';
+import { CriteriaTable } from '~/features/criterias/criteria-table';
 
 export default function CriteriaPage() {
   const isAdmin = useIsAdmin();
-  const columns = useCriteriaTableColumns();
+  const { isOpen, open, close } = useDisclosure();
   const { data: criterias, isLoading } = trpc.criteria.list.useQuery();
 
   if (isLoading) return <LoadingIndicator />;
@@ -34,16 +36,15 @@ export default function CriteriaPage() {
           </PageHeaderContent>
           {isAdmin && (
             <PageHeaderAction asChild>
-              <CreateCriteriaButton />
+              <Button onClick={open}>
+                <PlusIcon className='mr-2' />
+                Buat Kriteria
+              </Button>
             </PageHeaderAction>
           )}
         </PageHeader>
-
-        <DataTable
-          data={criterias}
-          columns={columns}
-          filter={{ columnId: 'name', header: 'nama' }}
-        />
+        <CriteriaTable criterias={criterias} />
+        <CriteriaForm open={isOpen} onOpenChange={close} />
       </>
     )
   );

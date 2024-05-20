@@ -1,6 +1,6 @@
-import { z } from 'zod';
+import { auth } from '@clerk/nextjs/server';
 import { TRPCError } from '@trpc/server';
-import { getOrganizationId } from '~/lib/utils';
+import { z } from 'zod';
 import { prisma } from '../prisma';
 import { createRouter, protectedProcedure, adminProcedure } from '../trpc';
 
@@ -14,7 +14,12 @@ export const criteriaRouter = createRouter({
   list: protectedProcedure.query(async ({ ctx }) => {
     await updateEachCriteriaWeight();
     return await ctx.prisma.criteria.findMany({
-      where: { organizationId: ctx.auth.organizationId },
+      where: {
+        ownerId: ctx.auth.ownerId,
+      },
+      orderBy: {
+        id: 'asc',
+      },
     });
   }),
   create: adminProcedure
@@ -23,7 +28,7 @@ export const criteriaRouter = createRouter({
       const duplicated = await ctx.prisma.criteria.findFirst({
         where: {
           name: input.name,
-          organizationId: ctx.auth.organizationId,
+          ownerId: ctx.auth.ownerId,
         },
       });
 
@@ -37,7 +42,7 @@ export const criteriaRouter = createRouter({
       const created = await ctx.prisma.criteria.create({
         data: {
           ...input,
-          organizationId: ctx.auth.organizationId,
+          ownerId: ctx.auth.ownerId,
         },
       });
 
@@ -59,7 +64,7 @@ export const criteriaRouter = createRouter({
       const duplicated = await ctx.prisma.criteria.findFirst({
         where: {
           name: input.data.name,
-          organizationId: ctx.auth.organizationId,
+          ownerId: ctx.auth.ownerId,
         },
       });
 
@@ -95,10 +100,12 @@ export const criteriaRouter = createRouter({
 });
 
 async function updateEachCriteriaWeight() {
-  const organizationId = getOrganizationId();
+  const { orgId, userId } = auth();
 
   const criterias = await prisma.criteria.findMany({
-    where: { organizationId },
+    where: {
+      ownerId: (orgId ?? userId) as string,
+    },
   });
 
   const totalValue = criterias.reduce(
@@ -109,8 +116,12 @@ async function updateEachCriteriaWeight() {
   criterias.forEach(
     async (criteria) =>
       await prisma.criteria.update({
-        where: { id: criteria.id },
-        data: { weight: criteria.value / totalValue },
+        where: {
+          id: criteria.id,
+        },
+        data: {
+          weight: criteria.value / totalValue,
+        },
       }),
   );
 }

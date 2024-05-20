@@ -1,5 +1,6 @@
 import { auth } from '@clerk/nextjs/server';
 import { createTRPCReact } from '@trpc/react-query';
+import { TRPCError } from '@trpc/server';
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { Router } from '~/server/routers';
@@ -9,6 +10,11 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const trpc = createTRPCReact<Router>();
+
+export function getErrorMessage(error: unknown) {
+  const trpcError = error as TRPCError;
+  return trpcError.message;
+}
 
 export function getOrganizationId() {
   const { orgId, userId } = auth();

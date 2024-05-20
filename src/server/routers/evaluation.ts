@@ -5,8 +5,11 @@ export const evaluationRouter = createRouter({
     return await ctx.prisma.evaluation.findMany({
       where: {
         alternative: {
-          organizationId: ctx.auth.organizationId,
+          ownerId: ctx.auth.ownerId,
         },
+      },
+      orderBy: {
+        id: 'asc',
       },
     });
   }),

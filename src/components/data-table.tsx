@@ -186,3 +186,24 @@ export function SortableButton<TData, TValue>({
     </Button>
   );
 }
+
+export function AlignStart({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) {
+  return <div className={cn('ml-1 text-left', className)} {...props} />;
+}
+
+export function AlignCenter({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) {
+  return <div className={cn('text-center', className)} {...props} />;
+}
+
+export function AlignEnd({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) {
+  return <div className={cn('mr-1 text-right', className)} {...props} />;
+}

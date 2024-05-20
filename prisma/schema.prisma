@@ -3,19 +3,20 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("POSTGRES_URL")
+  directUrl = env("POSTGRES_URL_UNPOOLED")
 }
 
 model Criteria {
-  id             String         @id @default(auto()) @map("_id") @db.ObjectId
-  organizationId String
-  name           String
-  type           CriteriaType
-  value          Int
-  weight         Float?
-  scoringScales  ScoringScale[]
-  evaluations    Evaluation[]
+  id            String         @id @default(cuid())
+  ownerId       String
+  name          String
+  type          CriteriaType
+  value         Int
+  weight        Float?
+  scoringScales ScoringScale[]
+  evaluations   Evaluation[]
 }
 
 enum CriteriaType {
@@ -24,27 +25,27 @@ enum CriteriaType {
 }
 
 model ScoringScale {
-  id          String       @id @default(auto()) @map("_id") @db.ObjectId
-  criteria    Criteria     @relation(fields: [criteriaId], references: [id], onDelete: Cascade)
-  criteriaId  String       @db.ObjectId
+  id          String       @id @default(cuid())
   description String
   value       Int
+  criteria    Criteria     @relation(fields: [criteriaId], references: [id], onDelete: Cascade)
+  criteriaId  String
   evaluations Evaluation[]
 }
 
 model Alternative {
-  id             String       @id @default(auto()) @map("_id") @db.ObjectId
-  organizationId String
-  name           String
-  evaluations    Evaluation[]
+  id          String       @id @default(cuid())
+  ownerId     String
+  name        String
+  evaluations Evaluation[]
 }
 
 model Evaluation {
-  id             String       @id @default(auto()) @map("_id") @db.ObjectId
+  id             String       @id @default(cuid())
   alternative    Alternative  @relation(fields: [alternativeId], references: [id], onDelete: Cascade)
-  alternativeId  String       @db.ObjectId
+  alternativeId  String
   criteria       Criteria     @relation(fields: [criteriaId], references: [id], onDelete: Cascade)
-  criteriaId     String       @db.ObjectId
+  criteriaId     String
   scoringScale   ScoringScale @relation(fields: [scoringScaleId], references: [id], onDelete: Cascade)
-  scoringScaleId String       @db.ObjectId
+  scoringScaleId String
 }

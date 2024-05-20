@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect } from 'react';
 import { CaretDownIcon } from '@radix-ui/react-icons';
+import { useEffect } from 'react';
 import { trpc } from '~/lib/utils';
 import { Button } from '~/components/ui/button';
 import {

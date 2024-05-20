@@ -31,7 +31,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <body className={`font-sans antialiased ${inter.variable}`}>
           <TRPCProvider>
             {children}
-            <Toaster style={{ fontFamily: inter.style.fontFamily }} />
+            <Toaster
+              position='bottom-center'
+              style={{ fontFamily: inter.style.fontFamily }}
+            />
           </TRPCProvider>
         </body>
       </html>
