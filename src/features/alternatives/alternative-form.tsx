@@ -86,6 +86,7 @@ export function AlternativeForm({
       }
 
       utils.alternative.invalidate();
+      utils.evaluation.invalidate();
       onOpenChange();
       toast.success(
         `${result.name} berhasil ${prevAlternative ? 'diperbarui' : 'ditambahkan'}`,
