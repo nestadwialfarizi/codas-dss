@@ -39,7 +39,7 @@ export default function AnalysisPage() {
       </PageHeader>
       <div className='mb-4 flex flex-wrap items-end justify-between gap-4'>
         <StepSwitcher />
-        {step === 'Perankingan' && (
+        {step.slug === 'ranking' && (
           <Badge>
             3 (tiga) alternatif teratas adalah rekomendasi terbaik yang
             disarankan oleh sistem
