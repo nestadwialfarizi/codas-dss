@@ -85,6 +85,8 @@ export function CriteriaForm({
       }
 
       utils.criteria.invalidate();
+      utils.scoringScale.invalidate();
+      utils.evaluation.invalidate();
       onOpenChange();
       toast.success(
         `${result.name} berhasil ${prevCriteria ? 'diperbarui' : 'ditambahkan'}`,
