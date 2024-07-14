@@ -1,6 +1,5 @@
 'use client';
 
-import { cn } from '~/lib/utils';
 import {
   Table,
   TableBody,
@@ -9,6 +8,7 @@ import {
   TableHeader,
   TableRow,
 } from '~/components/ui/table';
+import { cn } from '~/lib/utils';
 import { useCodas } from '../use-codas';
 
 export function IdealNegativeValueTable() {

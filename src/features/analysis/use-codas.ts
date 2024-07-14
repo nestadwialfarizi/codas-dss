@@ -37,6 +37,7 @@ export function useCodas() {
           evaluation.alternativeId === alternative.id &&
           evaluation.criteriaId === criteria.id,
       );
+
       const filteredScoringScales = scoringScales?.filter(
         (scoringScale) => scoringScale.criteriaId === criteria.id,
       );
@@ -47,31 +48,33 @@ export function useCodas() {
 
       let value = 0 as any;
 
-      if (filteredEvaluations && filteredEvaluations.length > 0) {
+      if (filteredEvaluations?.length && filteredScoringScales?.length) {
         if (
-          filteredScoringScales?.some(
+          filteredScoringScales.some(
             (scoringScale) =>
               scoringScale.id === filteredEvaluations[0].scoringScaleId,
           )
         ) {
-          value = scoringScales?.find(
+          value = filteredScoringScales.find(
             (scoringScale) =>
               scoringScale.id === filteredEvaluations[0].scoringScaleId,
           )?.value;
         }
       }
+
       decisionMatrix[criteria.id][alternative.id] = value;
     }),
   );
 
   // Normalized and Weighted Normalized Matrix
-  alternatives?.forEach((alternative) =>
+  alternatives?.forEach((alternative) => {
     criterias?.forEach((criteria) => {
       const value = decisionMatrix[criteria.id][alternative.id];
 
       const max = Math.max(
         ...Object.values(decisionMatrix[criteria.id] as number),
       );
+
       const min = Math.min(
         ...Object.values(decisionMatrix[criteria.id] as number),
       );
@@ -97,8 +100,8 @@ export function useCodas() {
       }
 
       weightedNormalizedMatrix[criteria.id][alternative.id] = r;
-    }),
-  );
+    });
+  });
 
   // Euclidean and Taxicab Distance
   // Ideal-Negative
@@ -132,19 +135,13 @@ export function useCodas() {
       const t1 = taxicab[alternative2.id];
 
       const e2 = euclidean[alternative1.id];
-      const t2 = taxicab[alternative2.id];
+      const t2 = taxicab[alternative1.id];
 
       const value1 = e2 - e1;
       const value2 = e2 - e1;
       const value3 = t2 - t1;
 
-      let value2Th;
-
-      if (Math.abs(value2) >= threshold) {
-        value2Th = 2;
-      } else {
-        value2Th = 0;
-      }
+      let value2Th = threshold * value2;
 
       if (!relativeAssessmentMatrix[alternative1.id]) {
         relativeAssessmentMatrix[alternative1.id] = {};
