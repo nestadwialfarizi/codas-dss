@@ -1,11 +1,10 @@
 'use client';
 
-import type { Criteria, CriteriaType } from '@prisma/client';
 import { zodResolver } from '@hookform/resolvers/zod';
+import type { Criteria, CriteriaType } from '@prisma/client';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
-import { getErrorMessage, trpc } from '~/lib/utils';
 import { Button } from '~/components/ui/button';
 import {
   Dialog,
@@ -31,6 +30,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '~/components/ui/select';
+import { getErrorMessage, trpc } from '~/lib/utils';
 
 const criteriaFormSchema = z.object({
   name: z.string().min(1, { message: 'Required' }),
@@ -55,7 +55,7 @@ export function CriteriaForm({
 
   const form = useForm<CriteriaFormValues>({
     resolver: zodResolver(criteriaFormSchema),
-    defaultValues: {
+    values: {
       name: prevCriteria?.name ?? '',
       type: prevCriteria?.type ?? '',
       value: prevCriteria?.value.toString() ?? '',

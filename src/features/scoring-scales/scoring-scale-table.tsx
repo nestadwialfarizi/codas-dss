@@ -6,7 +6,6 @@ import type { ColumnDef } from '@tanstack/react-table';
 import { useMemo } from 'react';
 import { useDisclosure } from 'react-use-disclosure';
 import { toast } from 'sonner';
-import { trpc } from '~/lib/utils';
 import { ConfirmDialog } from '~/components/confirm-dialog';
 import {
   AlignCenter,
@@ -21,6 +20,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '~/components/ui/dropdown-menu';
+import { trpc } from '~/lib/utils';
 import { useIsAdmin } from '../auth/use-is-admin';
 import { ScoringScaleForm } from './scoring-scale-form';
 

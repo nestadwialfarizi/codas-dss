@@ -1,29 +1,12 @@
 'use client';
 
-import type { ScoringScale } from '@prisma/client';
-import { util, z } from 'zod';
-import { useForm, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { getErrorMessage, trpc } from '~/lib/utils';
-import { LoadingIndicator } from '~/components/loading-indicator';
-import { Input } from '~/components/ui/input';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '~/components/ui/form';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '~/components/ui/select';
-import { useCriteriaSwitcher } from './use-criteria-switcher';
+import type { ScoringScale } from '@prisma/client';
+import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
+import { z } from 'zod';
+import { LoadingIndicator } from '~/components/loading-indicator';
+import { Button } from '~/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -32,7 +15,24 @@ import {
   DialogHeader,
   DialogTitle,
 } from '~/components/ui/dialog';
-import { Button } from '~/components/ui/button';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '~/components/ui/form';
+import { Input } from '~/components/ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '~/components/ui/select';
+import { getErrorMessage, trpc } from '~/lib/utils';
+import { useCriteriaSwitcher } from './use-criteria-switcher';
 
 const scoringScaleFormSchema = z.object({
   criteriaId: z.string().min(1, { message: 'Tidak boleh kosong' }),
@@ -59,7 +59,7 @@ export function ScoringScaleForm({
 
   const form = useForm<ScoringScaleFormValues>({
     resolver: zodResolver(scoringScaleFormSchema),
-    defaultValues: {
+    values: {
       description: prevScoringScale?.description ?? '',
       value: prevScoringScale?.value.toString() ?? '',
       criteriaId: prevScoringScale?.criteriaId ?? criteria?.id ?? '',
