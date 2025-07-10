@@ -16,13 +16,14 @@ export function getErrorMessage(error: unknown) {
   return trpcError.message;
 }
 
-export function getOrganizationId() {
-  const { orgId, userId } = auth();
+// export function getOrganizationId() {
+//   const { orgId, userId } = auth();
 
-  if (!userId) throw new Error('Unauthorized');
+//   if (!userId) throw new Error('Unauthorized');
 
-  return orgId ?? userId;
-}
+//   return orgId ?? userId;
+// }
+
 export function getBaseUrl() {
   if (typeof window !== 'undefined') return '';
   if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
