@@ -66,7 +66,7 @@ export function AlternativeForm({
 
   const form = useForm<AlternativeFormValues>({
     resolver: zodResolver(alternativeFormSchema),
-    Values: {
+    values: {
       name: prevAlternative?.name ?? '',
       evaluations: [],
     },
